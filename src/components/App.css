@@ -1,0 +1,59 @@
+main {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: flex-start;
+
+    width: 100vw;
+}
+.panel {
+    width: 50%;
+}
+.banner {
+    position: relative;
+    text-align: center;
+    font-size: 24px;
+    cursor: pointer;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: center;
+    padding: 25px;
+}
+.banner__img {
+    position: absolute;
+    bottom: 0;
+    right: 0;
+}
+.banner__text {
+    width: 100%;
+    margin: 0;
+    z-index: 1;
+}
+.panel__buttons {
+    display: flex;
+    flex-direction: row;
+    justify-content: flex-start;
+    align-items: center;
+    flex-wrap: wrap;
+}
+.panel__buttons__btn {
+    margin: 10px 15px;
+    width: 197px;
+}
+.input-group {
+    align-items: center;
+}
+.panel__image {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: flex-end;
+    width: 100%;
+}
+.alert {
+    display: none;
+    position: absolute;
+    top: 0;
+    right: 0;
+}
