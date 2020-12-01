@@ -1,8 +1,8 @@
 import React from 'react'
 import ReactDOM from 'react-dom'
 import App from './components/App'
-import reportWebVitals from './reportWebVitals'
 import store from './store'
+import reportWebVitals from './reportWebVitals'
 
 const render = (state) => {
   ReactDOM.render(

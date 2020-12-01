@@ -1,12 +1,10 @@
-import React, { useEffect, useRef, useState } from 'react'
+import React, { useMemo, useEffect, useRef, useState } from 'react'
 import 'bootstrap/dist/css/bootstrap.css'
 import './App.css'
-import select from '../constants/select'
-import reset from '../constants/reset'
 
-const App = ({ dispatch, state: { banner: { width, height, bg, text, color, image, link }, banner } }) => {
+const App = ({ dispatch, state: { select, banner, banner: { width, height, bg, text, color, image, link } } }) => {
 
-  const [val, setVal] = useState('')
+  const [valueURL, setValueURL] = useState('') // для input-image
 
   const sizeRef = useRef(null)
   const bgRef = useRef(bg)
@@ -15,6 +13,16 @@ const App = ({ dispatch, state: { banner: { width, height, bg, text, color, imag
   const textRef = useRef(text)
   const colorRef = useRef(color)
   const linkRef = useRef(link)
+
+  const widthHeight = useEffect(() => {
+    if (width < 200 && height > 500) {
+      console.log(18)
+      return 18
+    } else if (200 < width < 300 && 300 < height < 500) {
+      console.log(20)
+      return 20
+    }
+  }, [width, height])
 
   const style = {
     width: `${width}px`,
@@ -28,17 +36,15 @@ const App = ({ dispatch, state: { banner: { width, height, bg, text, color, imag
   }
 
   const exportPNG = () => {
-    copied()
+    copied(0)
   }
 
   const exportHTML = () => {
     const html = `
-      <a href="${link}" target="_blank">
       <div class="banner">
         <p class="banner__text">${text}</p>
         <img class="banner__img" alt="banner" align="center" src="${image}">
       </div>
-      </a>
       <style>
         .banner {
           position: relative;
@@ -52,8 +58,8 @@ const App = ({ dispatch, state: { banner: { width, height, bg, text, color, imag
           padding: 25px;
           width: ${width}px;
           height: ${height}px;
-          background: #${bg};
-          color: #${color};
+          background: ${bg};
+          color: ${color};
           font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, "Noto Sans", sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji";
         }
         .banner__img {
@@ -69,28 +75,56 @@ const App = ({ dispatch, state: { banner: { width, height, bg, text, color, imag
           z-index: 1;
         }
       </style>
+      <script>
+        document.querySelector('.banner').addEventListener('click', () => window.open('${link}', '_blank'))
+      </script>
     `
     navigator.clipboard.writeText(html)
-    copied()
+    copied(1)
   }
 
   const exportJSON = () => {
     navigator.clipboard.writeText(JSON.stringify(banner))
-    copied()
+    copied(1)
   }
 
-  const [alert, setAlert] = useState(false)
+  const res = () => {
+    dispatch({ type: 'RESET' }) // editReducer
+    dispatch({ type: 'SELECT-RESET' }) // selectReducer
+    setValueURL(() => '')
+  }
+  
+  // copied -> alertStyle -> useEffect[alert] — для вывода уведомления
+  const [alert, setAlert] = useState({ show: false, text: '' }) // отображение alert: true/false, текст для alert: 'сохранено', 'скопировано' 
 
-  const copied = () => {
-    setAlert(prev => !prev)
+  const copied = (id) => {
+    setAlert(prev => {
+      return {
+        show: !prev.show,
+        text: id === 0 ? 'Сохранено' : 'Скопировано'
+      }
+    })
   }
 
-  const alertStatus = useEffect(() => {
-    console.log(alert)
+  const alertStyle = useMemo(() => ({
+      display: alert.show ? 'block' : 'none'
+  }), [alert])
+
+  useEffect(() => {
+    if (alert.show) {
+      setTimeout(() => { // спрятать alert через 3 секунды
+        setAlert(prev => {
+          return {
+            ...prev,
+            show: !prev.show
+          }
+        })
+      }, 3000)
+    }
   }, [alert])
 
   const record = (base) => {
-    dispatch({
+    dispatch({ // editReducer
       type: 'CHANGE',
       width: sizeRef.current.value.split(' ')[0],
       height: sizeRef.current.value.split(' ')[2],
@@ -100,9 +134,13 @@ const App = ({ dispatch, state: { banner: { width, height, bg, text, color, imag
       image: typeof (base) === 'string' ? base : image,
       link: `${linkRef.current.value}`
     })
+    dispatch({ // selectReducer
+      type: 'SELECT',
+      size: sizeRef.current.value
+    })
   }
 
-  const readerImage = () => {
+  const readerFile = () => {
     const blob = imageReaderRef.current.files[0]
     if (blob) {
       console.log(blob)
@@ -111,23 +149,19 @@ const App = ({ dispatch, state: { banner: { width, height, bg, text, color, imag
       reader.onload = function () {
         const value = imageRef.current.value
         if (reader.result !== value && reader.result !== image) {
-          setVal(() => '')
+          setValueURL(() => '')
           record(reader.result)
         }
       }
     }
   }
 
-  const readerData = () => {
+  const readerURL = () => {
     const value = imageRef.current.value
-    setVal(() => value)
+    setValueURL(() => value)
     if (value !== image && value !== '') {
       record(value)
     }
-  }
-
-  const res = () => {
-    dispatch({ type: 'RESET', reset: reset });
   }
 
   console.log('render')
@@ -139,8 +173,8 @@ const App = ({ dispatch, state: { banner: { width, height, bg, text, color, imag
         <div className="panel">
           <h3>Панель управления</h3>
           <label htmlFor="custom-select">Ширина x Высота</label>
-          <select ref={sizeRef} onChange={record} className="custom-select" id="custom-select">
-            {select.map(text => <option defaultValue={`${text}`} key={`${text}`}>{text}</option>)}
+          <select className="custom-select" id="custom-select" ref={sizeRef} value={select[0]} onChange={record}>
+            {select.map(text => <option value={`${text}`} key={`${text}`}>{text}</option>)}
           </select>
 
           <label htmlFor="bg">Фоновый цвет</label>
@@ -148,16 +182,19 @@ const App = ({ dispatch, state: { banner: { width, height, bg, text, color, imag
             <input type="color" className="form-control" id="bg" placeholder="HEX" aria-label="bg" aria-describedby="addon2" ref={bgRef} value={bg} onChange={record} />
           </div>
 
-          <div className="panel__image">
+          <label htmlFor="panel-image">
+            Изображение<br/>
+            <span>Вставьте URL картинки или загрузите с компьютера</span>
+          </label>
+          <div className="panel__image" id="panel-image">
             <div>
-              <label htmlFor="image">Изображение</label>
               <div className="input-group">
-                <input type="url" className="form-control" id="image" placeholder="https://" aria-label="image" aria-describedby="addon3" ref={imageRef} value={val} onChange={readerData} />
+                <input type="url" className="form-control" id="image" placeholder="https://" aria-label="image" aria-describedby="addon3" ref={imageRef} value={valueURL} onChange={readerURL} />
               </div>
             </div>
             <div>
               <div className="custom-file">
-                <input type="file" className="custom-file-input" id="customFile" ref={imageReaderRef} onChange={readerImage} accept="image/*" />
+                <input type="file" className="custom-file-input" id="customFile" accept="image/*" ref={imageReaderRef} onChange={readerFile} />
                 <label className="custom-file-label" htmlFor="customFile">Выберите изображение</label>
               </div>
             </div>
@@ -170,7 +207,7 @@ const App = ({ dispatch, state: { banner: { width, height, bg, text, color, imag
 
           <label htmlFor="color">Цвет текста</label>
           <div className="input-group">
-            <input type="color" className="form-control" id="color" placeholder="HEX" aria-label="color" aria-describedby="addon5" ref={colorRef} defaultValue={color} onMouseUp={record} />
+            <input type="color" className="form-control" id="color" placeholder="HEX" aria-label="color" aria-describedby="addon5" ref={colorRef} value={color} onChange={record} />
           </div>
 
           <label htmlFor="link">Ссылка в объявлении</label>
@@ -184,7 +221,7 @@ const App = ({ dispatch, state: { banner: { width, height, bg, text, color, imag
             <button type="button" className="btn btn-dark panel__buttons__btn" onClick={exportPNG}>Сохранить как PNG</button>
             <button type="button" className="btn btn-dark panel__buttons__btn" onClick={exportHTML}>Скопировать как HTML</button>
             <button type="button" className="btn btn-dark panel__buttons__btn" onClick={exportJSON}>Скопировать как JSON</button>
-            <button type="button" className="btn" onClick={res}>Reset</button>
+            <button type="button" className="btn btn-dark" onClick={res}>Reset</button>
           </div>
         </div>
         <div>
@@ -195,8 +232,8 @@ const App = ({ dispatch, state: { banner: { width, height, bg, text, color, imag
           </div>
         </div>
       </main>
-      <div className="alert alert-secondary" style={alertStatus} role="alert">
-        A simple success alert—check it out!
+      <div className="alert alert-secondary" style={alertStyle} role="alert">
+        {alert.text}
       </div>
     </>
   )

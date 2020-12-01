@@ -18,7 +18,7 @@ main {
     flex-direction: row;
     align-items: center;
     justify-content: center;
-    padding: 25px;
+    padding: 5%;
 }
 .banner__img {
     position: absolute;
@@ -52,7 +52,6 @@ main {
     width: 100%;
 }
 .alert {
-    display: none;
     position: absolute;
     top: 0;
     right: 0;

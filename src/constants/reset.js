@@ -6,8 +6,8 @@ const reset = {
     bg: '#56CCF2',
     text: `Раритетные авто от собственников`,
     color: '#000000',
-    image: base,
-    href: ''
+    link: '',
+    image: base
 }
 
 export default reset
