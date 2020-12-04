@@ -4,7 +4,7 @@ const initialState = select
 
 const selectReducer = (state = initialState, action) => {
     switch (action.type) {
-        case 'SELECT':
+        case 'SELECT-CHANGE':
             if (state[0] !== action.size) {
                 const index = state.indexOf(action.size) // индекс нового выбора
                 const beforeSelected = state[0] // предыдущий выбор
@@ -34,7 +34,7 @@ const selectReducer = (state = initialState, action) => {
     }
 }
 
-export const selectActionCreater = (size) => ({ type: 'SELECT', size: size })
+export const selectActionCreater = (size) => ({ type: 'SELECT-CHANGE', size: size })
 export const selectResetActionCreater = () => ({ type: 'SELECT-RESET' })
 
 export default selectReducer
