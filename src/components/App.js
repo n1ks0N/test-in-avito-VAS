@@ -3,20 +3,16 @@ import Inputs from './inputs/Inputs'
 import Banner from './Banner'
 import Buttons from './buttons/Buttons'
 import Alerts from './notifications/Alerts'
-/*
-Ошибка: 
-1. при изменении цвета фона и текста, он не сбрасывается в input, а после второго изменения не сбросывается вовсе
-Изменения:
-1. считать длину строки на js
-*/
-const App = ({ dispatch, state, state: { banner, banner: { text, image } } }) => {
-  const [valueURL, setValueURL] = useState('') // для input-image
+import './App.css'
 
-  // notice -> alertStyle[alert] -> useEffect[alert] — для вывода alert
+const App = ({ dispatch, state, state: { banner, banner: { text, image } } }) => {
+  const [valueURL, setValueURL] = useState('') // для image-input
+
+  // Buttons.js -> notice() -> Alert.js — для вывода alert
   const [alert, setAlert] = useState({ show: false, text: '' }) // отображение alert: true / false, текст для alert: 'сохранено' / 'скопировано' 
 
-  const notice = (ntf) => { // в ntf приходит текст alert
-    setAlert(() => {
+  const notice = (ntf) => { // alert
+    setAlert(() => {        // в ntf приходит текст alert
       return {
         show: true,
         text: ntf
@@ -25,12 +21,26 @@ const App = ({ dispatch, state, state: { banner, banner: { text, image } } }) =>
   }
 
 
-  const change = ({ name, param }) => { // в e приходит данные для изменения state
-    dispatch({
+  const change = ({ name, param }) => { // главная функция изменения 
+    dispatch({ // editReducer
       type: 'EDIT-CHANGE',
       name: name,
       param: param
     })
+  }
+
+  const resize = ({ param }) => {
+    dispatch({ // selectReducer
+      type: 'SELECT-CHANGE',
+      size: param
+    })
+  }
+
+  const reset = () => {
+    dispatch({ type: 'EDIT-RESET' }) // editReducer
+    dispatch({ type: 'SELECT-RESET' }) // selectReducer
+    setValueURL(() => '') // image-input
+    notice('Сброшено') // alert
   }
 
   console.log('render')
@@ -42,6 +52,7 @@ const App = ({ dispatch, state, state: { banner, banner: { text, image } } }) =>
           <h3>Панель управления</h3>
           <Inputs
             dispatch={dispatch}
+            resize={resize}
             change={change}
             valueURL={valueURL}
             setValueURL={setValueURL}
@@ -52,7 +63,7 @@ const App = ({ dispatch, state, state: { banner, banner: { text, image } } }) =>
             dispatch={dispatch}
             banner={banner}
             notice={notice}
-            setValueURL={setValueURL}
+            reset={reset}
           />
         </div>
         <Banner

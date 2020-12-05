@@ -10,6 +10,7 @@
     "html2canvas": "^1.0.0-rc.7",
     "react": "^17.0.1",
     "react-color-gradient-picker": "^0.1.2",
+    "react-component-export-image": "^1.0.4",
     "react-dom": "^17.0.1",
     "react-scripts": "4.0.1",
     "redux": "^4.0.5",

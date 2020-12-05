@@ -28,11 +28,14 @@ const initialState = {
     },
     text: 'Раритетные авто от собственников',
     color: {
-        red: 0,
-        green: 0,
-        blue: 0,
         alpha: 1,
-        style: 'rgba(0, 0, 0, 1)'
+        blue: 0,
+        green: 0,
+        hue: 0,
+        red: 0,
+        saturation: 0,
+        style: "rgba(0, 0, 0, 1)",
+        value: 0
     },
     image: base,
     link: ''
@@ -49,7 +52,7 @@ const editReducer = (state = initialState, action) => {
             return state
         case 'EDIT-RESET':
             for (let key in initialValues) {
-                state[key] = res[key]
+                state[key] = initialValues[key]
             }
             return state
         default:

@@ -1,4 +1,4 @@
-import select from '../constants/select'
+import { select } from '../constants/select'
 
 const initialState = select
 
@@ -28,7 +28,8 @@ const selectReducer = (state = initialState, action) => {
             }
             return state
         case 'SELECT-RESET':
-            return select
+            state = select
+            return state
         default:
             return state
     }

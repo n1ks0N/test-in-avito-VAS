@@ -1,4 +1,5 @@
 import React from 'react'
+import './ButtonExport.css'
 
 const ButtonExport = ({ text, click }) => {
     return (

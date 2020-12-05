@@ -1,4 +1,4 @@
-const select = [
+export const select = [
     '300 x 500',  // selected
     '160 х 600',
     '200 х 200',
@@ -10,4 +10,3 @@ const select = [
     '728 х 90',
     '970 х 90'
 ]
-export default select

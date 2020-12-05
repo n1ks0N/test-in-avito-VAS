@@ -2,8 +2,9 @@ import React from 'react'
 import ButtonExport from './types/ButtonExport'
 import ButtonReset from './types/ButtonReset'
 import html2canvas from 'html2canvas'
+import './Buttons.css'
 
-const Buttons = ({ dispatch, setValueURL, notice, banner, banner: { width, height, text, bg, color, image, link } }) => {
+const Buttons = ({ reset, notice, banner, banner: { width, height, text, bg, color, image, link } }) => {
   const exportPNG = () => {
     html2canvas(document.querySelector('.banner')).then(canvas => {
       const image = canvas.toDataURL()
@@ -68,17 +69,11 @@ const Buttons = ({ dispatch, setValueURL, notice, banner, banner: { width, heigh
     navigator.clipboard.writeText(JSON.stringify(banner))
     notice('Скопировано')
   }
-  console.log(res)
-
-  const reset = () => {
-    console.log('RESET')
-    dispatch({ type: 'EDIT-RESET' }) // editReducer
-    // dispatch({ type: 'SELECT-RESET' }) // selectReducer
-    // setValueURL(() => '')
-    // notice('Сброшено')
-  }
   return (
     <div className="panel__buttons">
+      <ButtonReset
+        click={reset}
+      />
       <ButtonExport
         text="Сохранить как PNG"
         click={exportPNG}
@@ -90,9 +85,6 @@ const Buttons = ({ dispatch, setValueURL, notice, banner, banner: { width, heigh
       <ButtonExport
         text="Скопировать как JSON"
         click={exportJSON}
-      />
-      <ButtonReset
-        click={reset}
       />
     </div>
   )

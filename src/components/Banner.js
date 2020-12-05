@@ -1,6 +1,7 @@
 import React from 'react'
+import './Banner.css'
 
-const Banner = ({ text, image, change, banner: { width, height, bg, color } }) => {
+const Banner = ({ change, banner: { width, height, bg, color, text, image } }) => {
     const style = {
         width: `${width}px`,
         height: `${height}px`,

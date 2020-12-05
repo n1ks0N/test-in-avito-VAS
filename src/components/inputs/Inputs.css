@@ -1,0 +1,17 @@
+.panel__group {
+    margin-bottom: 0.5rem;
+}
+.panel__double-input {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: flex-end;
+    width: 100%;
+}
+.panel__group__input-color {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    align-items: center;
+    height: 388px;
+}

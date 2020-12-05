@@ -8,18 +8,16 @@ const InputFile = ({ text, name, accept, change }) => {
         })
     }
     return (
-        <div>
-            <div className="custom-file">
-                <input
-                    type="file"
-                    className="custom-file-input"
-                    id={name}
-                    accept={accept}
-                    ref={inputRef}
-                    onChange={record}
-                />
-                <label className="custom-file-label" htmlFor={name}>{text}</label>
-            </div>
+        <div className="custom-file">
+            <input
+                type="file"
+                className="custom-file-input"
+                id={name}
+                accept={accept}
+                ref={inputRef}
+                onChange={record}
+            />
+            <label className="custom-file-label" htmlFor={name}>{text}</label>
         </div>
     )
 }

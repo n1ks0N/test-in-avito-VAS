@@ -1,5 +1,6 @@
 import React from 'react'
 import resetImage from '../../../assets/reset.png'
+import './ButtonReset.css'
 
 const ButtonReset = ({ click }) => {
     return (

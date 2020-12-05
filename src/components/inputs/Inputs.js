@@ -5,27 +5,31 @@ import InputColor from './types/InputColor'
 import InputText from './types/InputText'
 import Textarea from './types/Textarea'
 import InputFile from './types/InputFile'
+import './Inputs.css'
 
-const Inputs = ({ dispatch, change, valueURL, setValueURL, state: { select, banner: { bg, text, color, image, link } } }) => {
+const Inputs = ({ resize, change, valueURL, setValueURL, state: { select, banner: { bg, text, color, image, link } } }) => {
     const sizeReader = ({ param }) => {
-        dispatch({ // editReducer
-            type: 'EDIT-SELECT',
-            width: param.split(' ')[0],
-            height: param.split(' ')[2],
+        change({ // editReducer
+            param: param.split(' ')[0],
+            name: 'width'
         })
-        dispatch({ // selectReducer
-            type: 'SELECT-CHANGE',
-            size: param
+        change({ // editReducer
+            param: param.split(' ')[2],
+            name: 'height'
+        })
+        resize({ // selectReducer
+            param: param
         })
     }
+
     const fileReader = ({ param }) => {
         if (param) {
             const reader = new FileReader()
             reader.readAsDataURL(param)
             reader.onload = () => {
                 if (reader.result !== valueURL && reader.result !== image) {
-                    setValueURL(() => '')
-                    change({
+                    setValueURL(() => '') // image-input
+                    change({ // editReducer
                         param: reader.result,
                         name: 'image'
                     })
@@ -33,10 +37,11 @@ const Inputs = ({ dispatch, change, valueURL, setValueURL, state: { select, bann
             }
         }
     }
+
     const urlReader = ({ param }) => {
-        setValueURL(() => param)
+        setValueURL(() => param) // image-input
         if (param !== image && param !== '') {
-            change({
+            change({ // editReducer
                 param: param,
                 name: 'image'
             })
@@ -44,14 +49,16 @@ const Inputs = ({ dispatch, change, valueURL, setValueURL, state: { select, bann
     }
     return (
         <>
-            <Select
-                text="Ширина x Высота"
-                name="size"
-                change={sizeReader}
-                value={select}
-            />
+            <div className="panel__group">
+                <Select
+                    text="Ширина x Высота"
+                    name="size"
+                    change={sizeReader}
+                    value={select}
+                />
+            </div>
 
-            <div className="panel__color-picker">
+            <div className="panel__group panel__double-input panel__group-color">
                 <InputGradient
                     text="Фоновый цвет"
                     value={bg}
@@ -66,12 +73,12 @@ const Inputs = ({ dispatch, change, valueURL, setValueURL, state: { select, bann
                 />
             </div>
 
-            <label htmlFor="panel-image">
-                Изображение<br />
-                <span>Вставьте URL картинки или загрузите с компьютера</span>
-            </label>
-            <div className="panel__image" id="panel-image">
-                <div>
+            <div className="panel__group">
+                <label htmlFor="panel-image">
+                    Изображение<br />
+                    <span>Вставьте URL картинки или загрузите с компьютера</span>
+                </label>
+                <div className="panel__double-input" id="panel-image">
                     <div className="input-group">
                         <InputText
                             text=""
@@ -82,32 +89,36 @@ const Inputs = ({ dispatch, change, valueURL, setValueURL, state: { select, bann
                             change={urlReader}
                         />
                     </div>
-                </div>
-                <div>
-                    <InputFile
-                        text="Выберите изображение"
-                        name="image"
-                        accept="image/*"
-                        change={fileReader}
-                    />
+                    <div className="input-group">
+                        <InputFile
+                            text="Выберите изображение"
+                            name="image"
+                            accept="image/*"
+                            change={fileReader}
+                        />
+                    </div>
                 </div>
             </div>
-            <Textarea
-                text="Текстовое содержание"
-                type="text"
-                value={text}
-                name="text"
-                placeholder="Введите текст"
-                change={change}
-            />
-            <InputText
-                text="Ссылка в объявлении"
-                type="url"
-                value={link}
-                name="link"
-                placeholder="https://"
-                change={change}
-            />
+            <div className="panel__group">
+                <Textarea
+                    text="Текстовое содержание"
+                    type="text"
+                    value={text}
+                    name="text"
+                    placeholder="Введите текст"
+                    change={change}
+                />
+            </div>
+            <div className="panel__group">
+                <InputText
+                    text="Ссылка в объявлении"
+                    type="url"
+                    value={link}
+                    name="link"
+                    placeholder="https://"
+                    change={change}
+                />
+            </div>
         </>
     )
 }

@@ -9,7 +9,7 @@ const InputGradient = ({ text, value, name, change }) => {
         })
     }
     return (
-        <div>
+        <div className="panel__group__input-color">
             <label>{text}</label>
             <div>
                 <ColorPicker
