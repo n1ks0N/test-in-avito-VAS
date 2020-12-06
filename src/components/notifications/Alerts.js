@@ -1,7 +1,7 @@
 import React, { useEffect, useMemo } from 'react'
-import AlertExport from './types/AlertExport'
+import AlertUsual from './types/AlertUsual'
 
-const Alerts = ({ text, alert, setAlert }) => {
+const Alerts = ({ setAlert, alert, alert: { text } }) => {
     const style = useMemo(() => ({
         display: alert.show ? 'block' : 'none'
     }), [alert])
@@ -19,7 +19,7 @@ const Alerts = ({ text, alert, setAlert }) => {
     }, [alert, setAlert])
     return (
         <>
-            <AlertExport
+            <AlertUsual
                 text={text}
                 style={style}
             />

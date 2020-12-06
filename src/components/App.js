@@ -5,14 +5,15 @@ import Buttons from './buttons/Buttons'
 import Alerts from './notifications/Alerts'
 import './App.css'
 
-const App = ({ dispatch, state, state: { banner, banner: { text, image } } }) => {
-  const [valueURL, setValueURL] = useState('') // для image-input
+const App = ({ dispatch, state, state: { banner } }) => {
+  const [imageInput, setImageInput] = useState('') // для image-input
 
+  /* idea: alert перенести в redux */
   // Buttons.js -> notice() -> Alert.js — для вывода alert
-  const [alert, setAlert] = useState({ show: false, text: '' }) // отображение alert: true / false, текст для alert: 'сохранено' / 'скопировано' 
+  const [alert, setAlert] = useState({ show: false, text: '' }) // отображение alert: true / false, текст для alert: сохранено / скопировано / сброшено
 
-  const notice = (ntf) => { // alert
-    setAlert(() => {        // в ntf приходит текст alert
+  const notice = (ntf) => { // показ alert
+    setAlert(() => { // в ntf приходит текст для alert
       return {
         show: true,
         text: ntf
@@ -21,7 +22,7 @@ const App = ({ dispatch, state, state: { banner, banner: { text, image } } }) =>
   }
 
 
-  const change = ({ name, param }) => { // главная функция изменения 
+  const change = ({ name, param }) => { // главная функция изменения баннера
     dispatch({ // editReducer
       type: 'EDIT-CHANGE',
       name: name,
@@ -29,7 +30,7 @@ const App = ({ dispatch, state, state: { banner, banner: { text, image } } }) =>
     })
   }
 
-  const resize = ({ param }) => {
+  const resize = ({ param }) => { // изменение select
     dispatch({ // selectReducer
       type: 'SELECT-CHANGE',
       size: param
@@ -39,7 +40,7 @@ const App = ({ dispatch, state, state: { banner, banner: { text, image } } }) =>
   const reset = () => {
     dispatch({ type: 'EDIT-RESET' }) // editReducer
     dispatch({ type: 'SELECT-RESET' }) // selectReducer
-    setValueURL(() => '') // image-input
+    setImageInput(() => '') // image-input
     notice('Сброшено') // alert
   }
 
@@ -51,30 +52,24 @@ const App = ({ dispatch, state, state: { banner, banner: { text, image } } }) =>
         <div className="panel">
           <h3>Панель управления</h3>
           <Inputs
-            dispatch={dispatch}
             resize={resize}
             change={change}
-            valueURL={valueURL}
-            setValueURL={setValueURL}
+            imageInput={imageInput}
+            setImageInput={setImageInput}
             state={state}
           />
           <br />
           <Buttons
-            dispatch={dispatch}
             banner={banner}
             notice={notice}
             reset={reset}
           />
         </div>
         <Banner
-          text={text}
-          image={image}
           banner={banner}
-          change={change}
         />
       </main>
       <Alerts
-        text={alert.text}
         alert={alert}
         setAlert={setAlert}
       />

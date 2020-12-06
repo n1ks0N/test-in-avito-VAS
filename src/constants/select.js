@@ -1,5 +1,5 @@
-export const select = [
-    '300 x 500',  // selected
+const sizes = [
+    '300 x 500',  // defaultValue
     '160 х 600',
     '200 х 200',
     '250 х 250',
@@ -10,3 +10,5 @@ export const select = [
     '728 х 90',
     '970 х 90'
 ]
+
+export default sizes

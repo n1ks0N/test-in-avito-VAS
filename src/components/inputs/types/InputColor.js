@@ -13,8 +13,8 @@ const InputColor = ({ text, value, name, change }) => {
             <label>{text}</label>
             <div>
                 <ColorPicker
+                    onStartChange={record}
                     onChange={record}
-                    onEndChange={record}
                     color={value}
                 />
             </div>

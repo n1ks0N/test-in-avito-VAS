@@ -6,6 +6,8 @@ import './Buttons.css'
 
 const Buttons = ({ reset, notice, banner, banner: { width, height, text, bg, color, image, link } }) => {
   const exportPNG = () => {
+    const y = window.scrollY
+    window.scrollTo(0, 0) // эмуляция прокрутки окна к верху, для исправления бага html2canvas
     html2canvas(document.querySelector('.banner')).then(canvas => {
       const image = canvas.toDataURL()
       const a = document.createElement('A')
@@ -15,6 +17,7 @@ const Buttons = ({ reset, notice, banner, banner: { width, height, text, bg, col
       a.click()
       document.body.removeChild(a)
     })
+    window.scrollTo(0, y)
     notice('Сохранено')
   }
 

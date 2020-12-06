@@ -1,6 +1,6 @@
-import { select } from '../constants/select'
+import sizes from '../constants/select'
 
-const initialState = select
+const initialState = sizes
 
 const selectReducer = (state = initialState, action) => {
     switch (action.type) {
@@ -28,7 +28,7 @@ const selectReducer = (state = initialState, action) => {
             }
             return state
         case 'SELECT-RESET':
-            state = select
+            state = sizes
             return state
         default:
             return state

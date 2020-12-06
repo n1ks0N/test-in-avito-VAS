@@ -1,7 +1,14 @@
-import React from 'react'
+import React, { useEffect } from 'react'
 import { ColorPicker } from 'react-color-gradient-picker'
+import reset from '../../../constants/reset'
 
 const InputGradient = ({ text, value, name, change }) => {
+    /* bag: решить проблему при переключении linear/solid */
+    // useEffect(() => {
+    //     if ("points" in value) {
+    //         value = reset.bg
+    //     }
+    // }, [value])
     const record = (gradientAttrs) => {
         change({
             param: gradientAttrs,

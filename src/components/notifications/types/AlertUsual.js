@@ -1,5 +1,5 @@
 import React from 'react'
-import './AlertExport.css'
+import './AlertUsual.css'
 
 const AlertExport = ({ text, style }) => {
     return (
