@@ -1,5 +1,5 @@
 .panel__group {
-    margin-bottom: 0.5rem;
+    margin-bottom: 20px;
 }
 .panel__double-input {
     display: flex;
@@ -13,5 +13,24 @@
     flex-direction: column;
     justify-content: space-between;
     align-items: center;
-    height: 388px;
+}
+.panel__group__input-color__label {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+    width: 248px;
+}
+.panel__group-color {
+    flex-wrap: wrap;
+}
+.ui-color-picker .gradient-controls .gradient-degrees-options .gradient-degree-value p, .panel__group__special-label {
+    margin: 0;
+}
+.ui-color-picker {
+    background-color: #f2f2f2 !important;
+    margin-bottom: 0 !important;
+}
+.panel-image__wrapper div label {
+    display: none;
 }

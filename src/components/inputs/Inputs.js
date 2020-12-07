@@ -11,7 +11,6 @@ const Inputs = ({ resize, change, imageInput, setImageInput, state: { select, ba
     const [colorType, setColorType] = useState({ status: 'Linear', types: ['Linear', 'Solid'] })
 
     const colorReader = ({ param }) => {
-        console.log('READER')
         setColorType(() => {
             if (param === 'Solid') {
                 return { status: 'Solid', types: ['Solid', 'Linear'] }
@@ -60,6 +59,10 @@ const Inputs = ({ resize, change, imageInput, setImageInput, state: { select, ba
             })
         }
     }
+
+    const openColorPicker = () => {
+        console.log('CLICKED')
+    }
     return (
         <>
             <div className="panel__group">
@@ -71,27 +74,34 @@ const Inputs = ({ resize, change, imageInput, setImageInput, state: { select, ba
                 />
             </div>
 
-            <Select
-                text=""
-                name="colorType"
-                change={colorReader}
-                value={colorType.types}
-            />
+
             <div className="panel__group panel__double-input panel__group-color">
-                {colorType.status === 'Solid' ?
-                    <InputColor
-                        text="Фоновый цвет"
-                        value={bg}
-                        name="bg"
-                        change={change}
-                    /> :
-                    <InputGradient
-                        text="Фоновый цвет"
-                        value={bg}
-                        name="bg"
-                        change={change}
-                    />
-                }
+                <div className="panel__group__input-color">
+                    <div className="panel__group__input-color__label">
+                        <label className="panel__group__special-label">Фоновый цвет</label>
+                        <Select
+                            className=""
+                            text=""
+                            name="colorType"
+                            change={colorReader}
+                            value={colorType.types}
+                        />
+                    </div>
+                    {colorType.status === 'Solid' ?
+                        <InputColor
+                            text=""
+                            value={bg}
+                            name="bg"
+                            change={change}
+                        /> :
+                        <InputGradient
+                            text=""
+                            value={bg}
+                            name="bg"
+                            change={change}
+                        />
+                    }
+                </div>
                 <InputColor
                     text="Цвет текста"
                     value={color}
@@ -106,7 +116,7 @@ const Inputs = ({ resize, change, imageInput, setImageInput, state: { select, ba
                     <span>Вставьте URL картинки или загрузите с компьютера</span>
                 </label>
                 <div className="panel__double-input" id="panel-image">
-                    <div className="input-group">
+                    <div className="input-group panel-image__wrapper">
                         <InputText
                             text=""
                             type="url"
@@ -124,6 +134,15 @@ const Inputs = ({ resize, change, imageInput, setImageInput, state: { select, ba
                             change={fileReader}
                         />
                     </div>
+                    {/* <div className="input-group">
+                        <InputText
+                            text=""
+                            type="color"
+                            value="#ff0000"
+                            name=""
+                            change={openColorPicker}
+                        />
+                    </div> */}
                 </div>
             </div>
             <div className="panel__group">

@@ -6,25 +6,25 @@ const initialState = {
     width: '300',
     height: '500',
     bg: {
+        degree: 0,
         points: [
-            {
-                left: 100,
-                red: 86,
-                green: 204,
-                blue: 242,
-                alpha: 1
+            { 
+                left: 100, 
+                red: 242, 
+                green: 87, 
+                blue: 224, 
+                alpha: 0.8 
             },
-            {
-                left: 0,
-                red: 86,
-                green: 204,
-                blue: 242,
-                alpha: 1
+            { 
+                left: 40, 
+                red: 86, 
+                green: 204, 
+                blue: 242, 
+                alpha: 1 
             }
         ],
-        degree: 0,
-        type: 'linear',
-        style: 'linear-gradient(0deg,rgba(86, 204, 242, 1) 100%,rgba(86, 204, 242, 1) 100%)'
+        style: 'linear-gradient(0deg,rgba(86, 204, 242, 1) 40%,rgba(242, 87, 224, 0.8) 100%)',
+        type: 'linear'
     },
     text: 'Раритетные авто от собственников',
     color: {
@@ -34,7 +34,7 @@ const initialState = {
         hue: 0,
         red: 0,
         saturation: 0,
-        style: "rgba(0, 0, 0, 1)",
+        style: 'rgba(0, 0, 0, 1)',
         value: 0
     },
     image: base,

@@ -1,15 +1,34 @@
-import React, { useEffect } from 'react'
+import React from 'react'
 import { ColorPicker } from 'react-color-gradient-picker'
-import reset from '../../../constants/reset'
 
 const InputGradient = ({ text, value, name, change }) => {
-    /* bag: решить проблему при переключении linear/solid */
-    // useEffect(() => {
-    //     if ("points" in value) {
-    //         value = reset.bg
-    //     }
-    // }, [value])
+    let colorValue
+    if ("points" in value) { // если в value хранится linear (градиент, описываемый массивом points), то сохранить имеющееся значение, иначе заменить на linear
+        colorValue = value
+    } else {
+        colorValue = {
+            points: [
+                {
+                    left: 100,
+                    red: value.red,
+                    green: value.green,
+                    blue: value.blue,
+                    alpha: 1
+                },
+                {
+                    left: 0,
+                    red: value.red,
+                    green: value.green,
+                    blue: value.blue,
+                    alpha: 1
+                }
+            ],
+            degree: 0,
+            type: 'linear'
+        }
+    }
     const record = (gradientAttrs) => {
+        console.log(gradientAttrs)
         change({
             param: gradientAttrs,
             name: name
@@ -22,7 +41,7 @@ const InputGradient = ({ text, value, name, change }) => {
                 <ColorPicker
                     onChange={record}
                     onEndChange={record}
-                    gradient={value}
+                    gradient={colorValue}
                     isGradient
                 />
             </div>
