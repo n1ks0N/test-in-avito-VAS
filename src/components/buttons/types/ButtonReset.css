@@ -1,3 +1,8 @@
+.panel__buttons__btn-reset {
+    position: absolute;
+    top: 0;
+    right: 0;
+}
 .panel__buttons__image_size {
     width: 30px;
 }

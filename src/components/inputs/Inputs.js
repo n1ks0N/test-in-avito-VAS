@@ -60,9 +60,6 @@ const Inputs = ({ resize, change, imageInput, setImageInput, state: { select, ba
         }
     }
 
-    const openColorPicker = () => {
-        console.log('CLICKED')
-    }
     return (
         <>
             <div className="panel__group">
@@ -134,15 +131,6 @@ const Inputs = ({ resize, change, imageInput, setImageInput, state: { select, ba
                             change={fileReader}
                         />
                     </div>
-                    {/* <div className="input-group">
-                        <InputText
-                            text=""
-                            type="color"
-                            value="#ff0000"
-                            name=""
-                            change={openColorPicker}
-                        />
-                    </div> */}
                 </div>
             </div>
             <div className="panel__group">
