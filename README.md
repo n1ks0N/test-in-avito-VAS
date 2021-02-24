@@ -1,3 +1,7 @@
-# Тестовое задание для стажёра в команду VAS *Avito*
+# Тестовое задание на позицию стажёра в команду VAS Avito
+*Редактор баннеров*
 
-## The project is available on port: 3999 with `npm start`
+## Схема запуска проекта:
+1. `npm install`
+2. `npm start`
+3. Проект будет доступен по адресу localhost:3999
