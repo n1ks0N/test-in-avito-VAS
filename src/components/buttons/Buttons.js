@@ -1,28 +1,33 @@
-import React from 'react'
-import ButtonExport from './types/ButtonExport'
-import ButtonReset from './types/ButtonReset'
-import html2canvas from 'html2canvas'
-import './Buttons.css'
+import React from 'react';
+import ButtonExport from './types/ButtonExport';
+import ButtonReset from './types/ButtonReset';
+import html2canvas from 'html2canvas';
+import './Buttons.css';
 
-const Buttons = ({ reset, notice, banner, banner: { width, height, text, bg, color, image, link } }) => {
-  const exportPNG = () => {
-    const y = window.scrollY
-    window.scrollTo(0, 0) // эмуляция прокрутки окна к верху, для исправления бага html2canvas
-    html2canvas(document.querySelector('.banner')).then(canvas => {
-      const image = canvas.toDataURL()
-      const a = document.createElement('A')
-      a.href = image // eslint-disable-next-line
-      a.download = image.substr(image.lastIndexOf('+') + 1).split(/[\=\$]/g)[0]
-      document.body.appendChild(a)
-      a.click()
-      document.body.removeChild(a)
-    })
-    window.scrollTo(0, y)
-    notice('Сохранено')
-  }
+const Buttons = ({
+	reset,
+	notice,
+	banner,
+	banner: { width, height, text, bg, color, image, link }
+}) => {
+	const exportPNG = () => {
+		const y = window.scrollY;
+		window.scrollTo(0, 0); // эмуляция прокрутки окна к верху, для исправления бага html2canvas
+		html2canvas(document.querySelector('.banner')).then((canvas) => {
+			const image = canvas.toDataURL();
+			const a = document.createElement('A');
+			a.href = image; // eslint-disable-next-line
+			a.download = image.substr(image.lastIndexOf('+') + 1).split(/[\=\$]/g)[0];
+			document.body.appendChild(a);
+			a.click();
+			document.body.removeChild(a);
+		});
+		window.scrollTo(0, y);
+		notice('Сохранено');
+	};
 
-  const exportHTML = () => {
-    const html = `
+	const exportHTML = () => {
+		const html = `
           <div class="banner">
             <p class="banner__text">${text}</p>
             <img class="banner__img" alt="banner" align="center" src="${image}">
@@ -63,34 +68,23 @@ const Buttons = ({ reset, notice, banner, banner: { width, height, text, bg, col
           <script>
             document.querySelector('.banner').addEventListener('click', () => window.open('${link}', '_blank'))
           </script>
-        `
-    navigator.clipboard.writeText(html)
-    notice('Скопировано')
-  }
+        `;
+		navigator.clipboard.writeText(html);
+		notice('Скопировано');
+	};
 
-  const exportJSON = () => {
-    navigator.clipboard.writeText(JSON.stringify(banner))
-    notice('Скопировано')
-  }
-  return (
-    <div className="panel__buttons">
-      <ButtonReset
-        click={reset}
-      />
-      <ButtonExport
-        text="Сохранить как PNG"
-        click={exportPNG}
-      />
-      <ButtonExport
-        text="Скопировать как HTML"
-        click={exportHTML}
-      />
-      <ButtonExport
-        text="Скопировать как JSON"
-        click={exportJSON}
-      />
-    </div>
-  )
-}
+	const exportJSON = () => {
+		navigator.clipboard.writeText(JSON.stringify(banner));
+		notice('Скопировано');
+	};
+	return (
+		<div className="panel__buttons">
+			<ButtonReset click={reset} />
+			<ButtonExport text="Сохранить как PNG" click={exportPNG} />
+			<ButtonExport text="Скопировать как HTML" click={exportHTML} />
+			<ButtonExport text="Скопировать как JSON" click={exportJSON} />
+		</div>
+	);
+};
 
-export default Buttons
+export default Buttons;

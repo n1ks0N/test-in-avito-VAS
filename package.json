@@ -8,6 +8,7 @@
     "@testing-library/user-event": "^12.2.2",
     "bootstrap": "^4.5.3",
     "html2canvas": "^1.0.0-rc.7",
+    "prettier": "^2.2.1",
     "react": "^17.0.1",
     "react-color-gradient-picker": "^0.1.2",
     "react-dom": "^17.0.1",
@@ -19,7 +20,8 @@
     "start": "set PORT=3999 && react-scripts start",
     "build": "react-scripts build",
     "test": "react-scripts test",
-    "eject": "react-scripts eject"
+    "eject": "react-scripts eject",
+    "prettier": "prettier --write src/**/*.js"
   },
   "eslintConfig": {
     "extends": [

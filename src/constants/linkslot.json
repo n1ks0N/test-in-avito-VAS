@@ -1,0 +1,62 @@
+{
+  "header": {
+    "textButtons": [
+      {
+        "text": "linkslot",
+        "link": "#"
+      },
+      {
+        "text": "linkslot",
+        "link": "#"
+      },
+      {
+        "text": "linkslot",
+        "link": "#"
+      }
+    ],
+    "banners": [
+      {
+        "img": "",
+        "link": "#"
+      },
+      {
+        "img": "",
+        "link": "#"
+      },
+      {
+        "img": "",
+        "link": "#"
+      }
+    ]
+  },
+  "footer": {
+    "textButtons": [
+      {
+        "text": "linkslot",
+        "link": "#"
+      },
+      {
+        "text": "linkslot",
+        "link": "#"
+      },
+      {
+        "text": "linkslot",
+        "link": "#"
+      }
+    ],
+    "banners": [
+      {
+        "img": "",
+        "link": "#"
+      },
+      {
+        "img": "",
+        "link": "#"
+      },
+      {
+        "img": "",
+        "link": "#"
+      }
+    ]
+  }
+}

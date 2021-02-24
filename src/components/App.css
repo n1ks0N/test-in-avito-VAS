@@ -1,4 +1,4 @@
-main {
+.main {
     display: flex;
     flex-direction: row;
     justify-content: space-between;
@@ -7,4 +7,12 @@ main {
 .panel {
     max-width: 50vw;
     position: relative;
+}
+.ad__list {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+    flex-wrap: wrap;
+    padding: 25px 50px;
 }
