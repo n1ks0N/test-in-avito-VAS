@@ -27,6 +27,10 @@ const reset = {
 		type: 'linear'
 	},
 	text: 'Раритетные авто от собственников',
+	bold: false,
+	italic: false,
+	size: 25,
+	font: 'Roboto',
 	color: {
 		alpha: 1,
 		blue: 0,

@@ -10,7 +10,7 @@ const InputText = ({ text, type, value, name, placeholder, change }) => {
 	};
 	return (
 		<div>
-			<label htmlFor={name}>{text}</label>
+			{text && <label htmlFor={name}>{text}</label>}
 			<div className="input-group">
 				<input
 					type={type}

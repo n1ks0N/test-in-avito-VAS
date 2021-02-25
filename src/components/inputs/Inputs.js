@@ -6,6 +6,7 @@ import InputText from './types/InputText';
 import Textarea from './types/Textarea';
 import InputFile from './types/InputFile';
 import Checkbox from './types/Checkbox'
+import { fonts } from '../../constants/fonts.json'
 import './Inputs.css';
 
 const Inputs = ({
@@ -15,7 +16,7 @@ const Inputs = ({
 	setImageInput,
 	state: {
 		select,
-		banner: { bg, text, color, image, link, bold, italic, size }
+		banner: { bg, text, color, image, link, bold, italic, size, font }
 	}
 }) => {
 	const [colorType, setColorType] = useState({
@@ -77,6 +78,17 @@ const Inputs = ({
 			});
 		}
 	};
+
+	const fontReader = ({ param }) => {
+		let arr = fonts
+		let index = arr.indexOf(param)
+		arr.unshift(param)
+		arr.splice(++index, 1)
+		change({
+			param: arr,
+			name: 'font'
+		})
+	}
 
 	return (
 		<>
@@ -151,7 +163,7 @@ const Inputs = ({
 					placeholder="Введите текст"
 					change={change}
 				/>
-				<div style={{display: 'flex', flexDirection: 'row', alignItems: 'center'}}>
+				<div style={{ display: 'flex', flexDirection: 'row', alignItems: 'center', marginTop: '10px' }}>
 					<Checkbox
 						text="Жирность"
 						type="bold"
@@ -176,6 +188,12 @@ const Inputs = ({
 							change={change}
 						/>
 					</div>
+					<Select
+						text=""
+						name="font"
+						value={fonts}
+						change={fontReader}
+					/>
 				</div>
 			</div>
 			<div className="panel__group">

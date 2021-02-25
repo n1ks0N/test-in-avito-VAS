@@ -7,8 +7,7 @@ import './Buttons.css';
 const Buttons = ({
 	reset,
 	notice,
-	banner,
-	banner: { width, height, text, bg, color, image, link }
+	banner: { width, height, text, bg, color, image, link, bold, italic, size, font }
 }) => {
 	const exportPNG = () => {
 		const y = window.scrollY;
@@ -46,7 +45,10 @@ const Buttons = ({
               height: ${height}px;
               background: ${bg.style};
               color: ${color.style};
-              font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, "Noto Sans", sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji";
+              font-weight: ${bold ? 'bold' : 'normal'},
+		          font-style: ${italic ? 'italic' : 'normal'},
+		          font-size: ${size}px,
+		          font-family: ${font[0]},
             }
             .banner__img {
               position: absolute;
@@ -72,17 +74,11 @@ const Buttons = ({
 		navigator.clipboard.writeText(html);
 		notice('Скопировано');
 	};
-
-	const exportJSON = () => {
-		navigator.clipboard.writeText(JSON.stringify(banner));
-		notice('Скопировано');
-	};
 	return (
 		<div className="panel__buttons">
 			<ButtonReset click={reset} />
 			<ButtonExport text="Сохранить как PNG" click={exportPNG} />
 			<ButtonExport text="Скопировать как HTML" click={exportHTML} />
-			<ButtonExport text="Скопировать как JSON" click={exportJSON} />
 		</div>
 	);
 };

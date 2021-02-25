@@ -1,7 +1,7 @@
 import React from 'react';
 import './Banner.css';
 
-const Banner = ({ banner: { width, height, bg, color, text, image, bold, italic, size } }) => {
+const Banner = ({ banner: { width, height, bg, color, text, image, bold, italic, size, font } }) => {
 	const style = {
 		width: `${width}px`,
 		height: `${height}px`,
@@ -10,6 +10,7 @@ const Banner = ({ banner: { width, height, bg, color, text, image, bold, italic,
 		fontWeight: `${bold ? 'bold' : 'normal'}`,
 		fontStyle: `${italic ? 'italic' : 'normal'}`,
 		fontSize: `${size}px`,
+		fontFamily: `${font[0]}`,
 		wrapper: {
 			backgroundImage: `url('${image}')`
 		}
