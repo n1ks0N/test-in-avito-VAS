@@ -6,6 +6,7 @@
     flex-direction: row;
     justify-content: space-between;
     align-items: flex-end;
+    flex-wrap: wrap;
     width: 100%;
 }
 .panel__group__input-color {
@@ -33,4 +34,7 @@
 }
 .panel-image__wrapper div label {
     display: none;
+}
+.input-group {
+    width: auto;
 }

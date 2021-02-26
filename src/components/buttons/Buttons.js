@@ -7,7 +7,19 @@ import './Buttons.css';
 const Buttons = ({
 	reset,
 	notice,
-	banner: { width, height, text, bg, color, image, link, bold, italic, size, font }
+	banner: {
+		width,
+		height,
+		text,
+		bg,
+		color,
+		image,
+		link,
+		bold,
+		italic,
+		size,
+		font
+	}
 }) => {
 	const exportPNG = () => {
 		const y = window.scrollY;

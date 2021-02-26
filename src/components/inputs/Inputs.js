@@ -5,8 +5,8 @@ import InputColor from './types/InputColor';
 import InputText from './types/InputText';
 import Textarea from './types/Textarea';
 import InputFile from './types/InputFile';
-import Checkbox from './types/Checkbox'
-import { fonts } from '../../constants/fonts.json'
+import Checkbox from './types/Checkbox';
+import { fonts } from '../../constants/fonts.json';
 import './Inputs.css';
 
 const Inputs = ({
@@ -53,14 +53,14 @@ const Inputs = ({
 
 	const fileReader = ({ param }) => {
 		if (param) {
-			let images = []
+			let images = [];
 			for (let i = 0; i < param.length; i++) {
 				let reader = new FileReader();
 				reader.readAsDataURL(param[i]);
 				reader.onload = () => {
 					if (reader.result !== imageInput && reader.result !== image) {
 						setImageInput(() => ''); // image-input
-						images.push(reader.result)
+						images.push(reader.result);
 					}
 					if (i === param.length - 1) {
 						change({
@@ -86,15 +86,15 @@ const Inputs = ({
 	};
 
 	const fontReader = ({ param }) => {
-		let arr = fonts
-		let index = arr.indexOf(param)
-		arr.unshift(param)
-		arr.splice(++index, 1)
+		let arr = fonts;
+		let index = arr.indexOf(param);
+		arr.unshift(param);
+		arr.splice(++index, 1);
 		change({
 			param: arr,
 			name: 'font'
-		})
-	}
+		});
+	};
 
 	return (
 		<>
@@ -122,8 +122,8 @@ const Inputs = ({
 					{colorType.status === 'Solid' ? (
 						<InputColor text="" value={bg} name="bg" change={change} />
 					) : (
-							<InputGradient text="" value={bg} name="bg" change={change} />
-						)}
+						<InputGradient text="" value={bg} name="bg" change={change} />
+					)}
 				</div>
 				<InputColor
 					text="Цвет текста"
@@ -170,7 +170,7 @@ const Inputs = ({
 					placeholder="Введите текст"
 					change={change}
 				/>
-				<div class="panel__group__inputs">
+				<div className="panel__group__inputs">
 					<Checkbox
 						text="Жирность"
 						type="bold"
@@ -195,12 +195,7 @@ const Inputs = ({
 							change={change}
 						/>
 					</div>
-					<Select
-						text=""
-						name="font"
-						value={fonts}
-						change={fontReader}
-					/>
+					<Select text="" name="font" value={fonts} change={fontReader} />
 				</div>
 			</div>
 			<div className="panel__group">

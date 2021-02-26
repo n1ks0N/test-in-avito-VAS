@@ -5,10 +5,10 @@ const initialState = reset;
 const editReducer = (state = initialState, action) => {
 	switch (action.type) {
 		case 'EDIT-SELECT':
-			return { ...state, width: action.width, height: action.height};
+			return { ...state, width: action.width, height: action.height };
 		case 'EDIT-CHANGE':
 			state[action.name] = action.param;
-			console.log(state.image, action.param)
+			console.log(state.image, action.param);
 			return state;
 		case 'EDIT-RESET':
 			return reset;

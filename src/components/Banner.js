@@ -1,7 +1,9 @@
 import React, { useEffect, useState } from 'react';
 import './Banner.css';
 
-const Banner = ({ banner: { width, height, bg, color, text, image, bold, italic, size, font } }) => {
+const Banner = ({
+	banner: { width, height, bg, color, text, image, bold, italic, size, font }
+}) => {
 	// const [img, setImg] = useState(image[0])
 	// useEffect(() => {
 	// 	if (image.length > 1) {
