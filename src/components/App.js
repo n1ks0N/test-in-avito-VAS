@@ -24,6 +24,7 @@ const App = ({ dispatch, state, state: { banner } }) => {
   };
 
   const change = ({ name, param }) => {
+    console.log(param)
     // главная функция изменения баннера
     dispatch({
       // editReducer
@@ -75,8 +76,10 @@ const App = ({ dispatch, state, state: { banner } }) => {
         <div className="ad__list">{footer.banners.map((data, i) => <a key={i} href={data.link}><img src={`${data.img}`} alt="ad" /></a>)}</div>
         <div className="ad__list">{footer.textButtons.map((data, i) => <a key={i} href={`${data.link}`}>{data.text}</a>)}</div>
       </main>
-      <h2>Обратная связь</h2>
-      <div><iframe title="Обратная связь" src="https://forms.yandex.ru/u/6035357ceac8405adc0ccc53/?iframe=1" frameBorder="0" name="ya-form-6035357ceac8405adc0ccc53" width="650" /></div>
+      <footer>
+        <h2>Обратная связь</h2>
+        <iframe title="Обратная связь" src="https://forms.yandex.ru/u/6035357ceac8405adc0ccc53/?iframe=1" frameBorder="0" name="ya-form-6035357ceac8405adc0ccc53" width="650" />
+      </footer>
       <Alerts alert={alert} setAlert={setAlert} />
     </>
   );

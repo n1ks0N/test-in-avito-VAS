@@ -41,7 +41,7 @@ const reset = {
 		style: 'rgba(0, 0, 0, 1)',
 		value: 0
 	},
-	image: base,
+	image: [base],
 	link: ''
 };
 

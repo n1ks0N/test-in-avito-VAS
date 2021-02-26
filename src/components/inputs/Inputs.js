@@ -16,7 +16,7 @@ const Inputs = ({
 	setImageInput,
 	state: {
 		select,
-		banner: { bg, text, color, image, link, bold, italic, size, font }
+		banner: { bg, text, color, image, link, bold, italic, size }
 	}
 }) => {
 	const [colorType, setColorType] = useState({
@@ -53,18 +53,24 @@ const Inputs = ({
 
 	const fileReader = ({ param }) => {
 		if (param) {
-			const reader = new FileReader();
-			reader.readAsDataURL(param);
-			reader.onload = () => {
-				if (reader.result !== imageInput && reader.result !== image) {
-					setImageInput(() => ''); // image-input
-					change({
-						// editReducer
-						param: reader.result,
-						name: 'image'
-					});
-				}
-			};
+			let images = []
+			for (let i = 0; i < param.length; i++) {
+				let reader = new FileReader();
+				reader.readAsDataURL(param[i]);
+				reader.onload = () => {
+					if (reader.result !== imageInput && reader.result !== image) {
+						setImageInput(() => ''); // image-input
+						images.push(reader.result)
+					}
+					if (i === param.length - 1) {
+						change({
+							// editReducer
+							param: images,
+							name: 'image'
+						});
+					}
+				};
+			}
 		}
 	};
 
@@ -150,6 +156,7 @@ const Inputs = ({
 							name="image"
 							accept="image/*"
 							change={fileReader}
+							multiple={true}
 						/>
 					</div>
 				</div>
@@ -163,7 +170,7 @@ const Inputs = ({
 					placeholder="Введите текст"
 					change={change}
 				/>
-				<div style={{ display: 'flex', flexDirection: 'row', alignItems: 'center', marginTop: '10px' }}>
+				<div class="panel__group__inputs">
 					<Checkbox
 						text="Жирность"
 						type="bold"

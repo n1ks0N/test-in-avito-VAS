@@ -2,10 +2,13 @@
     display: flex;
     flex-direction: row;
     justify-content: space-between;
-    align-items: flex-start;
+    align-items: center;
+    padding: 25px 50px;
+    flex-wrap: wrap;
 }
 .panel {
     max-width: 50vw;
+    width: 600px;
     position: relative;
 }
 .ad__list {
@@ -15,4 +18,12 @@
     align-items: center;
     flex-wrap: wrap;
     padding: 25px 50px;
+}
+.panel__group__inputs {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+    margin-top: 10px;
+    width: 100%;
 }

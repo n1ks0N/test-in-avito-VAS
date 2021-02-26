@@ -1,10 +1,10 @@
 import React, { useRef } from 'react';
 
-const InputFile = ({ text, name, accept, change }) => {
+const InputFile = ({ text, name, accept, change, multiple }) => {
 	const inputRef = useRef(null);
 	const record = () => {
 		change({
-			param: inputRef.current.files[0]
+			param: inputRef.current.files
 		});
 	};
 	return (
@@ -16,6 +16,7 @@ const InputFile = ({ text, name, accept, change }) => {
 				accept={accept}
 				ref={inputRef}
 				onChange={record}
+				multiple={multiple ? true : false}
 			/>
 			<label className="custom-file-label" htmlFor={name}>
 				{text}

@@ -12,6 +12,18 @@
       {
         "text": "linkslot",
         "link": "#"
+      },
+      {
+        "text": "linkslot",
+        "link": "#"
+      },
+      {
+        "text": "linkslot",
+        "link": "#"
+      },
+      {
+        "text": "linkslot",
+        "link": "#"
       }
     ],
     "banners": [
@@ -42,21 +54,20 @@
       {
         "text": "linkslot",
         "link": "#"
+      },
+      {
+        "text": "linkslot",
+        "link": "#"
+      },
+      {
+        "text": "linkslot",
+        "link": "#"
+      },
+      {
+        "text": "linkslot",
+        "link": "#"
       }
     ],
-    "banners": [
-      {
-        "img": "",
-        "link": "#"
-      },
-      {
-        "img": "",
-        "link": "#"
-      },
-      {
-        "img": "",
-        "link": "#"
-      }
-    ]
+    "banners": []
   }
 }

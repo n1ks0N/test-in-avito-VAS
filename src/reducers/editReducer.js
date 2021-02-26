@@ -8,6 +8,7 @@ const editReducer = (state = initialState, action) => {
 			return { ...state, width: action.width, height: action.height};
 		case 'EDIT-CHANGE':
 			state[action.name] = action.param;
+			console.log(state.image, action.param)
 			return state;
 		case 'EDIT-RESET':
 			return reset;
