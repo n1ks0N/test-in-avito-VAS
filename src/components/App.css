@@ -27,3 +27,14 @@
     margin-top: 10px;
     width: 100%;
 }
+@media all and (max-width: 650px) {
+    iframe {
+        width: 100%;
+    }
+    .main {
+        padding: 0;
+    }
+    .panel__group {
+        width: 100vw;
+    }
+}
