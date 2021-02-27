@@ -176,7 +176,7 @@ const Inputs = ({
 					change={change}
 				/>
 				<Range
-					text="➕/➖"
+					text="➖/➕"
 					name="imgSize"
 					max={200}
 					min={10}
