@@ -1,4 +1,5 @@
-import React, { useState } from 'react';
+import React from 'react';
+import Banner from '../Banner'
 import Select from './types/Select';
 import InputColor from './types/InputColor';
 import InputText from './types/InputText';
@@ -16,6 +17,7 @@ const Inputs = ({
 	setImageInput,
 	state: {
 		select,
+		banner,
 		banner: { width, height, text, color, image, link, bold, italic, size, left, top, imgSize }
 	}
 }) => {
@@ -91,6 +93,7 @@ const Inputs = ({
 					value={select}
 				/>
 			</div>
+			<Banner banner={banner} />
 			<div className="panel__group">
 				<Textarea
 					text="Текстовое содержание"

@@ -1,6 +1,5 @@
 import React, { useState } from 'react';
 import Inputs from './inputs/Inputs';
-import Banner from './Banner';
 import Buttons from './buttons/Buttons';
 import Alerts from './notifications/Alerts';
 import './App.css';
@@ -86,7 +85,6 @@ const App = ({ dispatch, state, state: { banner } }) => {
               <br />
               <Buttons banner={banner} notice={notice} reset={reset} />
             </div>
-            <Banner banner={banner} />
           </div>
           <center><div className="ya-share2" data-curtain data-size="l" data-shape="round" data-services="vkontakte,facebook,odnoklassniki,telegram,twitter,viber,whatsapp"></div></center>
         </div>
