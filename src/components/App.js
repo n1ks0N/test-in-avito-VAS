@@ -24,7 +24,6 @@ const App = ({ dispatch, state, state: { banner } }) => {
 	};
 
 	const change = ({ name, param }) => {
-		console.log(param);
 		// главная функция изменения баннера
 		dispatch({
 			// editReducer
@@ -49,9 +48,12 @@ const App = ({ dispatch, state, state: { banner } }) => {
 		setImageInput(() => ''); // image-input
 		notice('Сброшено'); // alert
 	};
-	console.log('render');
 	return (
 		<>
+      <div className="bg"></div>
+      <header>
+        <h3>Апрель16</h3>
+      </header>
 			<main>
 				<div className="header">
 					<div className="ad__list">
@@ -101,7 +103,7 @@ const App = ({ dispatch, state, state: { banner } }) => {
 				</div>
 			</main>
 			<footer>
-				<h2>Обратная связь</h2>
+				<h2 className="footer__title">Обратная связь</h2>
 				<iframe
 					title="Обратная связь"
 					src="https://forms.yandex.ru/u/6035357ceac8405adc0ccc53/?iframe=1"
@@ -109,6 +111,7 @@ const App = ({ dispatch, state, state: { banner } }) => {
 					name="ya-form-6035357ceac8405adc0ccc53"
 					width="650"
 				/>
+        <div className="hider"></div>
 			</footer>
 			<Alerts alert={alert} setAlert={setAlert} />
 		</>

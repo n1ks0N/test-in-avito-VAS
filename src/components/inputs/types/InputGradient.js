@@ -29,7 +29,6 @@ const InputGradient = ({ text, value, name, change }) => {
 		};
 	}
 	const record = (gradientAttrs) => {
-		console.log(gradientAttrs);
 		change({
 			param: gradientAttrs,
 			name: name

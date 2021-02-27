@@ -1,3 +1,21 @@
+header {
+    background-color: #2F80ED;
+    padding: 10px 100px;
+    color: #fff;
+}
+.bg {
+    position: fixed;
+    background-image: url(../assets/bg.jpg);
+    width: 100vw;
+    height: 100vh;
+    z-index: -1;
+}
+main {
+    z-index: 1;
+    width: 1024px;
+    margin: auto;
+    background-color: #f0f0f0;
+}
 .main {
     display: flex;
     flex-direction: row;
@@ -5,6 +23,7 @@
     align-items: flex-start;
     padding: 25px 50px;
     flex-wrap: wrap;
+    z-index: 1;
 }
 .panel {
     max-width: 50vw;
@@ -14,7 +33,7 @@
 .ad__list {
     display: flex;
     flex-direction: row;
-    justify-content: space-between;
+    justify-content: space-evenly;
     align-items: center;
     flex-wrap: wrap;
     padding: 25px 50px;
@@ -29,9 +48,23 @@
 }
 footer {
     display: flex;
+    position: relative;
     flex-direction: column;
     justify-content: center;
     align-items: center;
+    background-color: #2F80ED;
+    padding: 25px 0;
+}
+.footer__title {
+    color: #fff;
+}
+.hider {
+    position: absolute;
+    bottom: 25px;
+    height: 35px;
+    left: 0;
+    width: 100%;
+    background-color: #2F80ED;
 }
 @media all and (max-width: 650px) {
     iframe {

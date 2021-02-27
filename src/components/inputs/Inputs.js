@@ -122,8 +122,8 @@ const Inputs = ({
 					{colorType.status === 'Solid' ? (
 						<InputColor text="" value={bg} name="bg" change={change} />
 					) : (
-						<InputGradient text="" value={bg} name="bg" change={change} />
-					)}
+							<InputGradient text="" value={bg} name="bg" change={change} />
+						)}
 				</div>
 				<InputColor
 					text="Цвет текста"
@@ -171,6 +171,22 @@ const Inputs = ({
 					change={change}
 				/>
 				<div className="panel__group__inputs">
+					<Select
+						text=""
+						name="font"
+						value={fonts}
+						change={fontReader}
+					/>
+					<div style={{ width: `65px` }}>
+						<InputText
+							text=""
+							type="number"
+							value={size}
+							name="size"
+							placeholder="Размер"
+							change={change}
+						/>
+					</div>
 					<Checkbox
 						text="Жирность"
 						type="bold"
@@ -185,17 +201,6 @@ const Inputs = ({
 						name="italic"
 						change={change}
 					/>
-					<div style={{ width: `65px` }}>
-						<InputText
-							text=""
-							type="number"
-							value={size}
-							name="size"
-							placeholder="Размер"
-							change={change}
-						/>
-					</div>
-					<Select text="" name="font" value={fonts} change={fontReader} />
 				</div>
 			</div>
 			<div className="panel__group">
