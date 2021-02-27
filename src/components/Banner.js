@@ -4,14 +4,22 @@ import './Banner.css';
 const Banner = ({
 	banner: { width, height, bg, color, text, image, bold, italic, size, font }
 }) => {
-	// const [img, setImg] = useState(image[0])
-	// useEffect(() => {
-	// 	if (image.length > 1) {
-	// 		setInterval(() => {
-	// 			setImg(image[image.indexOf(img) !== image.length - 1 ? image.indexOf(img) + 1 : 0])
-	// 		}, 1000)
-	// 	}
-	// }, [image, img])
+	const [img, setImg] = useState(image[0])
+	useEffect(() => {
+		if (image.length > 1) {
+			setInterval(() => {
+				const index = image.indexOf(img)
+				if (index < image.length - 1) {
+					setImg(() => image[index+1])
+				} else {
+					setImg(() => image[0])
+				}
+			}, 5000)
+		}
+	}, [image, img])
+	useEffect(() => {
+		setImg(() => image[0])
+	}, [image])
 	const style = {
 		width: `${width}px`,
 		height: `${height}px`,
@@ -22,7 +30,7 @@ const Banner = ({
 		fontSize: `${size}px`,
 		fontFamily: `${font[0]}`,
 		wrapper: {
-			backgroundImage: `url('${image[0]}')`
+			backgroundImage: `url('${img}')`
 		}
 	};
 	return (

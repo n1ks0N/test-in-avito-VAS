@@ -59,10 +59,10 @@ const Buttons = ({
               height: ${height}px;
               background: ${bg.style};
               color: ${color.style};
-              font-weight: ${bold ? 'bold' : 'normal'},
-		          font-style: ${italic ? 'italic' : 'normal'},
-		          font-size: ${size}px,
-		          font-family: ${font[0]},
+              font-weight: ${bold ? 'bold' : 'normal'};
+		          font-style: ${italic ? 'italic' : 'normal'};
+		          font-size: ${size}px;
+		          font-family: ${font[0]};
             }
             .banner__img {
               position: absolute;
@@ -83,6 +83,18 @@ const Buttons = ({
           </style>
           <script>
             document.querySelector('.banner').addEventListener('click', () => window.open('${link}', '_blank'))
+						const image = [${image}]
+						let img = "${image[0]}"
+						if (image.length > 1) {
+							setInterval(() => {
+								let i = image.indexOf(img)
+								if (i < image.length - 1) {
+									setImg(() => image[i+1])
+								} else {
+									setImg(() => image[0])
+								}
+							}, 5000)
+						}
           </script>
         `;
 		navigator.clipboard.writeText(html);
