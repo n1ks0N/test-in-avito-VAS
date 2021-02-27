@@ -50,10 +50,10 @@ const App = ({ dispatch, state, state: { banner } }) => {
 	};
 	return (
 		<>
-      <div className="bg"></div>
-      <header>
-        <h3>Апрель16</h3>
-      </header>
+			<div className="bg"></div>
+			<header>
+				<h3>Апрель16</h3>
+			</header>
 			<main>
 				<div className="header">
 					<div className="ad__list">
@@ -111,7 +111,7 @@ const App = ({ dispatch, state, state: { banner } }) => {
 					name="ya-form-6035357ceac8405adc0ccc53"
 					width="650"
 				/>
-        <div className="hider"></div>
+				<div className="hider"></div>
 			</footer>
 			<Alerts alert={alert} setAlert={setAlert} />
 		</>

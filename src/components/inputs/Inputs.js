@@ -122,8 +122,8 @@ const Inputs = ({
 					{colorType.status === 'Solid' ? (
 						<InputColor text="" value={bg} name="bg" change={change} />
 					) : (
-							<InputGradient text="" value={bg} name="bg" change={change} />
-						)}
+						<InputGradient text="" value={bg} name="bg" change={change} />
+					)}
 				</div>
 				<InputColor
 					text="Цвет текста"
@@ -171,12 +171,7 @@ const Inputs = ({
 					change={change}
 				/>
 				<div className="panel__group__inputs">
-					<Select
-						text=""
-						name="font"
-						value={fonts}
-						change={fontReader}
-					/>
+					<Select text="" name="font" value={fonts} change={fontReader} />
 					<div style={{ width: `65px` }}>
 						<InputText
 							text=""

@@ -41,7 +41,9 @@ const Buttons = ({
 		const html = `
           <div class="banner">
             <p class="banner__text">${text}</p>
-            <img class="banner__img" alt="banner" align="center" src="${image}">
+            <img class="banner__img" alt="banner" align="center" src="${
+							image[0]
+						}">
           </div>
           <style>
             .banner {
