@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react';
 import './Banner.css';
 
 const Banner = ({
-	banner: { width, height, bg, color, text, image, bold, italic, size, font }
+	banner: { width, height, color, text, image, bold, italic, size, font, left, top, imgSize }
 }) => {
 	const [img, setImg] = useState(image[0])
 	useEffect(() => {
@@ -23,14 +23,16 @@ const Banner = ({
 	const style = {
 		width: `${width}px`,
 		height: `${height}px`,
-		background: `${bg.style}`,
-		color: `${color.style}`,
+		backgroundColor: `#ffffff`,
+		color: `${color}`,
 		fontWeight: `${bold ? 'bold' : 'normal'}`,
 		fontStyle: `${italic ? 'italic' : 'normal'}`,
 		fontSize: `${size}px`,
 		fontFamily: `${font[0]}`,
 		wrapper: {
-			backgroundImage: `url('${img}')`
+			backgroundImage: `url('${img}')`,
+			backgroundPosition: `${left}px ${top}px`,
+			backgroundSize: `${imgSize}%`
 		}
 	};
 	return (

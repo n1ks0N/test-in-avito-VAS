@@ -11,9 +11,8 @@
     flex-direction: row;
     align-items: center;
     justify-content: center;
-    background-position: bottom right;
     background-repeat: no-repeat;
-    background-size: contain;
+    border: 1px solid #000;
 }
 .banner__text {
     width: 100%;

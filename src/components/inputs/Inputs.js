@@ -1,11 +1,11 @@
 import React, { useState } from 'react';
 import Select from './types/Select';
-import InputGradient from './types/InputGradient';
 import InputColor from './types/InputColor';
 import InputText from './types/InputText';
 import Textarea from './types/Textarea';
 import InputFile from './types/InputFile';
 import Checkbox from './types/Checkbox';
+import Range from './types/Range';
 import { fonts } from '../../constants/fonts.json';
 import './Inputs.css';
 
@@ -16,24 +16,9 @@ const Inputs = ({
 	setImageInput,
 	state: {
 		select,
-		banner: { bg, text, color, image, link, bold, italic, size }
+		banner: { width, height, text, color, image, link, bold, italic, size, left, top, imgSize }
 	}
 }) => {
-	const [colorType, setColorType] = useState({
-		status: 'Linear',
-		types: ['Linear', 'Solid']
-	});
-
-	const colorReader = ({ param }) => {
-		setColorType(() => {
-			if (param === 'Solid') {
-				return { status: 'Solid', types: ['Solid', 'Linear'] };
-			} else {
-				return { status: 'Linear', types: ['Linear', 'Solid'] };
-			}
-		});
-	};
-
 	const sizeReader = ({ param }) => {
 		change({
 			// editReducer
@@ -106,61 +91,6 @@ const Inputs = ({
 					value={select}
 				/>
 			</div>
-
-			<div className="panel__group panel__double-input panel__group-color">
-				<div className="panel__group__input-color">
-					<div className="panel__group__input-color__label">
-						<label className="panel__group__special-label">Фоновый цвет</label>
-						<Select
-							className=""
-							text=""
-							name="colorType"
-							change={colorReader}
-							value={colorType.types}
-						/>
-					</div>
-					{colorType.status === 'Solid' ? (
-						<InputColor text="" value={bg} name="bg" change={change} />
-					) : (
-						<InputGradient text="" value={bg} name="bg" change={change} />
-					)}
-				</div>
-				<InputColor
-					text="Цвет текста"
-					value={color}
-					name="color"
-					change={change}
-				/>
-			</div>
-
-			<div className="panel__group">
-				<label htmlFor="panel-image">
-					Изображение
-					<br />
-					<span>Вставьте URL картинки или загрузите с компьютера</span>
-				</label>
-				<div className="panel__double-input" id="panel-image">
-					<div className="input-group panel-image__wrapper">
-						<InputText
-							text=""
-							type="url"
-							value={imageInput}
-							name="image"
-							placeholder="https://"
-							change={urlReader}
-						/>
-					</div>
-					<div className="input-group">
-						<InputFile
-							text="Выберите изображение"
-							name="image"
-							accept="image/*"
-							change={fileReader}
-							multiple={true}
-						/>
-					</div>
-				</div>
-			</div>
 			<div className="panel__group">
 				<Textarea
 					text="Текстовое содержание"
@@ -198,15 +128,59 @@ const Inputs = ({
 					/>
 				</div>
 			</div>
-			<div className="panel__group">
-				<InputText
-					text="Ссылка в объявлении"
-					type="url"
-					value={link}
-					name="link"
-					placeholder="https://"
+
+			<div className="panel__group panel__double-input panel__group-color">
+				<InputColor
+					text="Цвет текста"
+					value={color}
+					name="color"
 					change={change}
 				/>
+			</div>
+
+			<div className="panel__group">
+				<label htmlFor="panel-image">
+					Изображение
+					<br />
+					<span>Вставьте URL картинки или загрузите с компьютера</span>
+				</label>
+				<div className="panel__double-input" id="panel-image">
+					<div className="input-group">
+						<InputFile
+							text="Выберите изображение"
+							name="image"
+							accept="image/*"
+							change={fileReader}
+							multiple={false}
+						/>
+					</div>
+				</div>
+				<div className="panel__group__input-color">
+				<Range
+					text="⬅/➡"
+					name="left"
+					max={width}
+					min={-width}
+					value={left}
+					change={change}
+				/>
+				<Range
+					text="⬆/⬇"
+					name="top"
+					max={height}
+					min={-height}
+					value={top}
+					change={change}
+				/>
+				<Range
+					text="➕/➖"
+					name="imgSize"
+					max={200}
+					min={10}
+					value={imgSize}
+					change={change}
+				/>
+				</div>
 			</div>
 		</>
 	);

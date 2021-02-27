@@ -2,7 +2,23 @@
   "header": {
     "textButtons": [
       {
-        "text": "linkslot",
+        "text": "новинки",
+        "link": "#"
+      },
+      {
+        "text": "популярное",
+        "link": "#"
+      },
+      {
+        "text": "как заработать в интернете",
+        "link": "#"
+      },
+      {
+        "text": "инвестирование",
+        "link": "#"
+      },
+      {
+        "text": "другое",
         "link": "#"
       },
       {
@@ -10,7 +26,23 @@
         "link": "#"
       },
       {
-        "text": "linkslot",
+        "text": "новинки",
+        "link": "#"
+      },
+      {
+        "text": "популярное",
+        "link": "#"
+      },
+      {
+        "text": "как заработать в интернете",
+        "link": "#"
+      },
+      {
+        "text": "инвестирование",
+        "link": "#"
+      },
+      {
+        "text": "другое",
         "link": "#"
       },
       {
@@ -18,7 +50,23 @@
         "link": "#"
       },
       {
-        "text": "linkslot",
+        "text": "новинки",
+        "link": "#"
+      },
+      {
+        "text": "популярное",
+        "link": "#"
+      },
+      {
+        "text": "как заработать в интернете",
+        "link": "#"
+      },
+      {
+        "text": "инвестирование",
+        "link": "#"
+      },
+      {
+        "text": "другое",
         "link": "#"
       },
       {
@@ -27,6 +75,14 @@
       }
     ],
     "banners": [
+      {
+        "img": "https://cdn.discordapp.com/attachments/395831758714568706/815152730942996510/unknown.png",
+        "link": "#"
+      },
+      {
+        "img": "https://cdn.discordapp.com/attachments/395831758714568706/815152730942996510/unknown.png",
+        "link": "#"
+      },
       {
         "img": "https://cdn.discordapp.com/attachments/395831758714568706/815152730942996510/unknown.png",
         "link": "#"

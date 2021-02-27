@@ -5,43 +5,15 @@ const base =
 const reset = {
 	width: '300',
 	height: '250',
-	bg: {
-		degree: 0,
-		points: [
-			{
-				left: 100,
-				red: 242,
-				green: 87,
-				blue: 224,
-				alpha: 0.8
-			},
-			{
-				left: 40,
-				red: 86,
-				green: 204,
-				blue: 242,
-				alpha: 1
-			}
-		],
-		style:
-			'linear-gradient(0deg,rgba(86, 204, 242, 1) 40%,rgba(242, 87, 224, 0.8) 100%)',
-		type: 'linear'
-	},
 	text: 'Раритетные авто от собственников',
 	bold: false,
 	italic: false,
 	size: 25,
+	left: 0,
+	top: 0,
 	font: fonts,
-	color: {
-		alpha: 1,
-		blue: 0,
-		green: 0,
-		hue: 0,
-		red: 0,
-		saturation: 0,
-		style: 'rgba(0, 0, 0, 1)',
-		value: 0
-	},
+	imgSize: '100',
+	color: 'black',
 	image: [base],
 	link: ''
 };

@@ -1,5 +1,5 @@
 header {
-    background-color: #2F80ED;
+    background-color: #256dc1;
     padding: 10px 100px;
     color: #fff;
 }
@@ -12,23 +12,26 @@ header {
 }
 main {
     z-index: 1;
+}
+.app {
+    padding: 25px 50px;
+    flex-wrap: wrap;
+    z-index: 1;
+    background-color: #f0f0f0;
     width: 1024px;
     margin: auto;
-    background-color: #f0f0f0;
 }
 .main {
     display: flex;
     flex-direction: row;
     justify-content: space-between;
     align-items: flex-start;
-    padding: 25px 50px;
-    flex-wrap: wrap;
-    z-index: 1;
 }
 .panel {
     max-width: 50vw;
     width: 600px;
     position: relative;
+    margin-bottom: 50px;
 }
 .ad__list {
     display: flex;
@@ -37,6 +40,12 @@ main {
     align-items: center;
     flex-wrap: wrap;
     padding: 25px 50px;
+}
+.ad__list a {
+    color: #000;
+    font-weight: bold;
+    font-size: 21px;
+    text-transform: uppercase;
 }
 .panel__group__inputs {
     display: flex;
@@ -52,7 +61,7 @@ footer {
     flex-direction: column;
     justify-content: center;
     align-items: center;
-    background-color: #2F80ED;
+    background-color: #256dc1;
     padding: 25px 0;
 }
 .footer__title {
@@ -64,7 +73,7 @@ footer {
     height: 35px;
     left: 0;
     width: 100%;
-    background-color: #2F80ED;
+    background-color: #256dc1;
 }
 @media all and (max-width: 650px) {
     iframe {

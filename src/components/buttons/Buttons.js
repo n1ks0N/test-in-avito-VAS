@@ -1,17 +1,14 @@
 import React from 'react';
 import ButtonExport from './types/ButtonExport';
-import ButtonReset from './types/ButtonReset';
 import html2canvas from 'html2canvas';
 import './Buttons.css';
 
 const Buttons = ({
-	reset,
 	notice,
 	banner: {
 		width,
 		height,
 		text,
-		bg,
 		color,
 		image,
 		link,
@@ -57,7 +54,7 @@ const Buttons = ({
               justify-content: center;
               width: ${width}px;
               height: ${height}px;
-              background: ${bg.style};
+              background: #fff;
               color: ${color.style};
               font-weight: ${bold ? 'bold' : 'normal'};
 		          font-style: ${italic ? 'italic' : 'normal'};
@@ -102,7 +99,6 @@ const Buttons = ({
 	};
 	return (
 		<div className="panel__buttons">
-			<ButtonReset click={reset} />
 			<ButtonExport text="Сохранить как PNG" click={exportPNG} />
 			<ButtonExport text="Скопировать как HTML" click={exportHTML} />
 		</div>

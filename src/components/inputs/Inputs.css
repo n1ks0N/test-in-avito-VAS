@@ -11,7 +11,7 @@
 }
 .panel__group__input-color {
     display: flex;
-    flex-direction: column;
+    flex-direction: row;
     justify-content: space-between;
     align-items: center;
 }
@@ -37,4 +37,11 @@
 }
 .input-group {
     width: auto;
+}
+.btn__color {
+    margin: 5px;
+}
+.range {
+    font-size: 40px;
+    margin: 10px;
 }
