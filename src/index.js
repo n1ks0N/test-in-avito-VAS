@@ -4,7 +4,7 @@ import 'bootstrap/dist/css/bootstrap.css';
 import App from './components/App';
 import store from './store';
 import './index.css';
-import 'react-color-gradient-picker/dist/index.css';
+import "gifler";
 import reportWebVitals from './reportWebVitals';
 
 const render = (state) => {

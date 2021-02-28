@@ -15,32 +15,28 @@ const Buttons = ({
 	const exportPNG = () => {
 		const y = window.scrollY;
 		window.scrollTo(0, 0); // эмуляция прокрутки окна к верху, для исправления бага html2canvas
-		html2canvas(document.querySelector('.banner')).then((canvas) => {
-			const image = canvas.toDataURL();
-			const a = document.createElement('A');
-			a.href = image; // eslint-disable-next-line
-			a.download = image.substr(image.lastIndexOf('+') + 1).split(/[\=\$]/g)[0];
-			document.body.appendChild(a);
-			a.click();
-			document.body.removeChild(a);
-		});
+		html2canvas(document.querySelectorAll('.banner')[0]).then((canvas) => {
+		})
 		window.scrollTo(0, y);
 		notice('Сохранено');
 	};
 
 	const exportHTML = () => {
-		// const styles = properties.map(data => ({
-		// 	'color': `${data.color}`,
-		// 	'font-weight': `${data.bold ? 'bold' : 'normal'}`,
-		// 	'font-style': `${data.italic ? 'italic' : 'normal'}`,
-		// 	'font-size': `${data.size}px`,
-		// 	'font-family': `${data.font[0]}`
-		// }))
 		const props = JSON.stringify(properties);
 		const html = `
-          <div class="banner">
+          <div class="banner" id="el0">
             <p class="banner__text">${properties[0].text}</p>
-            <img class="banner__img" alt="banner" align="center" src="${properties[0].image
+            <img class="banner__img" alt="banner" src="${properties[0].image
+			}">
+			</div>
+			<div class="banner" id="el1">
+            <p class="banner__text">${properties[1].text}</p>
+            <img class="banner__img" alt="banner" src="${properties[1].image
+			}">
+			</div>
+			<div class="banner" id="el2">
+            <p class="banner__text">${properties[2].text}</p>
+            <img class="banner__img" alt="banner" src="${properties[2].image
 			}">
           </div>
           <style>
@@ -57,13 +53,48 @@ const Buttons = ({
               height: ${height}px;
               background: #fff;
             }
+						#el0 {
+							color: ${properties[0].color};
+							font-weight: ${properties[0].bold ? 'bold' : 'normal'};
+							font-style: ${properties[0].italic ? 'italic' : 'normal'};
+							font-size: ${properties[0].size}px;
+							font-family: ${properties[0].font.fonts[0]};
+						}
+						#el1 {
+							color: ${properties[1].color};
+							font-weight: ${properties[1].bold ? 'bold' : 'normal'};
+							font-style: ${properties[1].italic ? 'italic' : 'normal'};
+							font-size: ${properties[1].size}px;
+							font-family: ${properties[1].font.fonts[0]};
+							display: none;
+						}
+						#el2 {
+							color: ${properties[2].color};
+							font-weight: ${properties[2].bold ? 'bold' : 'normal'};
+							font-style: ${properties[2].italic ? 'italic' : 'normal'};
+							font-size: ${properties[2].size}px;
+							font-family: ${properties[2].font.fonts[2]};
+							display: none;
+						}
             .banner__img {
               position: absolute;
-              bottom: 0;
-              right: 0;
+              top: 0;
+              left: 0;
               max-width: ${width}px;
               max-height: ${height}px;
             }
+						#el0 > .banner__img {
+							top: ${properties[0].top}px;
+							left: ${properties[0].left}px;
+						}
+						#el1 > .banner__img {
+							top: ${properties[1].top}px;
+							left: ${properties[1].left}px;
+						}
+						#el2 > .banner__img {
+							top: ${properties[2].top}px;
+							left: ${properties[2].left}px;
+						}
             .banner__text {
               width: 100%;
               margin: 0;
@@ -75,24 +106,13 @@ const Buttons = ({
             }
           </style>
           <script>
-						const props = ${props}
-						const styles = props.map(data => ({
-							color: data.color;
-						}))
-						let style = styles[0];
 						let count = 0;
             setInterval(() => {
-							if (count < 2) {
-								count++;
-							} else {
-								count = 0;
-							}
-							style = styles[count]
+							count < 2 ? count++ : count = 0;
+							document.getElementById(\`el\${count ? count-1 : 2}\`).style.display = 'none';
+							document.getElementById(\`el\${count}\`).style.display = 'flex';
 						}, ${time}000)
-						document.querySelector('.banner').style = style;
-						document.querySelector('.banner__text').text = props[count].text;
-          </script>
-        `;
+        </script>`;
 		navigator.clipboard.writeText(html);
 		notice('Скопировано');
 	};
