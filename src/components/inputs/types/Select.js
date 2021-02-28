@@ -1,10 +1,11 @@
 import React, { useRef } from 'react';
 
-const Select = ({ text, name, value, change, className }) => {
+const Select = ({ text, name, value, change, className, i }) => {
 	const inputRef = useRef(value);
 	const record = () => {
 		change({
-			param: inputRef.current.value
+			param: inputRef.current.value,
+			index: i
 		});
 	};
 	return (

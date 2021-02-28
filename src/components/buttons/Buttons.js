@@ -8,14 +8,8 @@ const Buttons = ({
 	banner: {
 		width,
 		height,
-		text,
-		color,
-		image,
-		link,
-		bold,
-		italic,
-		size,
-		font
+		properties,
+		time
 	}
 }) => {
 	const exportPNG = () => {
@@ -35,12 +29,19 @@ const Buttons = ({
 	};
 
 	const exportHTML = () => {
+		// const styles = properties.map(data => ({
+		// 	'color': `${data.color}`,
+		// 	'font-weight': `${data.bold ? 'bold' : 'normal'}`,
+		// 	'font-style': `${data.italic ? 'italic' : 'normal'}`,
+		// 	'font-size': `${data.size}px`,
+		// 	'font-family': `${data.font[0]}`
+		// }))
+		const props = JSON.stringify(properties);
 		const html = `
           <div class="banner">
-            <p class="banner__text">${text}</p>
-            <img class="banner__img" alt="banner" align="center" src="${
-							image[0]
-						}">
+            <p class="banner__text">${properties[0].text}</p>
+            <img class="banner__img" alt="banner" align="center" src="${properties[0].image
+			}">
           </div>
           <style>
             .banner {
@@ -55,11 +56,6 @@ const Buttons = ({
               width: ${width}px;
               height: ${height}px;
               background: #fff;
-              color: ${color.style};
-              font-weight: ${bold ? 'bold' : 'normal'};
-		          font-style: ${italic ? 'italic' : 'normal'};
-		          font-size: ${size}px;
-		          font-family: ${font[0]};
             }
             .banner__img {
               position: absolute;
@@ -79,19 +75,22 @@ const Buttons = ({
             }
           </style>
           <script>
-            document.querySelector('.banner').addEventListener('click', () => window.open('${link}', '_blank'))
-						const image = [${image}]
-						let img = "${image[0]}"
-						if (image.length > 1) {
-							setInterval(() => {
-								let i = image.indexOf(img)
-								if (i < image.length - 1) {
-									setImg(() => image[i+1])
-								} else {
-									setImg(() => image[0])
-								}
-							}, 5000)
-						}
+						const props = ${props}
+						const styles = props.map(data => ({
+							color: data.color;
+						}))
+						let style = styles[0];
+						let count = 0;
+            setInterval(() => {
+							if (count < 2) {
+								count++;
+							} else {
+								count = 0;
+							}
+							style = styles[count]
+						}, ${time}000)
+						document.querySelector('.banner').style = style;
+						document.querySelector('.banner__text').text = props[count].text;
           </script>
         `;
 		navigator.clipboard.writeText(html);
@@ -99,7 +98,7 @@ const Buttons = ({
 	};
 	return (
 		<div className="panel__buttons">
-			<ButtonExport text="Сохранить как PNG" click={exportPNG} />
+			<ButtonExport text="Сохранить как GIF" click={exportPNG} />
 			<ButtonExport text="Скопировать как HTML" click={exportHTML} />
 		</div>
 	);

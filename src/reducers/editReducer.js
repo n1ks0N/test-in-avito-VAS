@@ -10,52 +10,10 @@ const editReducer = (state = initialState, action) => {
 		case 'EDIT-SELECT':
 			return { ...state, width: action.width, height: action.height };
 		case 'EDIT-CHANGE':
-			state[action.name] = action.param;
+			state.properties[action.index][action.name] = action.param;
 			return state;
-		case 'EDIT-RESET':
-			return {
-				width: '300',
-				height: '250',
-				bg: {
-					degree: 0,
-					points: [
-						{
-							left: 100,
-							red: 242,
-							green: 87,
-							blue: 224,
-							alpha: 0.8
-						},
-						{
-							left: 40,
-							red: 86,
-							green: 204,
-							blue: 242,
-							alpha: 1
-						}
-					],
-					style:
-						'linear-gradient(0deg,rgba(86, 204, 242, 1) 40%,rgba(242, 87, 224, 0.8) 100%)',
-					type: 'linear'
-				},
-				text: 'Раритетные авто от собственников',
-				bold: false,
-				italic: false,
-				size: 25,
-				font: 'Roboto',
-				color: {
-					alpha: 1,
-					blue: 0,
-					green: 0,
-					hue: 0,
-					red: 0,
-					saturation: 0,
-					style: 'rgba(0, 0, 0, 1)',
-					value: 0
-				},
-				image: [base],
-				link: ''
-			};
+		case 'EDIT-TIME':
+			return {...state, time: action.time}
 		default:
 			return state;
 	}
@@ -66,11 +24,12 @@ export const changeActionCreater = (width, height) => ({
 	width: width,
 	height: height
 });
-export const alterActionCreater = (param, name) => ({
+export const alterActionCreater = (param, name, index) => ({
 	type: 'EDIT-CHANGE',
 	param: param,
-	name: name
+	name: name,
+	index: index
 });
-export const resetActionCreater = () => ({ type: 'EDIT-RESET' });
+export const timeActionCreater = (time) => ({ type: 'EDIT-TIME', time: time });
 
 export default editReducer;

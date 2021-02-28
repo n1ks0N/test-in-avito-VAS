@@ -28,10 +28,14 @@ main {
     align-items: flex-start;
 }
 .panel {
-    max-width: 50vw;
+    max-width: 100%;
     width: 600px;
     position: relative;
     margin-bottom: 50px;
+    margin: auto;
+}
+.ya-share2 {
+    margin-top: 25px;
 }
 .ad__list {
     display: flex;
@@ -46,14 +50,6 @@ main {
     font-weight: bold;
     font-size: 21px;
     text-transform: uppercase;
-}
-.panel__group__inputs {
-    display: flex;
-    flex-direction: row;
-    justify-content: space-between;
-    align-items: center;
-    margin-top: 10px;
-    width: 100%;
 }
 footer {
     display: flex;
@@ -79,8 +75,14 @@ footer {
     iframe {
         width: 100%;
     }
+    .ad__list_width {
+        width: 100%;
+    }
     .main {
         padding: 0;
+    }
+    .app {
+        width: 100vw;
     }
     .panel__group {
         width: 100vw;

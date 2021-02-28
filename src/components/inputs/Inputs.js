@@ -15,10 +15,11 @@ const Inputs = ({
 	change,
 	imageInput,
 	setImageInput,
+	delay,
 	state: {
 		select,
 		banner,
-		banner: { width, height, text, color, image, link, bold, italic, size, left, top, imgSize }
+		banner: { width, height, properties, time },
 	}
 }) => {
 	const sizeReader = ({ param }) => {
@@ -38,51 +39,41 @@ const Inputs = ({
 		});
 	};
 
-	const fileReader = ({ param }) => {
+	const fileReader = ({ param, index }) => {
 		if (param) {
-			let images = [];
-			for (let i = 0; i < param.length; i++) {
-				let reader = new FileReader();
-				reader.readAsDataURL(param[i]);
-				reader.onload = () => {
-					if (reader.result !== imageInput && reader.result !== image) {
-						setImageInput(() => ''); // image-input
-						images.push(reader.result);
-					}
-					if (i === param.length - 1) {
-						change({
-							// editReducer
-							param: images,
-							name: 'image'
-						});
-					}
-				};
-			}
+			let reader = new FileReader();
+			reader.readAsDataURL(param);
+			reader.onload = () => {
+				if (reader.result !== imageInput && reader.result !== properties[index].image) {
+					setImageInput(() => ''); // image-input
+					change({
+						// editReducer
+						param: reader.result,
+						name: 'image',
+						index: index
+					});
+				}
+			};
 		}
 	};
 
-	const urlReader = ({ param }) => {
-		setImageInput(() => param); // image-input
-		if (param !== image && param !== '') {
-			change({
-				// editReducer
-				param: param,
-				name: 'image'
-			});
-		}
-	};
-
-	const fontReader = ({ param }) => {
+	const fontReader = ({ param, index }) => {
 		let arr = fonts;
-		let index = arr.indexOf(param);
+		const i = arr.indexOf(param);
 		arr.unshift(param);
-		arr.splice(++index, 1);
+		arr.splice(i + 1, 1);
 		change({
 			param: arr,
-			name: 'font'
+			name: 'font',
+			index: index
 		});
 	};
 
+	const timeChanger = ({ param }) => {
+		delay({
+			param: param
+		})
+	}
 	return (
 		<>
 			<div className="panel__group">
@@ -93,98 +84,115 @@ const Inputs = ({
 					value={select}
 				/>
 			</div>
-			<Banner banner={banner} />
-			<div className="panel__group">
-				<Textarea
-					text="Текстовое содержание"
-					type="text"
-					value={text}
-					name="text"
-					placeholder="Введите текст"
-					change={change}
-				/>
-				<div className="panel__group__inputs">
-					<Select text="" name="font" value={fonts} change={fontReader} />
-					<div style={{ width: `65px` }}>
-						<InputText
-							text=""
-							type="number"
-							value={size}
-							name="size"
-							placeholder="Размер"
+			{properties.map((data, i) => <div key={i}>
+				<Banner banner={banner} properties={properties[i]} i={i} />
+				<div className="panel__group">
+					<Textarea
+						text="Текстовое содержание"
+						type="text"
+						value={data.text}
+						name="text"
+						placeholder="Введите текст"
+						change={change}
+						i={i}
+					/>
+					<div className="panel__group__inputs">
+						<Select text="" name="font" value={fonts} change={fontReader} i={i} />
+						<div style={{ width: `65px` }}>
+							<InputText
+								text=""
+								type="number"
+								value={data.size}
+								name="size"
+								placeholder="Размер"
+								change={change}
+								i={i}
+							/>
+						</div>
+						<Checkbox
+							text="Жирность"
+							type="bold"
+							value={data.bold}
+							name="bold"
 							change={change}
+							i={i}
+						/>
+						<Checkbox
+							text="Курсив"
+							type="italic"
+							value={data.italic}
+							name="italic"
+							change={change}
+							i={i}
 						/>
 					</div>
-					<Checkbox
-						text="Жирность"
-						type="bold"
-						value={bold}
-						name="bold"
+				</div>
+				<div className="panel__group panel__double-input panel__group-color">
+					<InputColor
+						text="Цвет текста"
+						value={data.color}
+						name="color"
 						change={change}
-					/>
-					<Checkbox
-						text="Курсив"
-						type="italic"
-						value={italic}
-						name="italic"
-						change={change}
+						i={i}
 					/>
 				</div>
-			</div>
-
-			<div className="panel__group panel__double-input panel__group-color">
-				<InputColor
-					text="Цвет текста"
-					value={color}
-					name="color"
-					change={change}
-				/>
-			</div>
-
-			<div className="panel__group">
-				<label htmlFor="panel-image">
-					Изображение
+				<div className="panel__group">
+					<label htmlFor="panel-image">
+						Изображение
 					<br />
-					<span>Вставьте URL картинки или загрузите с компьютера</span>
-				</label>
-				<div className="panel__double-input" id="panel-image">
-					<div className="input-group">
-						<InputFile
-							text="Выберите изображение"
-							name="image"
-							accept="image/*"
-							change={fileReader}
-							multiple={false}
+						<span>Вставьте URL картинки или загрузите с компьютера</span>
+					</label>
+					<div className="panel__double-input" id="panel-image">
+						<div className="input-group">
+							<InputFile
+								text="Выберите изображение"
+								name="image"
+								accept="image/*"
+								change={fileReader}
+								multiple={false}
+								i={i}
+							/>
+						</div>
+					</div>
+					<div className="panel__group__input-color">
+						<Range
+							text="⬅/➡"
+							name="left"
+							max={width}
+							min={-width}
+							value={data.left}
+							change={change}
+							i={i}
+						/>
+						<Range
+							text="⬆/⬇"
+							name="top"
+							max={height}
+							min={-height}
+							value={data.top}
+							change={change}
+							i={i}
+						/>
+						<Range
+							text="➖/➕"
+							name="imgSize"
+							max={200}
+							min={10}
+							value={data.imgSize}
+							change={change}
+							i={i}
 						/>
 					</div>
 				</div>
-				<div className="panel__group__input-color">
-				<Range
-					text="⬅/➡"
-					name="left"
-					max={width}
-					min={-width}
-					value={left}
-					change={change}
-				/>
-				<Range
-					text="⬆/⬇"
-					name="top"
-					max={height}
-					min={-height}
-					value={top}
-					change={change}
-				/>
-				<Range
-					text="➖/➕"
-					name="imgSize"
-					max={200}
-					min={10}
-					value={imgSize}
-					change={change}
-				/>
-				</div>
-			</div>
+				<hr />
+			</div>)}
+			<InputText
+				text="Время анимации"
+				name="time"
+				type="number"
+				value={time}
+				change={timeChanger}
+			/>
 		</>
 	);
 };

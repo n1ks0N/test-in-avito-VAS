@@ -1,11 +1,12 @@
 import React, { useRef } from 'react';
 
-const Range = ({ text, max, min, value, name, change }) => {
+const Range = ({ text, max, min, value, name, change, i }) => {
   const inputRef = useRef(value)
 	const record = () => {
 		change({
 			param: inputRef.current.value,
-			name: name
+			name: name,
+      index: i
 		});
 	};
 	return (

@@ -2,24 +2,11 @@ import React, { useEffect, useState } from 'react';
 import './Banner.css';
 
 const Banner = ({
-	banner: { width, height, color, text, image, bold, italic, size, font, left, top, imgSize }
+	banner: { width, height },
+	properties: {
+		color, text, image, bold, italic, size, font, left, top, imgSize
+	}
 }) => {
-	const [img, setImg] = useState(image[0])
-	useEffect(() => {
-		if (image.length > 1) {
-			setInterval(() => {
-				const index = image.indexOf(img)
-				if (index < image.length - 1) {
-					setImg(() => image[index+1])
-				} else {
-					setImg(() => image[0])
-				}
-			}, 5000)
-		}
-	}, [image, img])
-	useEffect(() => {
-		setImg(() => image[0])
-	}, [image])
 	const style = {
 		width: `${width}px`,
 		height: `${height}px`,
@@ -30,14 +17,13 @@ const Banner = ({
 		fontSize: `${size}px`,
 		fontFamily: `${font[0]}`,
 		wrapper: {
-			backgroundImage: `url('${img}')`,
+			backgroundImage: `url('${image}')`,
 			backgroundPosition: `${left}px ${top}px`,
 			backgroundSize: `${imgSize}%`
 		}
 	};
 	return (
 		<div>
-			<h3>Результат</h3>
 			<div className="banner" style={style}>
 				<div className="banner__wrapper" style={style.wrapper}>
 					<p className="banner__text">{text}</p>

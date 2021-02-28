@@ -1,10 +1,11 @@
 import React, { useRef } from 'react';
 
-const InputFile = ({ text, name, accept, change, multiple }) => {
+const InputFile = ({ text, name, accept, change, multiple, i }) => {
 	const inputRef = useRef(null);
 	const record = () => {
 		change({
-			param: inputRef.current.files
+			param: inputRef.current.files[0],
+			index: i
 		});
 	};
 	return (

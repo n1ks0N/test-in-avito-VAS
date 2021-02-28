@@ -1,10 +1,11 @@
 import React from 'react';
 
-const Checkbox = ({ text, name, value, change }) => {
+const Checkbox = ({ text, name, value, change, i }) => {
 	const record = () => {
 		change({
 			param: !value,
-			name: name
+			name: name,
+			index: i
 		});
 	};
 	return (

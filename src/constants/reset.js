@@ -5,17 +5,45 @@ const base =
 const reset = {
 	width: '300',
 	height: '250',
-	text: 'Раритетные авто от собственников',
-	bold: false,
-	italic: false,
-	size: 25,
-	left: 0,
-	top: 0,
-	font: fonts,
-	imgSize: '100',
-	color: 'black',
-	image: [base],
-	link: ''
+	time: '5',
+	properties: [
+		{
+			text: 'Раритетные авто от собственников',
+			bold: false,
+			italic: false,
+			size: 25,
+			left: 0,
+			top: 0,
+			font: fonts,
+			imgSize: '100',
+			color: 'black',
+			image: base
+		},
+		{
+			text: 'Раритетные авто от собственников',
+			bold: false,
+			italic: false,
+			size: 25,
+			left: 0,
+			top: 0,
+			font: fonts,
+			imgSize: '100',
+			color: 'black',
+			image: base
+		},
+		{
+			text: 'Раритетные авто от собственников',
+			bold: false,
+			italic: false,
+			size: 25,
+			left: 0,
+			top: 0,
+			font: fonts,
+			imgSize: '100',
+			color: 'black',
+			image: base
+		}
+	]
 };
 
 export default reset;

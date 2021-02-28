@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import Inputs from './inputs/Inputs';
 import Buttons from './buttons/Buttons';
 import Alerts from './notifications/Alerts';
+import Result from './Result'
 import './App.css';
 import { header, footer } from '../constants/linkslot.json';
 
@@ -22,13 +23,21 @@ const App = ({ dispatch, state, state: { banner } }) => {
     });
   };
 
-  const change = ({ name, param }) => {
+  const delay = ({ param }) => {
+    dispatch({
+      type: 'EDIT-TIME',
+      time: param
+    })
+  }
+
+  const change = ({ name, param, index }) => {
     // главная функция изменения баннера
     dispatch({
       // editReducer
       type: 'EDIT-CHANGE',
       name: name,
-      param: param
+      param: param,
+      index: index
     });
   };
 
@@ -65,7 +74,7 @@ const App = ({ dispatch, state, state: { banner } }) => {
           <div className="ad__list">
             {header.banners.map((data, i) => (
               <a key={i} href={data.link}>
-                <img src={`${data.img}`} alt="ad" />
+                <img src={`${data.img}`} alt="ad" className="ad__list_width" />
               </a>
             ))}
           </div>
@@ -78,20 +87,24 @@ const App = ({ dispatch, state, state: { banner } }) => {
               <Inputs
                 resize={resize}
                 change={change}
+                delay={delay}
                 imageInput={imageInput}
                 setImageInput={setImageInput}
                 state={state}
               />
               <br />
-              <Buttons banner={banner} notice={notice} reset={reset} />
             </div>
           </div>
-          <center><div class="ya-share2" data-curtain data-size="l" data-shape="round" data-services="vkontakte,facebook,odnoklassniki,telegram,twitter,viber,whatsapp,moimir" /></center>
+          <Result
+            banner={banner}
+          />
+          <Buttons banner={banner} notice={notice} reset={reset} />
+          <center><div className="ya-share2" data-curtain data-size="l" data-shape="round" data-services="vkontakte,facebook,odnoklassniki,telegram,twitter,viber,whatsapp,moimir" /></center>
         </div>
         <div className="ad__list">
           {footer.banners.map((data, i) => (
             <a key={i} href={data.link}>
-              <img src={`${data.img}`} alt="ad" />
+              <img src={`${data.img}`} alt="ad" className="ad__list_width" />
             </a>
           ))}
         </div>
