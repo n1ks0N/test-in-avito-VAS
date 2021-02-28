@@ -1,5 +1,5 @@
 import React from 'react';
-import Banner from '../Banner'
+import Banner from '../Banner';
 import Select from './types/Select';
 import InputColor from './types/InputColor';
 import InputText from './types/InputText';
@@ -19,20 +19,10 @@ const Inputs = ({
 	state: {
 		select,
 		banner,
-		banner: { width, height, properties, time },
+		banner: { width, height, properties, time }
 	}
 }) => {
 	const sizeReader = ({ param }) => {
-		change({
-			// editReducer
-			param: param.split(' ')[0],
-			name: 'width'
-		});
-		change({
-			// editReducer
-			param: param.split(' ')[2],
-			name: 'height'
-		});
 		resize({
 			// selectReducer
 			param: param
@@ -44,7 +34,10 @@ const Inputs = ({
 			let reader = new FileReader();
 			reader.readAsDataURL(param);
 			reader.onload = () => {
-				if (reader.result !== imageInput && reader.result !== properties[index].image) {
+				if (
+					reader.result !== imageInput &&
+					reader.result !== properties[index].image
+				) {
 					setImageInput(() => ''); // image-input
 					change({
 						// editReducer
@@ -72,8 +65,8 @@ const Inputs = ({
 	const timeChanger = ({ param }) => {
 		delay({
 			param: param
-		})
-	}
+		});
+	};
 	return (
 		<>
 			<div className="panel__group">
@@ -84,108 +77,116 @@ const Inputs = ({
 					value={select}
 				/>
 			</div>
-			{properties.map((data, i) => <div key={i}>
-				<Banner banner={banner} properties={properties[i]} i={i} />
-				<div className="panel__group">
-					<Textarea
-						text="Текстовое содержание"
-						type="text"
-						value={data.text}
-						name="text"
-						placeholder="Введите текст"
-						change={change}
-						i={i}
-					/>
-					<div className="panel__group__inputs">
-						<Select text="" name="font" value={fonts} change={fontReader} i={i} />
-						<div style={{ width: `65px` }}>
-							<InputText
+			{properties.map((data, i) => (
+				<div key={i}>
+					<Banner banner={banner} properties={properties[i]} i={i} />
+					<div className="panel__group">
+						<Textarea
+							text="Текстовое содержание"
+							type="text"
+							value={data.text}
+							name="text"
+							placeholder="Введите текст"
+							change={change}
+							i={i}
+						/>
+						<div className="panel__group__inputs">
+							<Select
 								text=""
-								type="number"
-								value={data.size}
-								name="size"
-								placeholder="Размер"
+								name="font"
+								value={fonts}
+								change={fontReader}
+								i={i}
+							/>
+							<div style={{ width: `65px` }}>
+								<InputText
+									text=""
+									type="number"
+									value={data.size}
+									name="size"
+									placeholder="Размер"
+									change={change}
+									i={i}
+								/>
+							</div>
+							<Checkbox
+								text="Жирность"
+								type="bold"
+								value={data.bold}
+								name="bold"
+								change={change}
+								i={i}
+							/>
+							<Checkbox
+								text="Курсив"
+								type="italic"
+								value={data.italic}
+								name="italic"
 								change={change}
 								i={i}
 							/>
 						</div>
-						<Checkbox
-							text="Жирность"
-							type="bold"
-							value={data.bold}
-							name="bold"
-							change={change}
-							i={i}
-						/>
-						<Checkbox
-							text="Курсив"
-							type="italic"
-							value={data.italic}
-							name="italic"
+					</div>
+					<div className="panel__group panel__double-input panel__group-color">
+						<InputColor
+							text="Цвет текста"
+							value={data.color}
+							name="color"
 							change={change}
 							i={i}
 						/>
 					</div>
-				</div>
-				<div className="panel__group panel__double-input panel__group-color">
-					<InputColor
-						text="Цвет текста"
-						value={data.color}
-						name="color"
-						change={change}
-						i={i}
-					/>
-				</div>
-				<div className="panel__group">
-					<label htmlFor="panel-image">
-						Изображение
-					<br />
-						<span>Вставьте URL картинки или загрузите с компьютера</span>
-					</label>
-					<div className="panel__double-input" id="panel-image">
-						<div className="input-group">
-							<InputFile
-								text="Выберите изображение"
-								name="image"
-								accept="image/*"
-								change={fileReader}
-								multiple={false}
+					<div className="panel__group">
+						<label htmlFor="panel-image">
+							Изображение
+							<br />
+							<span>Вставьте URL картинки или загрузите с компьютера</span>
+						</label>
+						<div className="panel__double-input" id="panel-image">
+							<div className="input-group">
+								<InputFile
+									text="Выберите изображение"
+									name="image"
+									accept="image/*"
+									change={fileReader}
+									multiple={false}
+									i={i}
+								/>
+							</div>
+						</div>
+						<div className="panel__group__input-color">
+							<Range
+								text="⬅/➡"
+								name="left"
+								max={width}
+								min={-width}
+								value={data.left}
+								change={change}
+								i={i}
+							/>
+							<Range
+								text="⬆/⬇"
+								name="top"
+								max={height}
+								min={-height}
+								value={data.top}
+								change={change}
+								i={i}
+							/>
+							<Range
+								text="➖/➕"
+								name="imgSize"
+								max={200}
+								min={10}
+								value={data.imgSize}
+								change={change}
 								i={i}
 							/>
 						</div>
 					</div>
-					<div className="panel__group__input-color">
-						<Range
-							text="⬅/➡"
-							name="left"
-							max={width}
-							min={-width}
-							value={data.left}
-							change={change}
-							i={i}
-						/>
-						<Range
-							text="⬆/⬇"
-							name="top"
-							max={height}
-							min={-height}
-							value={data.top}
-							change={change}
-							i={i}
-						/>
-						<Range
-							text="➖/➕"
-							name="imgSize"
-							max={200}
-							min={10}
-							value={data.imgSize}
-							change={change}
-							i={i}
-						/>
-					</div>
+					<hr />
 				</div>
-				<hr />
-			</div>)}
+			))}
 			<InputText
 				text="Время анимации"
 				name="time"

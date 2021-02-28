@@ -13,13 +13,13 @@ const InputFile = ({ text, name, accept, change, multiple, i }) => {
 			<input
 				type="file"
 				className="custom-file-input"
-				id={name}
+				id={name + i}
 				accept={accept}
 				ref={inputRef}
 				onChange={record}
 				multiple={multiple ? true : false}
 			/>
-			<label className="custom-file-label" htmlFor={name}>
+			<label className="custom-file-label" htmlFor={name + i}>
 				{text}
 			</label>
 		</div>

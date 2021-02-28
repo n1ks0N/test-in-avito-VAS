@@ -13,7 +13,7 @@ const editReducer = (state = initialState, action) => {
 			state.properties[action.index][action.name] = action.param;
 			return state;
 		case 'EDIT-TIME':
-			return {...state, time: action.time}
+			return { ...state, time: action.time };
 		default:
 			return state;
 	}

@@ -11,12 +11,12 @@ const Textarea = ({ text, type, value, name, placeholder, change, i }) => {
 	};
 	return (
 		<div>
-			<label htmlFor={name}>{text}</label>
+			<label htmlFor={name + i}>{text}</label>
 			<div className="input-group">
 				<textarea
 					type={type}
 					className="form-control"
-					id={name}
+					id={name + i}
 					placeholder={placeholder}
 					ref={inputRef}
 					value={value}

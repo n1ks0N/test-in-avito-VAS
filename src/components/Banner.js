@@ -4,7 +4,16 @@ import './Banner.css';
 const Banner = ({
 	banner: { width, height },
 	properties: {
-		color, text, image, bold, italic, size, font, left, top, imgSize
+		color,
+		text,
+		image,
+		bold,
+		italic,
+		size,
+		font,
+		left,
+		top,
+		imgSize
 	}
 }) => {
 	const style = {

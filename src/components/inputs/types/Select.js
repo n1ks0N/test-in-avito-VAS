@@ -10,10 +10,10 @@ const Select = ({ text, name, value, change, className, i }) => {
 	};
 	return (
 		<div>
-			<label htmlFor={name}>{text}</label>
+			<label htmlFor={name + i}>{text}</label>
 			<select
 				className={`custom-select ${className}`}
-				id={name}
+				id={name + i}
 				ref={inputRef}
 				value={value[0]}
 				onChange={record}

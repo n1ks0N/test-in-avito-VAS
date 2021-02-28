@@ -13,11 +13,11 @@ const Checkbox = ({ text, name, value, change, i }) => {
 			<input
 				className="form-check-input"
 				type="checkbox"
-				id={name}
+				id={name + i}
 				checked={value}
 				onChange={record}
 			/>
-			<label className="form-check-label" htmlFor={name}>
+			<label className="form-check-label" htmlFor={name + i}>
 				{text}
 			</label>
 		</div>
