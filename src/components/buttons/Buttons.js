@@ -1,5 +1,7 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import ButtonExport from './types/ButtonExport';
+import html2canvas from 'html2canvas';
+import gifshot from 'gifshot';
 import './Buttons.css';
 
 const Buttons = ({ notice, banner: { width, height, properties, time } }) => {
@@ -13,9 +15,7 @@ const Buttons = ({ notice, banner: { width, height, properties, time } }) => {
 		properties[0].color
 	};font-weight: ${properties[0].bold ? 'bold' : 'normal'};font-style: ${
 		properties[0].italic ? 'italic' : 'normal'
-	};font-size: ${properties[0].size}px;font-family: ${
-		properties[0].font.fonts[0]
-	};
+	};font-size: ${properties[0].size}px;font-family: ${properties[0].font[0]};
 	background-image: url(${properties[0].image});
 	background-position: ${properties[0].left}px ${properties[0].top}px;
 	background-size: ${properties[0].imgSize}%;
@@ -23,34 +23,96 @@ const Buttons = ({ notice, banner: { width, height, properties, time } }) => {
 		properties[1].bold ? 'bold' : 'normal'
 	};font-style: ${properties[1].italic ? 'italic' : 'normal'};font-size: ${
 		properties[1].size
-	}px;font-family: ${properties[1].font.fonts[0]};display: none; background-image: url(${properties[1].image});
+	}px;font-family: ${
+		properties[1].font[0]
+	};display: none; background-image: url(${properties[1].image});
 	background-position: ${properties[1].left}px ${properties[1].top}px;
 	background-size: ${properties[1].imgSize}%;}#el2 {color: ${
 		properties[2].color
 	};font-weight: ${properties[2].bold ? 'bold' : 'normal'};font-style: ${
 		properties[2].italic ? 'italic' : 'normal'
 	};font-size: ${properties[2].size}px;font-family: ${
-		properties[2].font.fonts[2]
+		properties[2].font[2]
 	};display: none; background-image: url(${properties[2].image});
 	background-position: ${properties[2].left}px ${properties[2].top}px;
-	background-size: ${properties[2].imgSize}%;} .banner__text { width: 100%; margin: 0; z-index: 1; overflow: hidden; line-height: 1.2em; max-height: 3.6em; text-align: center; } </style> <script>let count = 0; setInterval(() => {count < 2 ? count++ : count = 0;document.getElementById(\`el\${count ? count-1 : 2}\`).style.display = 'none';document.getElementById(\`el\${count}\`).style.display = 'flex';}, ${time}000)</script>`;
+	background-size: ${
+		properties[2].imgSize
+	}%;} .banner__text { width: 100%; margin: 0; z-index: 1; overflow: hidden; line-height: 1.2em; max-height: 3.6em; text-align: center; } </style> <script>let count = 0; setInterval(() => {count < 2 ? count++ : count = 0;document.getElementById(\`el\${count ? count-1 : 2}\`).style.display = 'none';document.getElementById(\`el\${count}\`).style.display = 'flex';}, ${time}000)</script>`;
+	const [link, setLink] = useState(html);
 	const exportHTML = () => {
 		navigator.clipboard.writeText(html);
 		notice('Скопировано');
 	};
+	const [src, setSrc] = useState('');
+	const exportGIF = () => {
+		const y = window.scrollY;
+		let images = [];
+		for (let i = 0; i < 3; i++) {
+			window.scrollTo(0, 0); // эмуляция прокрутки окна к верху, для исправления бага html2canvas
+			html2canvas(document.querySelectorAll('.banner')[i])
+				.then((canvas) => {
+					let image = canvas.toDataURL();
+					images.push(image);
+				})
+				.then(() => {
+					if (i === 2) {
+						const createGIF = () => {
+							gifshot.createGIF(
+								{
+									images: images,
+									interval: time,
+									gifWidth: width,
+									gifHeight: height
+								},
+								function (obj) {
+									if (!obj.error) {
+										const image = obj.image;
+										setSrc(() => image);
+										let data = {
+											image: src
+										};
+										fetch(
+											'http://api.imgbb.com/1/upload?expiration=600&key=9bfbbf5c0172756995a9ebc1990fa389',
+											{
+												method: 'POST',
+												headers: {
+													'Access-Control-Allow-Origin': '*',
+													'Content-Type': 'application/json;charset=utf-8'
+												},
+												body: JSON.stringify(data)
+											}
+										)
+											.then((response) => response.json())
+											.then((res) => {
+												console.log(res.data.url);
+												setLink(() => res.data.url);
+											});
+									}
+								}
+							);
+						};
+						createGIF();
+					}
+				});
+			window.scrollTo(0, y);
+		}
+		images = [];
+	};
 	return (
 		<div className="panel__buttons">
+			<img id="animatedGIF" src={src} />
 			<div>
 				<label htmlFor="result">Скопируйте и сохраните!</label>
 				<br />
 				<input
 					type="text"
-					value={html}
+					value={link}
 					onClick={exportHTML}
 					readOnly
 					id="result"
 				/>
 			</div>
+			<ButtonExport text="Создать GIF" click={exportGIF} />
 			<ButtonExport text="Скопировать как HTML" click={exportHTML} />
 		</div>
 	);

@@ -3,13 +3,25 @@ import ReactDOM from 'react-dom';
 import 'bootstrap/dist/css/bootstrap.css';
 import App from './components/App';
 import store from './store';
+import { Route, BrowserRouter, Switch } from 'react-router-dom';
+import Admin from './components/admin/Admin';
 import './index.css';
 import reportWebVitals from './reportWebVitals';
 
 const render = (state) => {
 	ReactDOM.render(
 		<React.StrictMode>
-			<App state={state} dispatch={store.dispatch.bind(store)} />
+			<BrowserRouter>
+				<Switch>
+					<Route path="/admin" render={() => <Admin />} />
+					<Route
+						path="*"
+						render={() => (
+							<App state={state} dispatch={store.dispatch.bind(store)} />
+						)}
+					/>
+				</Switch>
+			</BrowserRouter>
 		</React.StrictMode>,
 		document.getElementById('root')
 	);
