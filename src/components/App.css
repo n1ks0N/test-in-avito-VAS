@@ -43,7 +43,7 @@ main {
     justify-content: space-evenly;
     align-items: center;
     flex-wrap: wrap;
-    padding: 25px 50px;
+    padding: 25px 0px;
 }
 .ad__list a {
     color: #000;

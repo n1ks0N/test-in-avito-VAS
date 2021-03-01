@@ -27,7 +27,7 @@ const Result = ({ banner: { width, height, properties, time } }) => {
 		}
 	}));
 	return (
-		<div>
+		<div style={{ margin: 'auto' }}>
 			<h3>Результат</h3>
 			<div className="banner" style={styles[count]}>
 				<div className="banner__wrapper" style={styles[count].wrapper}>

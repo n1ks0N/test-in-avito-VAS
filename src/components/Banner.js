@@ -17,7 +17,7 @@ const Banner = ({
 	}
 }) => {
 	const style = {
-		width: `${width}px`,
+		width: `${Number(width) < 800 ? width : 800}px`,
 		height: `${height}px`,
 		backgroundColor: `#ffffff`,
 		color: `${color}`,

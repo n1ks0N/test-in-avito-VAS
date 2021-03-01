@@ -48,11 +48,11 @@ const App = ({ dispatch, state, state: { banner } }) => {
 			type: 'SELECT-CHANGE',
 			size: param
 		});
-    dispatch({
-      type: 'EDIT-SELECT',
-      width: param.split(' ')[0],
-      height: param.split(' ')[2]
-    })
+		dispatch({
+			type: 'EDIT-SELECT',
+			width: param.split(' ')[0],
+			height: param.split(' ')[2]
+		});
 	};
 	return (
 		<>
@@ -98,6 +98,20 @@ const App = ({ dispatch, state, state: { banner } }) => {
 					<Result banner={banner} />
 					<Buttons banner={banner} notice={notice} />
 					<center>
+						<p>
+							Если вам был полезен наш конструктор,
+							<br />
+							Вы можете пожертвовать сколько не жалко..
+						</p>
+						<iframe
+							title="Пожертвование"
+							src="https://yoomoney.ru/quickpay/shop-widget?writer=buyer&targets=%D0%9F%D0%BE%D0%B6%D0%B5%D1%80%D1%82%D0%B2%D0%BE%D0%B2%D0%B0%D0%BD%D0%B8%D0%B5&targets-hint=%D0%9F%D0%BE%D0%B6%D0%B5%D1%80%D1%82%D0%B2%D0%BE%D0%B2%D0%B0%D0%BD%D0%B8%D0%B5&default-sum=10&button-text=14&payment-type-choice=on&mobile-payment-type-choice=on&hint=&successURL=&quickpay=shop&account=410014949986324"
+							width="423"
+							height="227"
+							frameBorder="0"
+							allowtransparency="true"
+							scrolling="no"
+						/>
 						<div
 							className="ya-share2"
 							data-curtain
