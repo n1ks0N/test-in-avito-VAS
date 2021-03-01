@@ -72,7 +72,7 @@ const Buttons = ({ notice, banner: { width, height, properties, time } }) => {
 											image: src
 										};
 										fetch(
-											'http://api.imgbb.com/1/upload?expiration=600&key=9bfbbf5c0172756995a9ebc1990fa389',
+											'https://api.imgbb.com/1/upload?expiration=600&key=9bfbbf5c0172756995a9ebc1990fa389',
 											{
 												method: 'POST',
 												headers: {
