@@ -57,7 +57,8 @@ const Buttons = ({ notice, banner: { width, height, properties, time } }) => {
 										const image = obj.image;
 										setSrc(() => image);
 										var myHeaders = new Headers();
-										myHeaders.append("Authorization", "Client-ID {b606abe6f82246c}");
+										myHeaders.append("Authorization", "Client-ID b606abe6f82246c");
+										myHeaders.append("type", "base64")
 
 										var formdata = new FormData();
 										formdata.append("image", `${image}`)
