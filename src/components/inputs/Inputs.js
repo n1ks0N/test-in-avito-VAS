@@ -67,8 +67,17 @@ const Inputs = ({
 			param: param
 		});
 	};
+
+	const deleteImage = (e) => {
+		change({
+			param: '',
+			name: 'image',
+			index: e.target.id
+		});
+	};
 	return (
 		<>
+			<h4>Шаг 1: выберите размер баннера</h4>
 			<div className="panel__group">
 				<Select
 					text="Ширина x Высота"
@@ -77,9 +86,19 @@ const Inputs = ({
 					value={select}
 				/>
 			</div>
+			<h4>Шаг 2: загрузите изображения и придумайте слоган для каждого</h4>
 			{properties.map((data, i) => (
 				<div key={i}>
 					<Banner banner={banner} properties={properties[i]} i={i} />
+					<br />
+					<button
+						type="button"
+						className="btn btn-secondary btn-sm"
+						onClick={deleteImage}
+						id={i}
+					>
+						Удалить изображение
+					</button>
 					<div className="panel__group">
 						<Textarea
 							text="Текстовое содержание"
@@ -187,6 +206,7 @@ const Inputs = ({
 					<hr />
 				</div>
 			))}
+			<h4>Шаг 3: установите время анимации</h4>
 			<InputText
 				text="Время анимации"
 				name="time"

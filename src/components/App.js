@@ -92,7 +92,6 @@ const App = ({ dispatch, state, state: { banner } }) => {
 								setImageInput={setImageInput}
 								state={state}
 							/>
-							<br />
 						</div>
 					</div>
 					<Result banner={banner} />

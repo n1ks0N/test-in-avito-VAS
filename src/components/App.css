@@ -14,7 +14,7 @@ main {
     z-index: 1;
 }
 .app {
-    padding: 25px 50px;
+    padding: 25px 12px;
     flex-wrap: wrap;
     z-index: 1;
     background-color: #f0f0f0;
@@ -87,4 +87,9 @@ footer {
     .panel__group {
         width: 100vw;
     }
+}
+
+/* Result.js */
+.banner__wrapper {
+    flex-direction: column;
 }
