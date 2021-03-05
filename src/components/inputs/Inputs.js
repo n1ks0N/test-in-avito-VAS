@@ -51,6 +51,9 @@ const Inputs = ({
 	};
 
 	const fontReader = ({ param, index }) => {
+		/* изменение массива шрифтов: 
+		['font_1', 'font_2', 'font_3'] => *chose font_2* =>
+		=> ['font_2', 'font_1', 'font_3'] */
 		let arr = fonts;
 		const i = arr.indexOf(param);
 		arr.unshift(param);
@@ -63,12 +66,14 @@ const Inputs = ({
 	};
 
 	const timeChanger = ({ param }) => {
+		// изменение время анимации
 		delay({
 			param: param
 		});
 	};
 
 	const deleteImage = (e) => {
+		// удаление изображения с баннера
 		change({
 			param: '',
 			name: 'image',

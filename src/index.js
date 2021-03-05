@@ -13,7 +13,7 @@ const render = (state) => {
 		<React.StrictMode>
 			<BrowserRouter>
 				<Switch>
-					<Route path="/admin" render={() => <Admin />} />
+					<Route exact path="/admin" render={() => <Admin state={state.admin} dispatch={store.dispatch.bind(store)} />} />
 					<Route
 						path="*"
 						render={() => (

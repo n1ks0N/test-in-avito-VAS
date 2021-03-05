@@ -70,6 +70,8 @@ footer {
     left: 0;
     width: 100%;
     background-color: #256dc1;
+    color: #fff;
+    text-align: center;
 }
 @media all and (max-width: 650px) {
     iframe {

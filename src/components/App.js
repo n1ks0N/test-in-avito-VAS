@@ -1,16 +1,37 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import Inputs from './inputs/Inputs';
 import Buttons from './buttons/Buttons';
 import Alerts from './notifications/Alerts';
 import Result from './Result';
 import './App.css';
-import { header, footer } from '../constants/linkslot.json';
 
 const App = ({ dispatch, state, state: { banner } }) => {
 	const [imageInput, setImageInput] = useState(''); // для image-input
 
+	const [data, setData] = useState(null)
+
 	// Buttons.js -> notice() -> Alert.js — для вывода alert
 	const [alert, setAlert] = useState({ show: false, text: '' }); // отображение alert: true / false, текст для alert: сохранено / скопировано / сброшено
+
+	useEffect(() => {
+			let req = new XMLHttpRequest();
+
+			req.onreadystatechange = () => {
+				if (req.readyState == XMLHttpRequest.DONE) {
+					console.log(JSON.parse(req.responseText));
+					dispatch({
+						type: 'GET-ADMIN',
+						data: JSON.parse(req.responseText)
+					})
+					setData(() => JSON.parse(req.responseText).record)
+					console.log(JSON.parse(req.responseText).record)
+				}
+			};
+
+			req.open("GET", "https://api.jsonbin.io/v3/b/604147ea0866664b1088d00a/", true);
+			req.setRequestHeader("X-Master-Key", "$2b$10$Jwcwfsmu6mBoOKgGa0iul.M66dU7mMRTrumpQ5rKCkaGpwCbuMAYG");
+			req.send();
+	}, [])
 
 	const notice = (ntf) => {
 		// показ alert
@@ -62,15 +83,16 @@ const App = ({ dispatch, state, state: { banner } }) => {
 			</header>
 			<main>
 				<div className="header">
+					{/* рекламная секция linkslot */}
 					<div className="ad__list">
-						{header.textButtons.map((data, i) => (
+						{!!data && data.header.textButtons.map((data, i) => (
 							<a key={i} href={`${data.link}`}>
 								{data.text}
 							</a>
 						))}
 					</div>
 					<div className="ad__list">
-						{header.banners.map((data, i) => (
+						{!!data && data.header.banners.map((data, i) => (
 							<a key={i} href={data.link}>
 								<img src={`${data.img}`} alt="ad" className="ad__list_width" />
 							</a>
@@ -121,14 +143,14 @@ const App = ({ dispatch, state, state: { banner } }) => {
 					</center>
 				</div>
 				<div className="ad__list">
-					{footer.banners.map((data, i) => (
+					{!!data && data.footer.banners.map((data, i) => (
 						<a key={i} href={data.link}>
 							<img src={`${data.img}`} alt="ad" className="ad__list_width" />
 						</a>
 					))}
 				</div>
 				<div className="ad__list">
-					{footer.textButtons.map((data, i) => (
+					{!!data && data.footer.textButtons.map((data, i) => (
 						<a key={i} href={`${data.link}`}>
 							{data.text}
 						</a>
@@ -144,7 +166,10 @@ const App = ({ dispatch, state, state: { banner } }) => {
 					name="ya-form-6035357ceac8405adc0ccc53"
 					width="650"
 				/>
-				<div className="hider"></div>
+				<div className="hider">
+					© 2021 <br />
+					Создание сайтов — <a href="https://github.com/n1ks0N" target="_blank" rel="noreferrer" style={{color: '#fff'}}>Nikson</a>
+				</div>
 			</footer>
 			<Alerts alert={alert} setAlert={setAlert} />
 		</>
