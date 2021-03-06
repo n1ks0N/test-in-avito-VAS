@@ -33,7 +33,7 @@ const Admin = ({ state: { record }, dispatch }) => {
 	}
 
 	const change = ({ param, name, index }) => {
-		// setData(() => jsonRef.current.value)
+		setData(() => jsonRef.current.value)
 		values.map(data => { if (data.name === name) return ({ ...data, data: { value: param } }) })
 	}
 	const send = () => {
