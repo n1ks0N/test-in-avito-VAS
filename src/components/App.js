@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useLayoutEffect, useState } from 'react';
 import Inputs from './inputs/Inputs';
 import Buttons from './buttons/Buttons';
 import Alerts from './notifications/Alerts';
@@ -14,7 +14,7 @@ const App = ({ dispatch, state, state: { banner } }) => {
 	// Buttons.js -> notice() -> Alert.js — для вывода alert
 	const [alert, setAlert] = useState({ show: false, text: '' }); // отображение alert: true / false, текст для alert: сохранено / скопировано / сброшено
 
-	useEffect(() => {
+	useLayoutEffect(() => {
 			let req = new XMLHttpRequest();
 
 			req.onreadystatechange = () => { // eslint-disable-next-line
@@ -81,14 +81,14 @@ const App = ({ dispatch, state, state: { banner } }) => {
 					{/* рекламная секция linkslot */}
 					<div className="ad__list">
 						{!!data && data.header.textButtons.map((data, i) => (
-							<a key={i} href={`${data.link}`}>
+							<a key={i} target="_blank" rel="noreferrer" href={`${data.link}`}>
 								{data.text}
 							</a>
 						))}
 					</div>
 					<div className="ad__list">
 						{!!data && data.header.banners.map((data, i) => (
-							<a key={i} href={data.link}>
+							<a key={i} target="_blank" rel="noreferrer" href={data.link}>
 								<img src={`${data.img}`} alt="ad" className="ad__list_width" />
 							</a>
 						))}
@@ -139,14 +139,14 @@ const App = ({ dispatch, state, state: { banner } }) => {
 				</div>
 				<div className="ad__list">
 					{!!data && data.footer.banners.map((data, i) => (
-						<a key={i} href={data.link}>
+						<a key={i} target="_blank" rel="noreferrer" href={data.link}>
 							<img src={`${data.img}`} alt="ad" className="ad__list_width" />
 						</a>
 					))}
 				</div>
 				<div className="ad__list">
 					{!!data && data.footer.textButtons.map((data, i) => (
-						<a key={i} href={`${data.link}`}>
+						<a key={i} target="_blank" rel="noreferrer" href={`${data.link}`}>
 							{data.text}
 						</a>
 					))}
