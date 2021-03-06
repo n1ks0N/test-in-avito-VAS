@@ -27,7 +27,7 @@ const Admin = ({ state: { record }, dispatch }) => {
 				}
 			};
 
-			req.open("GET", "url", true);
+			req.open("GET", url, true);
 			req.setRequestHeader("X-Master-Key", apiKey);
 			req.send();
 	}

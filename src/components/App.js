@@ -28,8 +28,8 @@ const App = ({ dispatch, state, state: { banner } }) => {
 				}
 			};
 
-			req.open("GET", "https://api.jsonbin.io/v3/b/604147ea0866664b1088d00a/", true);
-			req.setRequestHeader("X-Master-Key", "$2b$10$Jwcwfsmu6mBoOKgGa0iul.M66dU7mMRTrumpQ5rKCkaGpwCbuMAYG");
+			// req.open("GET", "https://api.jsonbin.io/v3/b/604147ea0866664b1088d00a/", true);
+			// req.setRequestHeader("X-Master-Key", "$2b$10$Jwcwfsmu6mBoOKgGa0iul.M66dU7mMRTrumpQ5rKCkaGpwCbuMAYG");
 			req.send();
 	}, [])
 
