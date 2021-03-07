@@ -18,7 +18,7 @@ const App = ({ dispatch, state, state: { banner } }) => {
 		let req = new XMLHttpRequest();
 
 		req.onreadystatechange = () => { // eslint-disable-next-line
-			if ((req.readyState == XMLHttpRequest.DONE) && ("record" in req.responseText)) {
+			if (req.readyState == XMLHttpRequest.DONE) {
 				setData(() => JSON.parse(req.responseText).record)
 				for (let i = 0; i < JSON.parse(req.responseText).record.header.banners.length; i++) {
 					let script = document.createElement('script');
