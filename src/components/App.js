@@ -145,9 +145,9 @@ const App = ({ dispatch, state, state: { banner } }) => {
 					</center>
 				</div>
 				<div className="ad__list">
-					{!!data && data.footer.banners.map((data, i) => (
-						<a key={i} target="_blank" rel="noreferrer" href={data.link}>
-							<img src={`${data.img}`} alt="ad" className="ad__list_width" />
+					{!!data && data.footer.textButtons.map((data, i) => (
+						<a key={i} target="_blank" rel="noreferrer" href={`${data.link}`}>
+							{data.text}
 						</a>
 					))}
 				</div>
