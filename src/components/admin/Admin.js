@@ -13,7 +13,7 @@ const Admin = () => {
 			req.onreadystatechange = () => { // eslint-disable-next-line
 				if (req.readyState == XMLHttpRequest.DONE) {
 					const result = JSON.parse(req.responseText)
-					setData(() => JSON.stringify(result.record))
+					setData(() => JSON.stringify(result.record, null, 4))
 				}
 			};
 			req.open("GET", url, true);

@@ -4,7 +4,7 @@ import Buttons from './buttons/Buttons';
 import Alerts from './notifications/Alerts';
 import Result from './Result';
 import './App.css';
-import {url, key} from '../constants/api.json'
+import { url, key } from '../constants/api.json'
 
 const App = ({ dispatch, state, state: { banner } }) => {
 	const [imageInput, setImageInput] = useState(''); // для image-input
@@ -15,17 +15,26 @@ const App = ({ dispatch, state, state: { banner } }) => {
 	const [alert, setAlert] = useState({ show: false, text: '' }); // отображение alert: true / false, текст для alert: сохранено / скопировано / сброшено
 
 	useLayoutEffect(() => {
-			let req = new XMLHttpRequest();
+		let req = new XMLHttpRequest();
 
-			req.onreadystatechange = () => { // eslint-disable-next-line
-				if (req.readyState == XMLHttpRequest.DONE) {
-					setData(() => JSON.parse(req.responseText).record)
+		req.onreadystatechange = () => { // eslint-disable-next-line
+			if (req.readyState == XMLHttpRequest.DONE) {
+				setData(() => JSON.parse(req.responseText).record)
+				for (let i = 0; i < JSON.parse(req.responseText).record.header.banners.length; i++) {
+					let script = document.createElement('script');
+					script.src = JSON.parse(req.responseText).record.header.banners[i].div.split(`'`)[3];
+					script.async = true;
+					document.body.appendChild(script);
+					return () => {
+						document.body.removeChild(script);
+					}
 				}
-			};
+			}
+		};
 
-			req.open("GET", url, true);
-			req.setRequestHeader("X-Master-Key", key);
-			req.send();
+		req.open("GET", url, true);
+		req.setRequestHeader("X-Master-Key", key);
+		req.send();
 	}, [])
 
 	const notice = (ntf) => {
@@ -88,9 +97,7 @@ const App = ({ dispatch, state, state: { banner } }) => {
 					</div>
 					<div className="ad__list">
 						{!!data && data.header.banners.map((data, i) => (
-							<a key={i} target="_blank" rel="noreferrer" href={data.link}>
-								<img src={`${data.img}`} alt="ad" className="ad__list_width" />
-							</a>
+							<div id={data.div.split(`'`)[1]} key={i} />
 						))}
 					</div>
 				</div>
@@ -144,13 +151,6 @@ const App = ({ dispatch, state, state: { banner } }) => {
 						</a>
 					))}
 				</div>
-				<div className="ad__list">
-					{!!data && data.footer.textButtons.map((data, i) => (
-						<a key={i} target="_blank" rel="noreferrer" href={`${data.link}`}>
-							{data.text}
-						</a>
-					))}
-				</div>
 			</main>
 			<footer>
 				<h2 className="footer__title">Напишите нам:</h2>
@@ -163,7 +163,7 @@ const App = ({ dispatch, state, state: { banner } }) => {
 				/>
 				<div className="hider">
 					© 2021 <br />
-					Создание сайтов — <a href="https://github.com/n1ks0N" target="_blank" rel="noreferrer" style={{color: '#fff'}}>Nikson</a>
+					Создание сайтов — <a href="https://github.com/n1ks0N" target="_blank" rel="noreferrer" style={{ color: '#fff' }}>Nikson</a>
 				</div>
 			</footer>
 			<Alerts alert={alert} setAlert={setAlert} />
