@@ -29,6 +29,24 @@ const App = ({ dispatch, state, state: { banner } }) => {
 						document.body.removeChild(script);
 					}
 				}
+				for (let i = 0; i < JSON.parse(req.responseText).record.header.linkslot.length; i++) {
+					let script = document.createElement('script');
+					script.src = JSON.parse(req.responseText).record.header.linkslot[i].div.split(`'`)[13];
+					script.async = true;
+					document.body.appendChild(script);
+					return () => {
+						document.body.removeChild(script);
+					}
+				}
+				for (let i = 0; i < JSON.parse(req.responseText).record.footer.linkslot.length; i++) {
+					let script = document.createElement('script');
+					script.src = JSON.parse(req.responseText).record.footer.linkslot[i].div.split(`'`)[13];
+					script.async = true;
+					document.body.appendChild(script);
+					return () => {
+						document.body.removeChild(script);
+					}
+				}
 			}
 		};
 
@@ -88,12 +106,19 @@ const App = ({ dispatch, state, state: { banner } }) => {
 			<main>
 				<div className="header">
 					{/* рекламная секция linkslot */}
-					<div className="ad__list">
+					<div className="ad__list ad__list__links">
 						{!!data && data.header.textButtons.map((data, i) => (
-							<a key={i} target="_blank" rel="noreferrer" href={`${data.link}`}>
+							<a className="ad__list__links" key={i} target="_blank" rel="noreferrer" href={`${data.link}`}>
 								{data.text}
 							</a>
 						))}
+					</div>
+					<div className="ad__list">
+					{!!data && data.header.linkslot.map((data, i) => (
+						<div key={i}>
+							<center><a href={data.div.split("'")[1]} target='_blank' rel='noopener'>Купить ссылку здесь за <span id={data.div.split("'")[7]}></span> руб.</a><div id={data.div.split("'")[9]} style={{margin: '10px 0'}}></div><a href='https://linkslot.ru/?ref=Aprel16' target='_blank' rel='noopener'>Поставить к себе на сайт</a></center>
+						</div>
+					))}
 					</div>
 					<div className="ad__list">
 						{!!data && data.header.banners.map((data, i) => (
@@ -145,10 +170,10 @@ const App = ({ dispatch, state, state: { banner } }) => {
 					</center>
 				</div>
 				<div className="ad__list">
-					{!!data && data.footer.textButtons.map((data, i) => (
-						<a key={i} target="_blank" rel="noreferrer" href={`${data.link}`}>
-							{data.text}
-						</a>
+					{!!data && data.footer.linkslot.map((data, i) => (
+						<div key={i}>
+							<center><a href={data.div.split("'")[1]} target='_blank' rel='noopener'>Купить ссылку здесь за <span id={data.div.split("'")[7]}></span> руб.</a><div id={data.div.split("'")[9]} style={{margin: '10px 0'}}></div><a href='https://linkslot.ru/?ref=Aprel16' target='_blank' rel='noopener'>Поставить к себе на сайт</a></center>
+						</div>
 					))}
 				</div>
 			</main>
