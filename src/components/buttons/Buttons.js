@@ -54,23 +54,23 @@ const Buttons = ({ notice, banner: { width, height, properties, time } }) => {
 								if (!obj.error) {
 									const image = obj.image;
 									setSrc(image)
-									// https://imgur.com/#access_token=4eef1a7a3a95f6720f21c237b18b9b36e39674d2&expires_in=315360000&token_type=bearer&refresh_token=b251e7f96aff9afc528ffabfa1429f8a11adc5ad&account_username=Sommiksofinkgfgfdgfd&account_id=18663870
-									var myHeaders = new Headers();
-									myHeaders.append("Authorization", `Bearer 4eef1a7a3a95f6720f21c237b18b9b36e39674d2`);
-
-									var formdata = new FormData();
-									formdata.append("image", image);
-
 									var requestOptions = {
 										method: 'POST',
-										headers: myHeaders,
-										body: {
-											image: image
+										headers: {
+											'Content-Type': 'application/json;charset=utf-8',
+											"Access-Control-Allow-Origin": "*",
+											"Access-Control-Allow-Credentials": "true",
+											"Access-Control-Allow-Methods": "GET,HEAD,OPTIONS,POST,PUT",
+											"Access-Control-Allow-Headers": "Access-Control-Allow-Headers, Origin,Accept, X-Requested-With, Content-Type, Access-Control-Request-Method, Access-Control-Request-Headers",
+											"mode": "cors"
 										},
-										redirect: 'follow'
+										body: {
+											'file': image,
+											'upload_preset': 'syyhxbrk'
+										},
 									};
 
-									fetch("https://api.imgur.com/3/image", requestOptions)
+									fetch("https://api.cloudinary.com/v1_1/dl9mz2fqd/upload", requestOptions)
 										.then(response => response.text())
 										.then(result => console.log(result))
 										.catch(error => console.log('error', error));
