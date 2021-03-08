@@ -28,8 +28,8 @@ const Admin = () => {
 	};
 
 	const change = ({ param, name, index }) => {
-		let value = param.replace(`"`, `'`) // все кавычки заменяются на одиночные
-		value = value.replace("`", "'") // чтобы избежать бага при конвертировании в JSON
+		let value = param.replaceAll(`"`, `'`) // все кавычки заменяются на одиночные
+		value = value.replaceAll("`", "'") // чтобы избежать бага при конвертировании в JSON
 		const section = name.split('.')[0];
 		const category = name.split('.')[1];
 		const type = name.split('.')[2];
@@ -55,7 +55,7 @@ const Admin = () => {
 		const index = id.split('.')[2];
 		let allow = true // исправление бага
 		setData((prev) => {
-			if (allow) {
+			if (allow && prev[section][category].length > 1) {
 				allow = false // исправление бага
 				let arr = prev[section][category]
 				arr.splice(index, 1)
@@ -101,7 +101,7 @@ const Admin = () => {
 			}
 		})
 	}
-	
+
 	const send = () => {
 		let req = new XMLHttpRequest();
 		req.open('PUT', url, true);

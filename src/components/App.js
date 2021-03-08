@@ -16,59 +16,49 @@ const App = ({ dispatch, state, state: { banner } }) => {
 
 	useLayoutEffect(() => {
 		let req = new XMLHttpRequest();
-
 		req.onreadystatechange = () => {
 			// eslint-disable-next-line
 			if (req.readyState == XMLHttpRequest.DONE) {
-				setData(() => JSON.parse(req.responseText).record);
+				const result = JSON.parse(req.responseText).record
+				setData(() => result);
 				for (
 					let i = 0;
-					i < JSON.parse(req.responseText).record.header.banners.length;
+					i < result.header.banners.length;
 					i++
 				) {
 					let script = document.createElement('script');
-					script.src = JSON.parse(req.responseText).record.header.banners[
+					script.src = result.header.banners[
 						i
 					].div.split(`'`)[3];
 					script.async = true;
 					document.body.appendChild(script);
-					return () => {
-						document.body.removeChild(script);
-					};
 				}
 				for (
-					let i = 0;
-					i < JSON.parse(req.responseText).record.header.linkslot.length;
-					i++
+					let j = 0;
+					j < result.header.linkslot.length;
+					j++
 				) {
 					let script = document.createElement('script');
-					script.src = JSON.parse(req.responseText).record.header.linkslot[
-						i
+					script.src = result.header.linkslot[
+						j
 					].div.split(`'`)[13];
 					script.async = true;
 					document.body.appendChild(script);
-					return () => {
-						document.body.removeChild(script);
-					};
 				}
 				for (
-					let i = 0;
-					i < JSON.parse(req.responseText).record.footer.linkslot.length;
-					i++
-				) {
-					let script = document.createElement('script');
-					script.src = JSON.parse(req.responseText).record.footer.linkslot[
-						i
-					].div.split(`'`)[13];
-					script.async = true;
-					document.body.appendChild(script);
-					return () => {
-						document.body.removeChild(script);
-					};
+					let t = 0;
+					t < result.footer.linkslot.length;
+					t++
+					) {
+						let script = document.createElement('script');
+						script.src = result.footer.linkslot[
+							t
+						].div.split(`'`)[13];
+						script.async = true;
+						document.body.appendChild(script);
+					}
 				}
-			}
 		};
-
 		req.open('GET', url, true);
 		req.setRequestHeader('X-Master-Key', key);
 		req.send();
@@ -142,35 +132,13 @@ const App = ({ dispatch, state, state: { banner } }) => {
 					<div className="ad__list">
 						{!!data &&
 							data.header.linkslot.map((data, i) => (
-								<div key={i}>
-									<center>
-										<a
-											href={data.div.split("'")[1]}
-											target="_blank"
-											rel="noopener"
-										>
-											Купить ссылку здесь за{' '}
-											<span id={data.div.split("'")[7]}></span> руб.
-										</a>
-										<div
-											id={data.div.split("'")[9]}
-											style={{ margin: '10px 0' }}
-										></div>
-										<a
-											href="https://linkslot.ru/?ref=Aprel16"
-											target="_blank"
-											rel="noopener"
-										>
-											Поставить к себе на сайт
-										</a>
-									</center>
-								</div>
+								<div key={i} dangerouslySetInnerHTML={{__html: data.div}} />
 							))}
 					</div>
 					<div className="ad__list">
 						{!!data &&
 							data.header.banners.map((data, i) => (
-								<div id={data.div.split(`'`)[1]} key={i} />
+								<div key={i} dangerouslySetInnerHTML={{__html: data.div}} />
 							))}
 					</div>
 				</div>
@@ -220,29 +188,7 @@ const App = ({ dispatch, state, state: { banner } }) => {
 				<div className="ad__list">
 					{!!data &&
 						data.footer.linkslot.map((data, i) => (
-							<div key={i}>
-								<center>
-									<a
-										href={data.div.split("'")[1]}
-										target="_blank"
-										rel="noopener"
-									>
-										Купить ссылку здесь за{' '}
-										<span id={data.div.split("'")[7]}></span> руб.
-									</a>
-									<div
-										id={data.div.split("'")[9]}
-										style={{ margin: '10px 0' }}
-									></div>
-									<a
-										href="https://linkslot.ru/?ref=Aprel16"
-										target="_blank"
-										rel="noopener"
-									>
-										Поставить к себе на сайт
-									</a>
-								</center>
-							</div>
+							<div key={i} dangerouslySetInnerHTML={{__html: data.div}} />
 						))}
 				</div>
 			</main>
@@ -257,15 +203,7 @@ const App = ({ dispatch, state, state: { banner } }) => {
 				/>
 				<div className="hider">
 					© 2021 <br />
-					Создание сайтов —{' '}
-					<a
-						href="https://github.com/n1ks0N"
-						target="_blank"
-						rel="noreferrer"
-						style={{ color: '#fff' }}
-					>
-						Nikson
-					</a>
+					Создание сайтов — Nikson
 				</div>
 			</footer>
 			<Alerts alert={alert} setAlert={setAlert} />
