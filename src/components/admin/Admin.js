@@ -1,6 +1,7 @@
 import React, { useRef, useState } from 'react';
 import { url, key } from '../../constants/api.json';
 import InputText from '../inputs/types/InputText';
+import './Admin.css'
 
 const Admin = () => {
 	const [data, setData] = useState('');
@@ -16,147 +17,98 @@ const Admin = () => {
 			req.onreadystatechange = () => {
 				// eslint-disable-next-line
 				if (req.readyState == XMLHttpRequest.DONE) {
-					// const result = JSON.parse(req.responseText)
-					const result = JSON.parse(`{
-						"header": {
-							"textButtons": [
-								{
-									"text": "Бесплатная реклама и пиар",
-									"link": "https://aprel16.ru/"
-								},
-								{
-									"text": "",
-									"link": "#"
-								},
-								{
-									"text": "как заработать в интернете",
-									"link": "#"
-								},
-								{
-									"text": "инвестирование",
-									"link": "#"
-								},
-								{
-									"text": "другое",
-									"link": "#"
-								},
-								{
-									"text": "linkslot",
-									"link": "#"
-								},
-								{
-									"text": "новинки",
-									"link": "#"
-								},
-								{
-									"text": "популярное",
-									"link": "#"
-								},
-								{
-									"text": "как заработать в интернете",
-									"link": "#"
-								},
-								{
-									"text": "инвестирование",
-									"link": "#"
-								},
-								{
-									"text": "другое",
-									"link": "#"
-								},
-								{
-									"text": "linkslot",
-									"link": "#"
-								},
-								{
-									"text": "новинки",
-									"link": "#"
-								},
-								{
-									"text": "популярное",
-									"link": "#"
-								},
-								{
-									"text": "как заработать в интернете",
-									"link": "#"
-								},
-								{
-									"text": "инвестирование",
-									"link": "#"
-								},
-								{
-									"text": "другое",
-									"link": "#"
-								},
-								{
-									"text": "linkslot",
-									"link": "#"
-								},
-								{
-									"text": "Бесплатная реклама и пиар",
-									"link": "https://aprel16.ru/"
-								}
-							],
-							"linkslot": [
-								{
-									"div": "<center><a href='https://linkslot.ru/link.php?id=309209' target='_blank' rel='noopener'>Купить ссылку здесь за <span id='linprice_309209'></span> руб.</a><div id='linkslot_309209' style='margin: 10px 0;'><script src='https://linkslot.ru/lincode.php?id=309209' async></script></div><a href='https://linkslot.ru/?ref=Aprel16' target='_blank' rel='noopener'>Поставить к себе на сайт</a></center>"
-								}
-							],
-							"banners": [
-								{
-									"div": "<div id='linkslot_314314'><script src='https://linkslot.ru/bancode.php?id=314314' async></script></div>"
-								},
-								{
-									"div": "<div id='linkslot_314314'><script src='https://linkslot.ru/bancode.php?id=314314' async></script></div>"
-								}
-							]
-						},
-						"footer": {
-							"linkslot": [
-								{
-									"div": "<center><a href='https://linkslot.ru/link.php?id=309209' target='_blank' rel='noopener'>Купить ссылку здесь за <span id='linprice_309209'></span> руб.</a><div id='linkslot_309209' style='margin: 10px 0;'><script src='https://linkslot.ru/lincode.php?id=309209' async></script></div><a href='https://linkslot.ru/?ref=Aprel16' target='_blank' rel='noopener'>Поставить к себе на сайт</a></center>"
-								}
-							],
-							"banners": []
-						}
-					}`);
-					// setData(() => JSON.stringify(result.record, null, 4))
-					setData(() => result);
+					const result = JSON.parse(req.responseText)
+					setData(() => result.record)
 				}
 			};
-			req.open('GET', 'url', true);
+			req.open('GET', url, true);
 			req.setRequestHeader('X-Master-Key', key);
 			req.send();
 		}
 	};
 
 	const change = ({ param, name, index }) => {
-		// let state = data;
+		let value = param.replace(`"`, `'`) // все кавычки заменяются на одиночные
+		value = value.replace("`", "'") // чтобы избежать бага при конвертировании в JSON
 		const section = name.split('.')[0];
 		const category = name.split('.')[1];
 		const type = name.split('.')[2];
 		setData((prev) => {
+			let arr = prev[section][category]
+			// запись нового value
+			arr[index] = {
+				...arr[index],
+				[type]: value
+			}
 			return {
 				...prev,
 				[section]: {
 					...prev[section],
-					[category]: {
-						...prev[section][category],
-						[index]: { ...prev[section][category][index], [type]: param }
-					}
+					[category]: arr
 				}
 			}
 		})
 	};
+	const del = ({ target: { id } }) => {
+		const section = id.split('.')[0];
+		const category = id.split('.')[1];
+		const index = id.split('.')[2];
+		let allow = true // исправление бага
+		setData((prev) => {
+			if (allow) {
+				allow = false // исправление бага
+				let arr = prev[section][category]
+				arr.splice(index, 1)
+				return {
+					...prev,
+					[section]: {
+						...prev[section],
+						[category]: arr
+					}
+				}
+			} else {
+				return prev
+			}
+		})
+		console.log(data[section][category])
+	}
+	const add = ({ target: { id } }) => {
+		const section = id.split('.')[0];
+		const category = id.split('.')[1];
+		let allow = true; // исправление бага
+		setData((prev) => {
+			if (allow) {
+				allow = false // исправление бага
+				let arr = prev[section][category]
+				let push = {}
+				// создание нового пустого объекта и добавление в конец массива
+				for (let key in arr[arr.length - 1]) {
+					push = {
+						...push,
+						[key]: ''
+					}
+				}
+				arr.push(push)
+				return {
+					...prev,
+					[section]: {
+						...prev[section],
+						[category]: arr
+					}
+				}
+			} else {
+				return prev
+			}
+		})
+	}
+	
 	const send = () => {
 		let req = new XMLHttpRequest();
-
-		req.open('PUT', "url", true);
+		req.open('PUT', url, true);
 		req.setRequestHeader('Content-Type', 'application/json');
 		req.setRequestHeader('X-Master-Key', key);
 		req.send(JSON.stringify(data));
 	};
-	console.log(data)
 	return (
 		<div className="">
 			<div className="login">
@@ -169,9 +121,10 @@ const Admin = () => {
 			</div>
 			{!!data && (
 				<div className="content">
-					<h3>TextButtons</h3>
+					<h2 align="center">Header</h2>
+					<h3 align="center">TextButtons</h3>
 					{Object.values(data.header.textButtons).map((data, i) =>
-						data !== 0 ? <div id={`headerTextButtons${i}`} style={{display: 'flex', flexDirection: 'row', justifyContent: 'space-evenly'}} key={i}>
+						<div id={`headerTextButtons${i}`} className="section" key={i}>
 							<InputText
 								text="Текст"
 								type="text"
@@ -188,9 +141,57 @@ const Admin = () => {
 								change={change}
 								i={i}
 							/>
-						</div> : <></>
+							<button type="button" className="btn btn-danger btn-sm" onClick={(e) => del(e)} id={`header.textButtons.${i}`}>Удалить</button>
+						</div>
 					)}
-					<button onClick={send}>Изменить</button>
+					<center><button type="button" className="btn btn-success" onClick={(e) => add(e)} id={`header.textButtons`}>Добавить</button></center>
+					<h3 align="center">LinkSlot</h3>
+					{Object.values(data.header.linkslot).map((data, i) =>
+						<div className="section" key={i}>
+							<InputText
+								text="Код"
+								type="text"
+								value={data.div}
+								name={`header.linkslot.div`}
+								change={change}
+								i={i}
+							/>
+							<button type="button" className="btn btn-danger btn-sm" onClick={(e) => del(e)} id={`header.linkslot.${i}`}>Удалить</button>
+						</div>
+					)}
+					<center><button type="button" className="btn btn-success" onClick={(e) => add(e)} id={`header.linkslot`}>Добавить</button></center>
+					<h3 align="center">Banners</h3>
+					{Object.values(data.header.banners).map((data, i) =>
+						<div className="section" key={i}>
+							<InputText
+								text="Код"
+								type="text"
+								value={data.div}
+								name={`header.banners.div`}
+								change={change}
+								i={i}
+							/>
+							<button type="button" className="btn btn-danger btn-sm" onClick={(e) => del(e)} id={`header.banners.${i}`}>Удалить</button>
+						</div>
+					)}
+					<center><button type="button" className="btn btn-success" onClick={(e) => add(e)} id={`header.banners`}>Добавить</button></center>
+					<h2 align="center">Footer</h2>
+					<h3 align="center">Linkslot</h3>
+					{Object.values(data.footer.linkslot).map((data, i) =>
+						<div className="section" key={i}>
+							<InputText
+								text="Код"
+								type="text"
+								value={data.div}
+								name={`footer.linkslot.div`}
+								change={change}
+								i={i}
+							/>
+							<button type="button" className="btn btn-danger btn-sm" onClick={(e) => del(e)} id={`footer.linkslot.${i}`}>Удалить</button>
+						</div>
+					)}
+					<center><button type="button" className="btn btn-success" onClick={(e) => add(e)} id={`footer.linkslot`}>Добавить</button></center>
+					<center><button type="button" className="btn btn-primary btn-lg" onClick={send}>Изменить</button></center>
 				</div>
 			)}
 		</div>

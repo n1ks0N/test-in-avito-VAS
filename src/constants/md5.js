@@ -186,3 +186,106 @@ if (md5('hello') != '5d41402abc4b2a76b9719d911017c592') {
 		return (msw << 16) | (lsw & 0xffff);
 	}
 }
+
+JSON.parse(`{
+	"header": {
+		"textButtons": [
+			{
+				"text": "Бесплатная реклама и пиар",
+				"link": "https://aprel16.ru/"
+			},
+			{
+				"text": "",
+				"link": "#"
+			},
+			{
+				"text": "как заработать в интернете",
+				"link": "#"
+			},
+			{
+				"text": "инвестирование",
+				"link": "#"
+			},
+			{
+				"text": "другое",
+				"link": "#"
+			},
+			{
+				"text": "linkslot",
+				"link": "#"
+			},
+			{
+				"text": "новинки",
+				"link": "#"
+			},
+			{
+				"text": "популярное",
+				"link": "#"
+			},
+			{
+				"text": "как заработать в интернете",
+				"link": "#"
+			},
+			{
+				"text": "инвестирование",
+				"link": "#"
+			},
+			{
+				"text": "другое",
+				"link": "#"
+			},
+			{
+				"text": "linkslot",
+				"link": "#"
+			},
+			{
+				"text": "новинки",
+				"link": "#"
+			},
+			{
+				"text": "популярное",
+				"link": "#"
+			},
+			{
+				"text": "как заработать в интернете",
+				"link": "#"
+			},
+			{
+				"text": "инвестирование",
+				"link": "#"
+			},
+			{
+				"text": "другое",
+				"link": "#"
+			},
+			{
+				"text": "linkslot",
+				"link": "#"
+			},
+			{
+				"text": "Бесплатная реклама и пиар",
+				"link": "https://aprel16.ru/"
+			}
+		],
+		"linkslot": [
+			{
+				"div": "<center><a href='https://linkslot.ru/link.php?id=309209' target='_blank' rel='noopener'>Купить ссылку здесь за <span id='linprice_309209'></span> руб.</a><div id='linkslot_309209' style='margin: 10px 0;'><script src='https://linkslot.ru/lincode.php?id=309209' async></script></div><a href='https://linkslot.ru/?ref=Aprel16' target='_blank' rel='noopener'>Поставить к себе на сайт</a></center>"
+			}
+		],
+		"banners": [
+			{
+				"div": "<div id='linkslot_314314'><script src='https://linkslot.ru/bancode.php?id=314314' async></script></div>"
+			},
+			{
+				"div": "<div id='linkslot_314314'><script src='https://linkslot.ru/bancode.php?id=314314' async></script></div>"
+			}
+		]
+	},
+	"footer": {
+		"linkslot": [
+			{
+				"div": "<center><a href='https://linkslot.ru/link.php?id=309209' target='_blank' rel='noopener'>Купить ссылку здесь за <span id='linprice_309209'></span> руб.</a><div id='linkslot_309209' style='margin: 10px 0;'><script src='https://linkslot.ru/lincode.php?id=309209' async></script></div><a href='https://linkslot.ru/?ref=Aprel16' target='_blank' rel='noopener'>Поставить к себе на сайт</a></center>"
+			}
+		]
+	}
+}`)
