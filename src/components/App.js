@@ -19,45 +19,27 @@ const App = ({ dispatch, state, state: { banner } }) => {
 		req.onreadystatechange = () => {
 			// eslint-disable-next-line
 			if (req.readyState == XMLHttpRequest.DONE) {
-				const result = JSON.parse(req.responseText).record
+				const result = JSON.parse(req.responseText).record;
 				setData(() => result);
-				for (
-					let i = 0;
-					i < result.header.banners.length;
-					i++
-				) {
+				for (let i = 0; i < result.header.banners.length; i++) {
 					let script = document.createElement('script');
-					script.src = result.header.banners[
-						i
-					].div.split(`'`)[3];
+					script.src = result.header.banners[i].div.split(`'`)[3];
 					script.async = true;
 					document.body.appendChild(script);
 				}
-				for (
-					let j = 0;
-					j < result.header.linkslot.length;
-					j++
-				) {
+				for (let j = 0; j < result.header.linkslot.length; j++) {
 					let script = document.createElement('script');
-					script.src = result.header.linkslot[
-						j
-					].div.split(`'`)[13];
+					script.src = result.header.linkslot[j].div.split(`'`)[13];
 					script.async = true;
 					document.body.appendChild(script);
 				}
-				for (
-					let t = 0;
-					t < result.footer.linkslot.length;
-					t++
-					) {
-						let script = document.createElement('script');
-						script.src = result.footer.linkslot[
-							t
-						].div.split(`'`)[13];
-						script.async = true;
-						document.body.appendChild(script);
-					}
+				for (let t = 0; t < result.footer.linkslot.length; t++) {
+					let script = document.createElement('script');
+					script.src = result.footer.linkslot[t].div.split(`'`)[13];
+					script.async = true;
+					document.body.appendChild(script);
 				}
+			}
 		};
 		req.open('GET', url, true);
 		req.setRequestHeader('X-Master-Key', key);
@@ -110,7 +92,7 @@ const App = ({ dispatch, state, state: { banner } }) => {
 		<>
 			<div className="bg"></div>
 			<header>
-				<h3>Конструктор баннеров</h3>
+				<h3>Редактор баннеров</h3>
 			</header>
 			<main>
 				<div className="header">
@@ -132,18 +114,18 @@ const App = ({ dispatch, state, state: { banner } }) => {
 					<div className="ad__list">
 						{!!data &&
 							data.header.linkslot.map((data, i) => (
-								<div key={i} dangerouslySetInnerHTML={{__html: data.div}} />
+								<div key={i} dangerouslySetInnerHTML={{ __html: data.div }} />
 							))}
 					</div>
 					<div className="ad__list">
 						{!!data &&
 							data.header.banners.map((data, i) => (
-								<div key={i} dangerouslySetInnerHTML={{__html: data.div}} />
+								<div key={i} dangerouslySetInnerHTML={{ __html: data.div }} />
 							))}
 					</div>
 				</div>
 				<div className="app">
-					<h1 align="center">Конструктор баннеров</h1>
+					<h1 align="center">Редактор баннеров</h1>
 					<h2 align="center">
 						Создайте свой уникальный анимированный баннер в три шага:
 					</h2>
@@ -188,7 +170,7 @@ const App = ({ dispatch, state, state: { banner } }) => {
 				<div className="ad__list">
 					{!!data &&
 						data.footer.linkslot.map((data, i) => (
-							<div key={i} dangerouslySetInnerHTML={{__html: data.div}} />
+							<div key={i} dangerouslySetInnerHTML={{ __html: data.div }} />
 						))}
 				</div>
 			</main>
