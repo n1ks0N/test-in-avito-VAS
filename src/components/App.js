@@ -92,7 +92,7 @@ const App = ({ dispatch, state, state: { banner } }) => {
 		<>
 			<div className="bg"></div>
 			<header>
-				<h3>Редактор баннеров</h3>
+				<h3>Конструктор баннеров</h3>
 			</header>
 			<main>
 				<div className="header">
@@ -125,7 +125,7 @@ const App = ({ dispatch, state, state: { banner } }) => {
 					</div>
 				</div>
 				<div className="app">
-					<h1 align="center">Редактор баннеров</h1>
+					<h1 align="center">Конструктор баннеров</h1>
 					<h2 align="center">
 						Создайте свой уникальный анимированный баннер в три шага:
 					</h2>
