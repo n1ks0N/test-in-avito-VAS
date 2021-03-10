@@ -14,7 +14,7 @@ const reset = {
 			size: 25,
 			left: 0,
 			top: 0,
-			font: fonts,
+			font: ["OpenSans", "Roboto", "Comfortaa"],
 			imgSize: '100',
 			color: 'black',
 			image: base
@@ -26,7 +26,7 @@ const reset = {
 			size: 25,
 			left: 0,
 			top: 0,
-			font: fonts,
+			font: ["OpenSans", "Roboto", "Comfortaa"],
 			imgSize: '100',
 			color: 'black',
 			image: base
@@ -38,7 +38,7 @@ const reset = {
 			size: 25,
 			left: 0,
 			top: 0,
-			font: fonts,
+			font: ["OpenSans", "Roboto", "Comfortaa"],
 			imgSize: '100',
 			color: 'black',
 			image: base

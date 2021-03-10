@@ -118,7 +118,7 @@ const Inputs = ({
 							<Select
 								text=""
 								name="font"
-								value={fonts}
+								value={data.font}
 								change={fontReader}
 								i={i}
 							/>

@@ -41,7 +41,7 @@ const Buttons = ({ notice, banner: { width, height, time } }) => {
 									// отправка файла на сервер
 									const fileRef = storageRef.child(imageName)
 									fileRef.putString(image, 'data_url').then(() => {
-										navigator.clipboard.writeText(`<img src="https://firebasestorage.googleapis.com/v0/b/banner-redactor.appspot.com/o/${imageName}?alt=media">`);
+										navigator.clipboard.writeText(`<img src="https://firebasestorage.googleapis.com/v0/b/banner-redactor.appspot.com/o/${imageName}?alt=media" alt="banner">`);
 										setSrc(`https://firebasestorage.googleapis.com/v0/b/banner-redactor.appspot.com/o/${imageName}?alt=media`)
 										imageName = ''
 										notice('Скопировано');
