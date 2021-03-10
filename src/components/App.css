@@ -45,6 +45,9 @@ main {
     flex-wrap: wrap;
     padding: 25px 0px;
 }
+.ad__list div {
+    margin: 5px;
+}
 .ad__list__links {
     color: #000 !important;
     font-weight: bold;
