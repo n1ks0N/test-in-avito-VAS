@@ -122,7 +122,7 @@ const Inputs = ({
 								change={fontReader}
 								i={i}
 							/>
-							<div style={{ width: `65px` }}>
+							<div style={{ width: '65px', height: '38px' }}>
 								<InputText
 									text=""
 									type="number"

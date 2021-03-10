@@ -3,10 +3,10 @@ import ButtonExport from './types/ButtonExport';
 import html2canvas from 'html2canvas';
 import gifshot from 'gifshot';
 import './Buttons.css';
-import { fbStorage } from '../../constants/config'
+import { fbStorage } from '../../constants/config';
 
 const Buttons = ({ notice, banner: { width, height, time } }) => {
-	const storageRef = fbStorage.storage().ref()
+	const storageRef = fbStorage.storage().ref();
 	const [src, setSrc] = useState('');
 	const exportHTML = () => {
 		const y = window.scrollY;
@@ -32,20 +32,26 @@ const Buttons = ({ notice, banner: { width, height, time } }) => {
 									const image = obj.image;
 
 									// генерация имени файла
-									let imageName = "";
-									const alphabet = "abcdefghijklmnopqrstuvwxyz";
+									let imageName = '';
+									const alphabet = 'abcdefghijklmnopqrstuvwxyz';
 									for (let j = 0; j < 16; j++) {
-										imageName += alphabet.charAt(Math.floor(Math.random() * alphabet.length))
+										imageName += alphabet.charAt(
+											Math.floor(Math.random() * alphabet.length)
+										);
 									}
 
 									// отправка файла на сервер
-									const fileRef = storageRef.child(imageName)
+									const fileRef = storageRef.child(imageName);
 									fileRef.putString(image, 'data_url').then(() => {
-										navigator.clipboard.writeText(`<img src="https://firebasestorage.googleapis.com/v0/b/banner-redactor.appspot.com/o/${imageName}?alt=media" alt="banner">`);
-										setSrc(`https://firebasestorage.googleapis.com/v0/b/banner-redactor.appspot.com/o/${imageName}?alt=media`)
-										imageName = ''
+										navigator.clipboard.writeText(
+											`<img src="https://firebasestorage.googleapis.com/v0/b/banner-redactor.appspot.com/o/${imageName}?alt=media" alt="banner">`
+										);
+										setSrc(
+											`https://firebasestorage.googleapis.com/v0/b/banner-redactor.appspot.com/o/${imageName}?alt=media`
+										);
+										imageName = '';
 										notice('Скопировано');
-									})
+									});
 								}
 							}
 						);
@@ -78,19 +84,23 @@ const Buttons = ({ notice, banner: { width, height, time } }) => {
 									const image = obj.image;
 
 									// генерация имени файла
-									let imageName = "";
-									const alphabet = "abcdefghijklmnopqrstuvwxyz";
+									let imageName = '';
+									const alphabet = 'abcdefghijklmnopqrstuvwxyz';
 									for (let j = 0; j < 16; j++) {
-										imageName += alphabet.charAt(Math.floor(Math.random() * alphabet.length))
+										imageName += alphabet.charAt(
+											Math.floor(Math.random() * alphabet.length)
+										);
 									}
 
 									// отправка файла на сервер
-									const fileRef = storageRef.child(imageName)
+									const fileRef = storageRef.child(imageName);
 									fileRef.putString(image, 'data_url').then(() => {
-										setSrc(`https://firebasestorage.googleapis.com/v0/b/banner-redactor.appspot.com/o/${imageName}?alt=media`)
-										imageName = ''
+										setSrc(
+											`https://firebasestorage.googleapis.com/v0/b/banner-redactor.appspot.com/o/${imageName}?alt=media`
+										);
+										imageName = '';
 										notice('Создано');
-									})
+									});
 								}
 							}
 						);
