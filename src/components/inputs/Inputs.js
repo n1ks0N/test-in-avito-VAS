@@ -54,7 +54,7 @@ const Inputs = ({
 		/* изменение массива шрифтов: 
 		['font_1', 'font_2', 'font_3'] => *chose font_2* =>
 		=> ['font_2', 'font_1', 'font_3'] */
-		let arr = fonts;
+		let arr = ['OpenSans', 'Roboto', 'Comfortaa'];
 		const i = arr.indexOf(param);
 		arr.unshift(param);
 		arr.splice(i + 1, 1);
