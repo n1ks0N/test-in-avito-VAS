@@ -95,9 +95,7 @@ const Buttons = ({ notice, banner: { width, height, time } }) => {
 									// отправка файла на сервер
 									const fileRef = storageRef.child(imageName);
 									fileRef.putString(image, 'data_url').then(() => {
-										setSrc(
-											`https://firebasestorage.googleapis.com/v0/b/banner-redactor.appspot.com/o/${imageName}?alt=media`
-										);
+										fetch(`https://api.imgbb.com/1/upload?key=9bfbbf5c0172756995a9ebc1990fa389&image=https://firebasestorage.googleapis.com/v0/b/banner-redactor.appspot.com/o/${imageName}?alt=media`).then((response) => response.json()).then(({ data }) => setSrc(data.url))
 										imageName = '';
 										notice('Создано');
 									});
@@ -111,7 +109,7 @@ const Buttons = ({ notice, banner: { width, height, time } }) => {
 	};
 	const onFocus = (e) => {
 		e.persist();
-		e.target.select();
+		navigator.clipboard.writeText(e.target.select());
 	};
 	return (
 		<div className="panel__buttons">
@@ -121,7 +119,6 @@ const Buttons = ({ notice, banner: { width, height, time } }) => {
 				<input
 					type="text"
 					value={src}
-					onClick={exportHTML}
 					onFocus={onFocus}
 					readOnly
 					id="result"
