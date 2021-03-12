@@ -52,8 +52,9 @@ const App = ({ dispatch, state, state: { banner } }) => {
 			| | | | |   <\\__ \\ (_) | | | |
 			|_| |_|_|_|\\_\\___/\\___/|_| |_|
 		
-			https://github.com/n1ks0N
-			`)
+			Powered on ReactJS 
+			by https://github.com/n1ks0N
+			`);
 	}, []);
 
 	const notice = (ntf) => {

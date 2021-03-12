@@ -5,7 +5,6 @@ header {
 }
 .bg {
     position: fixed;
-    background-image: url(../assets/bg.jpg);
     width: 100vw;
     height: 100vh;
     z-index: -1;
