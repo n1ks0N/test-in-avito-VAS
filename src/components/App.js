@@ -27,15 +27,15 @@ const App = ({ dispatch, state, state: { banner } }) => {
 					script.async = true;
 					document.body.appendChild(script);
 				}
-				for (let j = 0; j < result.header.linkslot.length; j++) {
+				for (let i = 0; i < result.header.linkslot.length; i++) {
 					let script = document.createElement('script');
-					script.src = result.header.linkslot[j].div.split(`'`)[13];
+					script.src = result.header.linkslot[i].div.split(`'`)[13];
 					script.async = true;
 					document.body.appendChild(script);
 				}
-				for (let t = 0; t < result.footer.linkslot.length; t++) {
+				for (let i = 0; i < result.footer.linkslot.length; i++) {
 					let script = document.createElement('script');
-					script.src = result.footer.linkslot[t].div.split(`'`)[13];
+					script.src = result.footer.linkslot[i].div.split(`'`)[13];
 					script.async = true;
 					document.body.appendChild(script);
 				}
