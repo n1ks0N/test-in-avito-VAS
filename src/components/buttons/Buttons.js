@@ -68,7 +68,7 @@ const Buttons = ({ notice, banner, banner: { width, height, time } }) => {
 			// исправления багов html2canvas
 			window.scrollTo(0, 0);
 			const bgPositionX = elemWrapper[i].style.backgroundPositionX
-			elemText[i].style.marginRight = '17px';
+			elemText[i].style.marginRight = '18px';
 			elemWrapper[i].style.backgroundPositionX = `${-5 + Number.parseInt( bgPositionX)}px`;
 			
 			// сохрание width для будущего возврата изначальной ширины
