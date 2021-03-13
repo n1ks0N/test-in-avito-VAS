@@ -53,10 +53,10 @@ const Admin = () => {
 		const section = id.split('.')[0];
 		const category = id.split('.')[1];
 		const index = id.split('.')[2];
-		let allow = true; // исправление бага
+		let allow = true; // для исправления бага повторного выполнения
 		setData((prev) => {
 			if (allow && prev[section][category].length > 1) {
-				allow = false; // исправление бага
+				allow = false; // исправление бага повторного выполнения
 				let arr = prev[section][category];
 				arr.splice(index, 1);
 				return {
@@ -75,13 +75,13 @@ const Admin = () => {
 	const add = ({ target: { id } }) => {
 		const section = id.split('.')[0];
 		const category = id.split('.')[1];
-		let allow = true; // исправление бага
+		let allow = true; // для исправления бага повторного выполнения
 		setData((prev) => {
 			if (allow) {
-				allow = false; // исправление бага
+				allow = false; // исправление бага повторного выполнения
 				let arr = prev[section][category];
-				let push = {};
 				// создание нового пустого объекта и добавление в конец массива
+				let push = {};
 				for (let key in arr[arr.length - 1]) {
 					push = {
 						...push,

@@ -7,18 +7,20 @@ import { fbStorage } from '../../constants/config';
 
 const Buttons = ({ notice, banner, banner: { width, height, time } }) => {
 	const storageRef = fbStorage.storage().ref();
-	const [src, setSrc] = useState('');
-	const [images, setImages] = useState([]);
-	const [dare, setDare] = useState('');
+	const [src, setSrc] = useState(''); // ссылка на гифку
+	const [images, setImages] = useState([]); // base64 для gif
+	const [dare, setDare] = useState(''); // для уведомлений
+	// создание gif
 	useEffect(() => {
-		if (images.length === 3) {
-			// canvas --> gif
-			gifshot.createGIF(
-				{
-					images: images,
-					interval: time,
-					gifWidth: width,
-					gifHeight: height
+		if (images.length === 3) { // gif создаётся только из трёх изображений
+			// images --> gif
+			gifshot.createGIF({
+					"images": images,
+					"interval": time,
+					"gifWidth": width,
+					"gifHeight": height,
+					"numWorkers": 4,
+					'sampleInterval': 5,
 				},
 				function (obj) {
 					if (!obj.error) {
@@ -41,7 +43,7 @@ const Buttons = ({ notice, banner, banner: { width, height, time } }) => {
 							)
 								.then((response) => response.json())
 								.then(({ data }) => {
-									setSrc(data.url);
+									setSrc(() => data.url);
 									setImages(() => []);
 									dare === 'html'
 										? navigator.clipboard.writeText(
@@ -61,24 +63,31 @@ const Buttons = ({ notice, banner, banner: { width, height, time } }) => {
 		const y = window.scrollY;
 		const elemText = document.querySelectorAll('.banner__text');
 		const elemWrapper = document.querySelectorAll('.banner__wrapper');
+		const elem = document.querySelectorAll('.banner')
 		for (let i = 0; i < banner.properties.length; i++) {
-			// исправления бага html2canvas
+			// исправления багов html2canvas
 			window.scrollTo(0, 0);
-			const bgPositionX = Number.parseInt(
-				elemWrapper[i].style.backgroundPositionX
-			);
-			elemText[i].style.marginRight = '15px';
-			elemWrapper[i].style.backgroundPositionX = `${-5 + bgPositionX}px`;
+			const bgPositionX = elemWrapper[i].style.backgroundPositionX
+			elemText[i].style.marginRight = '17px';
+			elemWrapper[i].style.backgroundPositionX = `${-5 + Number.parseInt( bgPositionX)}px`;
+			
+			// сохрание width для будущего возврата изначальной ширины
+			// имеет смысл, когда баннер шириной более 800px
+			const savedElemWidth = elem[i].style.width
+			elem[i].style.width = `${width}px`
 
-			// html --> canvas
-			html2canvas(document.querySelectorAll('.banner')[i], {
+			// html --> canvas --> image
+			html2canvas(elem[i], {
 				logging: false
 			}).then((canvas) => {
 				const img = canvas.toDataURL();
-				setImages((prev) => [...prev, img]); // сбор изображений; после достижения трёх - создание gif из useEffect
+				// сбор изображений
+				// после достижения трёх - создание gif из useEffect
+				setImages((prev) => [...prev, img]);
 			});
 			elemText[i].style.marginRight = '0px';
-			elemWrapper[i].style.backgroundPositionX = `${bgPositionX}px`;
+			elemWrapper[i].style.backgroundPositionX = bgPositionX;
+			elem[i].style.width = savedElemWidth;
 		}
 		window.scrollTo(0, y);
 	};
