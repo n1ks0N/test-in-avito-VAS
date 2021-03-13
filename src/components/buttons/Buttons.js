@@ -60,17 +60,8 @@ const Buttons = ({ notice, banner, banner: { width, height, time } }) => {
 	}, [images]);
 	const exportGIF = (type) => {
 		setDare(() => type);
-		const y = window.scrollY;
-		const elemText = document.querySelectorAll('.banner__text');
-		const elemWrapper = document.querySelectorAll('.banner__wrapper');
 		const elem = document.querySelectorAll('.banner')
-		for (let i = 0; i < banner.properties.length; i++) {
-			// исправления багов html2canvas
-			window.scrollTo(0, 0);
-			const bgPositionX = elemWrapper[i].style.backgroundPositionX
-			elemText[i].style.marginRight = '18px';
-			elemWrapper[i].style.backgroundPositionX = `${-5 + Number.parseInt( bgPositionX)}px`;
-			
+		for (let i = 0; i < banner.properties.length; i++) {			
 			// сохрание width для будущего возврата изначальной ширины
 			// имеет смысл, когда баннер шириной более 800px
 			const savedElemWidth = elem[i].style.width
@@ -78,18 +69,22 @@ const Buttons = ({ notice, banner, banner: { width, height, time } }) => {
 
 			// html --> canvas --> image
 			html2canvas(elem[i], {
-				logging: false
+				logging: false,
+				allowTaint: false,
+				backgroundColor: "#ffffff",
+				scale: 1,
+				scrollX: -window.scrollX,
+        scrollY: -window.scrollY,
+        windowWidth: document.documentElement.offsetWidth,
+        windowHeight: document.documentElement.offsetHeight
 			}).then((canvas) => {
 				const img = canvas.toDataURL();
 				// сбор изображений
 				// после достижения трёх - создание gif из useEffect
 				setImages((prev) => [...prev, img]);
 			});
-			elemText[i].style.marginRight = '0px';
-			elemWrapper[i].style.backgroundPositionX = bgPositionX;
 			elem[i].style.width = savedElemWidth;
 		}
-		window.scrollTo(0, y);
 	};
 	const onFocus = (e) => {
 		e.persist();
