@@ -19,8 +19,8 @@ const Buttons = ({ notice, banner, banner: { width, height, time } }) => {
 					"interval": time,
 					"gifWidth": width,
 					"gifHeight": height,
-					"numWorkers": 4,
-					'sampleInterval': 5,
+					"numWorkers": 8,
+					'sampleInterval': 1,
 				},
 				function (obj) {
 					if (!obj.error) {
