@@ -1,7 +1,7 @@
 import React from 'react';
 
 const InputColor = ({ text, name, change, i }) => {
-	const buttons = ['black', 'red', 'green', 'blue', 'yellow', 'aqua'];
+	const buttons = ['black', 'red', 'green', 'blue', 'yellow', 'aqua', 'white'];
 	const record = (value) => {
 		change({
 			param: value,

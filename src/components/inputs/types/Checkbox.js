@@ -9,7 +9,7 @@ const Checkbox = ({ text, name, value, change, i }) => {
 		});
 	};
 	return (
-		<div className="form-check form-check-inline">
+		<div className="form-check form-check-inline checkbox">
 			<input
 				className="form-check-input"
 				type="checkbox"

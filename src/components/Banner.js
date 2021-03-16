@@ -13,13 +13,14 @@ const Banner = ({
 		font,
 		left,
 		top,
-		imgSize
+		imgSize,
+		bgColor
 	}
 }) => {
 	const style = {
 		width: `${Number(width) < 800 ? width : 800}px`, // чтобы поместился, максимальная ширина отображения на сайте - 800px
 		height: `${height}px`,
-		backgroundColor: `#ffffff`,
+		backgroundColor: `${bgColor}`,
 		color: `${color}`,
 		fontWeight: `${bold ? 'bold' : 'normal'}`,
 		fontStyle: `${italic ? 'italic' : 'normal'}`,

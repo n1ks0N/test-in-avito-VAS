@@ -16,6 +16,7 @@ const reset = {
 			font: ['OpenSans', 'Roboto', 'Comfortaa'],
 			imgSize: '100',
 			color: 'black',
+			bgColor: 'white',
 			image: base
 		},
 		{
@@ -28,6 +29,7 @@ const reset = {
 			font: ['OpenSans', 'Roboto', 'Comfortaa'],
 			imgSize: '100',
 			color: 'black',
+			bgColor: 'white',
 			image: base
 		},
 		{
@@ -40,6 +42,7 @@ const reset = {
 			font: ['OpenSans', 'Roboto', 'Comfortaa'],
 			imgSize: '100',
 			color: 'black',
+			bgColor: 'white',
 			image: base
 		}
 	]

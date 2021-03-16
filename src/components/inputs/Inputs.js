@@ -7,7 +7,6 @@ import Textarea from './types/Textarea';
 import InputFile from './types/InputFile';
 import Checkbox from './types/Checkbox';
 import Range from './types/Range';
-import { fonts } from '../../constants/fonts.json';
 import './Inputs.css';
 
 const Inputs = ({
@@ -80,6 +79,15 @@ const Inputs = ({
 			index: e.target.id
 		});
 	};
+
+	const resetColor = (i) => {
+		console.log(i)
+		change({
+			param: 'inherit',
+			name: 'bgColor',
+			index: i
+		})
+	}
 	return (
 		<>
 			<h4>Шаг 1: выберите размер баннера</h4>
@@ -159,12 +167,22 @@ const Inputs = ({
 							change={change}
 							i={i}
 						/>
+						<div className="panel__group-btn">
+							<InputColor
+								text="Цвет фона"
+								value={data.bgColor}
+								name="bgColor"
+								change={change}
+								i={i}
+							/>
+							<button type="button" className="close" onClick={() => resetColor(i)}>&times;</button>
+						</div>
 					</div>
 					<div className="panel__group">
 						<label htmlFor="panel-image">
 							Изображение
 							<br />
-							<span>Вставьте URL картинки или загрузите с компьютера</span>
+							<span>Загрузите с компьютера</span>
 						</label>
 						<div className="panel__double-input" id="panel-image">
 							<div className="input-group">

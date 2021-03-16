@@ -41,19 +41,19 @@ const App = ({ dispatch, state, state: { banner } }) => {
 				}
 			}
 		};
-		req.open('GET', url, true);
+		req.open('GET', "url", true);
 		req.setRequestHeader('X-Master-Key', key);
 		req.send();
 
 		console.log(`
-				   _ _                    
-			 _ __ (_) | _____  ___  _ __  
-			| '_ \\| | |/ / __|/ _ \\| '_ \\ 
-			| | | | |   <\\__ \\ (_) | | | |
-			|_| |_|_|_|\\_\\___/\\___/|_| |_|
-		
-			Powered on ReactJS 
-			by https://github.com/n1ks0N
+	   _ _                    
+ _ __ (_) | _____  ___  _ __  
+| '_ \\| | |/ / __|/ _ \\| '_ \\ 
+| | | | |   <\\__ \\ (_) | | | |
+|_| |_|_|_|\\_\\___/\\___/|_| |_|
+
+Powered on ReactJS 
+by https://github.com/n1ks0N
 			`);
 	}, []);
 

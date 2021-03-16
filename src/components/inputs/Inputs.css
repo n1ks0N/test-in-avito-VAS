@@ -18,12 +18,14 @@
     width: 100%;
     flex-wrap: wrap;
 }
+.panel__group-btn {
+    display: flex;
+}
 .panel__group__input-color {
     display: flex;
     flex-direction: row;
     justify-content: space-between;
     align-items: center;
-    flex-wrap: wrap;
 }
 .panel__group__input-color__label {
     display: flex;
@@ -54,6 +56,14 @@
 .range {
     font-size: 40px;
     margin: 10px;
+}
+.range__label {
+    font-size: 30px;
+}
+.checkbox {
+    transform: scale(1.2);
+    opacity: 0.9;
+    cursor: pointer;
 }
 @media all and (max-width: 650px) {
     .custom-select, .form-control {

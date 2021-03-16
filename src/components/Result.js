@@ -14,7 +14,7 @@ const Result = ({ banner: { width, height, properties, time } }) => {
 	const styles = properties.map((data) => ({
 		width: `${width}px`,
 		height: `${height}px`,
-		backgroundColor: `#ffffff`,
+		backgroundColor: `${data.bgColor}`,
 		color: `${data.color}`,
 		fontWeight: `${data.bold ? 'bold' : 'normal'}`,
 		fontStyle: `${data.italic ? 'italic' : 'normal'}`,
