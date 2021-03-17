@@ -41,7 +41,7 @@ const App = ({ dispatch, state, state: { banner } }) => {
 				}
 			}
 		};
-		req.open('GET', 'url', true);
+		req.open('GET', url, true);
 		req.setRequestHeader('X-Master-Key', key);
 		req.send();
 
