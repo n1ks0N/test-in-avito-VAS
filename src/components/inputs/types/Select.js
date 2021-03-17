@@ -5,7 +5,8 @@ const Select = ({ text, name, value, change, className, i }) => {
 	const record = () => {
 		change({
 			param: inputRef.current.value,
-			index: i
+			index: i,
+			name: name
 		});
 	};
 	return (

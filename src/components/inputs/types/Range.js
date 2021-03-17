@@ -11,7 +11,9 @@ const Range = ({ text, max, min, value, name, change, i }) => {
 	};
 	return (
 		<div className="range">
-			<label htmlFor={name + i} className="range__label">{text}</label>
+			<label htmlFor={name + i} className="range__label">
+				{text}
+			</label>
 			<input
 				type="range"
 				className="custom-range"

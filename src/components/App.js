@@ -41,7 +41,7 @@ const App = ({ dispatch, state, state: { banner } }) => {
 				}
 			}
 		};
-		req.open('GET', "url", true);
+		req.open('GET', 'url', true);
 		req.setRequestHeader('X-Master-Key', key);
 		req.send();
 
@@ -68,10 +68,12 @@ by https://github.com/n1ks0N
 		});
 	};
 
-	const delay = ({ param }) => {
+	const changeMain = ({ param, name }) => {
+		// изменение общих параметров
 		dispatch({
-			type: 'EDIT-TIME',
-			time: param
+			type: 'EDIT-MAIN',
+			param: param,
+			name: name
 		});
 	};
 
@@ -145,7 +147,7 @@ by https://github.com/n1ks0N
 							<Inputs
 								resize={resize}
 								change={change}
-								delay={delay}
+								changeMain={changeMain}
 								imageInput={imageInput}
 								setImageInput={setImageInput}
 								state={state}

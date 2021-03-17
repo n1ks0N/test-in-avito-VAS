@@ -5,22 +5,28 @@ import gifshot from 'gifshot';
 import './Buttons.css';
 import { fbStorage } from '../../constants/config';
 
-const Buttons = ({ notice, banner, banner: { width, height, time } }) => {
+const Buttons = ({
+	notice,
+	banner,
+	banner: { width, height, time, count }
+}) => {
 	const storageRef = fbStorage.storage().ref();
 	const [src, setSrc] = useState(''); // ссылка на гифку
 	const [images, setImages] = useState([]); // base64 для gif
 	const [dare, setDare] = useState(''); // для уведомлений
 	// создание gif
 	useEffect(() => {
-		if (images.length === 3) { // gif создаётся только из трёх изображений
+		if (images.length === Number(count)) {
+			// gif создаётся из заданного количества изображений
 			// images --> gif
-			gifshot.createGIF({
-					"images": images,
-					"interval": time,
-					"gifWidth": width,
-					"gifHeight": height,
-					"numWorkers": 8,
-					'sampleInterval': 1,
+			gifshot.createGIF(
+				{
+					images: images,
+					interval: time,
+					gifWidth: width,
+					gifHeight: height,
+					numWorkers: 8,
+					sampleInterval: 1
 				},
 				function (obj) {
 					if (!obj.error) {
@@ -60,23 +66,23 @@ const Buttons = ({ notice, banner, banner: { width, height, time } }) => {
 	}, [images]);
 	const exportGIF = (type) => {
 		setDare(() => type);
-		const elem = document.querySelectorAll('.banner')
-		for (let i = 0; i < banner.properties.length; i++) {			
+		const elem = document.querySelectorAll('.banner');
+		for (let i = 0; i < banner.properties.length; i++) {
 			// сохрание width для будущего возврата изначальной ширины
 			// имеет смысл, когда баннер шириной более 800px
-			const savedElemWidth = elem[i].style.width
-			elem[i].style.width = `${width}px`
+			const savedElemWidth = elem[i].style.width;
+			elem[i].style.width = `${width}px`;
 
 			// html --> canvas --> image
 			html2canvas(elem[i], {
 				logging: false,
 				allowTaint: false,
-				backgroundColor: "#ffffff",
+				backgroundColor: '#ffffff',
 				scale: 1,
 				scrollX: -window.scrollX,
-        scrollY: -window.scrollY,
-        windowWidth: document.documentElement.offsetWidth,
-        windowHeight: document.documentElement.offsetHeight
+				scrollY: -window.scrollY,
+				windowWidth: document.documentElement.offsetWidth,
+				windowHeight: document.documentElement.offsetHeight
 			}).then((canvas) => {
 				const img = canvas.toDataURL();
 				// сбор изображений

@@ -5,6 +5,7 @@ const reset = {
 	width: '300',
 	height: '250',
 	time: '5',
+	count: '3',
 	properties: [
 		{
 			text: 'Раритетные авто от собственников',

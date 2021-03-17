@@ -4,13 +4,16 @@ const Result = ({ banner: { width, height, properties, time } }) => {
 	const [count, setCount] = useState(0);
 	useEffect(() => {
 		let timerId = setTimeout(
-			() => (count < 2 ? setCount((prev) => ++prev) : setCount(0)),
+			() =>
+				count < properties.length - 1
+					? setCount((prev) => ++prev)
+					: setCount(0),
 			`${Number(time) > 0 ? time : 3}000`
 		);
 		return () => {
 			clearTimeout(timerId);
 		};
-	}, [count, time]);
+	}, [count, time, properties.length]);
 	const styles = properties.map((data) => ({
 		width: `${width}px`,
 		height: `${height}px`,

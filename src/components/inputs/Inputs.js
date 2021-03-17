@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import Banner from '../Banner';
 import Select from './types/Select';
 import InputColor from './types/InputColor';
@@ -14,13 +14,22 @@ const Inputs = ({
 	change,
 	imageInput,
 	setImageInput,
-	delay,
+	changeMain,
 	state: {
 		select,
 		banner,
-		banner: { width, height, properties, time }
+		banner: { width, height, count, properties, time }
 	}
 }) => {
+	const [counter, setCounter] = useState([3, 1, 2]);
+	useEffect(() => {
+		let nums = [count];
+		for (let i = 1; i <= 3; i++) {
+			if (Number(count) !== i) nums.push(i);
+		}
+		setCounter(() => nums);
+	}, [count]);
+
 	const sizeReader = ({ param }) => {
 		resize({
 			// selectReducer
@@ -64,10 +73,11 @@ const Inputs = ({
 		});
 	};
 
-	const timeChanger = ({ param }) => {
+	const mainChanger = ({ param, name }) => {
 		// изменение время анимации
-		delay({
-			param: param
+		changeMain({
+			param: param,
+			name: name
 		});
 	};
 
@@ -81,22 +91,29 @@ const Inputs = ({
 	};
 
 	const resetColor = (i) => {
-		console.log(i)
 		change({
 			param: 'inherit',
 			name: 'bgColor',
 			index: i
-		})
-	}
+		});
+	};
 	return (
 		<>
-			<h4>Шаг 1: выберите размер баннера</h4>
+			<h4>Шаг 1: выберите размер баннера и количество изображений</h4>
 			<div className="panel__group">
 				<Select
 					text="Ширина x Высота"
 					name="size"
 					change={sizeReader}
 					value={select}
+				/>
+			</div>
+			<div className="panel__group">
+				<Select
+					text="Количество изображений"
+					name="count"
+					change={mainChanger}
+					value={counter}
 				/>
 			</div>
 			<h4>Шаг 2: загрузите изображения и придумайте слоган для каждого</h4>
@@ -169,13 +186,19 @@ const Inputs = ({
 						/>
 						<div className="panel__group-btn">
 							<InputColor
-								text="Цвет фона"
+								text="Цвет фона &nbsp;"
 								value={data.bgColor}
 								name="bgColor"
 								change={change}
 								i={i}
 							/>
-							<button type="button" className="close" onClick={() => resetColor(i)}>&times;</button>
+							<button
+								type="button"
+								className="close"
+								onClick={() => resetColor(i)}
+							>
+								&times;
+							</button>
 						</div>
 					</div>
 					<div className="panel__group">
@@ -235,7 +258,7 @@ const Inputs = ({
 				name="time"
 				type="number"
 				value={time}
-				change={timeChanger}
+				change={mainChanger}
 			/>
 		</>
 	);

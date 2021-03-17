@@ -70,7 +70,6 @@ const Admin = () => {
 				return prev;
 			}
 		});
-		console.log(data[section][category]);
 	};
 	const add = ({ target: { id } }) => {
 		const section = id.split('.')[0];
