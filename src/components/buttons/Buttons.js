@@ -8,7 +8,7 @@ import { fbStorage } from '../../constants/config';
 const Buttons = ({
 	notice,
 	banner,
-	banner: { width, height, time, count }
+	banner: { width, height, time, count, link }
 }) => {
 	const storageRef = fbStorage.storage().ref();
 	const [src, setSrc] = useState(''); // ссылка на гифку
@@ -53,7 +53,7 @@ const Buttons = ({
 									setImages(() => []);
 									dare === 'html'
 										? navigator.clipboard.writeText(
-												`<img src="https://firebasestorage.googleapis.com/v0/b/banner-redactor.appspot.com/o/${imageName}?alt=media" alt="banner">`
+												`<a href="${link}" target="_blank"><img src="https://firebasestorage.googleapis.com/v0/b/banner-redactor.appspot.com/o/${imageName}?alt=media" alt="banner"></a>`
 										  )
 										: navigator.clipboard.writeText(data.url);
 									notice('Скопировано');

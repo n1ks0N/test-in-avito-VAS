@@ -6,6 +6,7 @@ const reset = {
 	height: '250',
 	time: '5',
 	count: '3',
+	link: '#',
 	properties: [
 		{
 			text: 'Раритетные авто от собственников',

@@ -18,7 +18,7 @@ const Inputs = ({
 	state: {
 		select,
 		banner,
-		banner: { width, height, count, properties, time }
+		banner: { width, height, count, properties, time, link }
 	}
 }) => {
 	const [counter, setCounter] = useState([3, 1, 2]);
@@ -252,12 +252,19 @@ const Inputs = ({
 					<hr />
 				</div>
 			))}
-			<h4>Шаг 3: установите время анимации</h4>
+			<h4>Шаг 3: установите время анимации и ссылку для html-баннера</h4>
 			<InputText
 				text="Время анимации"
 				name="time"
 				type="number"
 				value={time}
+				change={mainChanger}
+			/>
+			<InputText
+				text="Ссылка на баннер"
+				name="link"
+				type="text"
+				value={link}
 				change={mainChanger}
 			/>
 		</>
