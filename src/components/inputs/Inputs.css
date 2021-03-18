@@ -69,4 +69,7 @@
     .custom-select, .form-control {
         width: auto;
     }
+    .checkbox {
+        transform: scale(1);
+    }
 }
