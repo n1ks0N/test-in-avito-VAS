@@ -1,19 +1,20 @@
 import React, { useEffect, useState } from 'react';
 
-const Result = ({ banner: { width, height, properties, time } }) => {
-	const [count, setCount] = useState(0);
+const Result = ({ banner: { width, height, properties, time, count } }) => {
+	const [counter, setCounter] = useState(0);
+	useEffect(() => {
+		setCounter(0);
+	}, [count]);
 	useEffect(() => {
 		let timerId = setTimeout(
 			() =>
-				count < properties.length - 1
-					? setCount((prev) => ++prev)
-					: setCount(0),
+				counter < count - 1 ? setCounter((prev) => ++prev) : setCounter(0),
 			`${Number(time) > 0 ? time : 3}000`
 		);
 		return () => {
 			clearTimeout(timerId);
 		};
-	}, [count, time, properties.length]);
+	}, [counter, time, count]);
 	const styles = properties.map((data) => ({
 		width: `${width}px`,
 		height: `${height}px`,
@@ -32,9 +33,14 @@ const Result = ({ banner: { width, height, properties, time } }) => {
 	return (
 		<div className="banner__wrapper">
 			<h3>Результат</h3>
-			<div className="banner" style={styles[count]}>
-				<div className="banner__wrapper" style={styles[count].wrapper}>
-					<p className="banner__text">{properties[count].text}</p>
+			<div className="banner" style={styles[counter >= count ? 0 : counter]}>
+				<div
+					className="banner__wrapper"
+					style={styles[counter >= count ? 0 : counter].wrapper}
+				>
+					<p className="banner__text">
+						{properties[counter >= count ? 0 : counter].text}
+					</p>
 				</div>
 			</div>
 		</div>

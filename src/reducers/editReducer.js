@@ -1,6 +1,6 @@
 import reset from '../constants/reset';
 
-const initialState = reset;
+const initialState = JSON.parse(JSON.stringify(reset));
 
 const editReducer = (state = initialState, action) => {
 	switch (action.type) {
@@ -11,8 +11,12 @@ const editReducer = (state = initialState, action) => {
 			return state;
 		case 'EDIT-MAIN':
 			if (action.name === 'count') {
-				const newProperties = state.properties.splice(0, action.param);
-				return { ...state, properties: newProperties, count: action.param };
+				let newProperties = reset.properties.slice();
+				return {
+					...state,
+					properties: newProperties.splice(0, action.param),
+					count: action.param
+				};
 			} else {
 				return { ...state, [action.name]: action.param };
 			}
@@ -21,18 +25,18 @@ const editReducer = (state = initialState, action) => {
 	}
 };
 
-export const changeActionCreater = (width, height) => ({
+export const changeActionCreator = (width, height) => ({
 	type: 'EDIT-SELECT',
 	width: width,
 	height: height
 });
-export const alterActionCreater = (param, name, index) => ({
+export const alterActionCreator = (param, name, index) => ({
 	type: 'EDIT-CHANGE',
 	param: param,
 	name: name,
 	index: index
 });
-export const timeActionCreater = (param, name) => ({
+export const mainChangeActionCreator = (param, name) => ({
 	type: 'EDIT-MAIN',
 	param: param,
 	name: name
